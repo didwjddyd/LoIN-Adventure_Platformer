@@ -1,1 +1,1 @@
-# LoIN-Adventure_Platformer
+# LogIN-Adventure_Platformer
