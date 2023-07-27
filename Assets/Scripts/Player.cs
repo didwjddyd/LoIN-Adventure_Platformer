@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 //using UnityEngine.InputSystem;
 
+/*
+ * Player 이동
+ * 애니메이션 제어
+ */
+
+[RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
 public class Player : MonoBehaviour
 {
     public float maxSpeed;
@@ -14,8 +20,8 @@ public class Player : MonoBehaviour
     bool isShifting;
 
     Rigidbody2D rigid;
-    SpriteRenderer spriter;
-    Animator anim;
+    SpriteRenderer spriteRenderer;
+    //Animator anim;
 
     public bool isJumping = false;
 
@@ -36,15 +42,15 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     public void Awake()
     {
-        jumpPower = 15f;
-        maxSpeed = 3f;
+        jumpPower = 12f;
+        maxSpeed = 5f;
         maxHealth = 20f;
         curHealth = maxHealth;
         isLive = true;
         spawnPoint = new Vector2(-1f, -1.4f);
         rigid = GetComponent<Rigidbody2D>();
-        spriter = GetComponent<SpriteRenderer>();
-        anim = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        //anim = GetComponent<Animator>();
         isButton = false;
     }
 
@@ -52,21 +58,23 @@ public class Player : MonoBehaviour
     {
         if (isLive)
         {
-            if (Input.GetButton("Jump") && !isJumping)
+            // Jump
+            if (Input.GetButtonDown("Jump") && !isJumping) // PC version
             {
                 rigid.velocity = Vector2.zero;
-                Vector2 jumpVelocity = Vector2.up * Mathf.Sqrt(jumpPower * -Physics.gravity.y);
+                Vector2 jumpVelocity = Vector2.up * jumpPower;
                 rigid.AddForce(jumpVelocity, ForceMode2D.Impulse);
                 isJumping = true;
             }
             else if (upValue == 1 && !isJumping)
             {
-                rigid.velocity = Vector2.zero;
-                Vector2 jumpVelocity = Vector2.up * Mathf.Sqrt(jumpPower * -Physics.gravity.y);
-                rigid.AddForce(jumpVelocity, ForceMode2D.Impulse);
-                isJumping = true;
+                //rigid.velocity = Vector2.zero;
+                //Vector2 jumpVelocity = Vector2.up * jumpPower;
+                //rigid.AddForce(jumpVelocity, ForceMode2D.Impulse);
+                //isJumping = true;
             }
 
+            // ??
             // PC
             else if (Input.GetButtonUp("Jump") && rigid.velocity.y > 0)
             {
@@ -75,37 +83,37 @@ public class Player : MonoBehaviour
             // Mobile
             else if (upValue == 0 && rigid.velocity.y > 0)
             {
-                rigid.velocity = rigid.velocity * 0.5f;
+                //rigid.velocity = rigid.velocity * 0.5f;
             }
 
-            // PC
-            if (Input.GetButtonUp("Horizontal"))
+            // Move
+            if (Input.GetButtonUp("Horizontal")) // PC version
             {
-                // rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.5f, rigid.velocity.y);
+                rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0f, rigid.velocity.y);
             }
-            // Mobile
-            else if (leftValue == 0 && rightValue == 0)
+            else if (leftValue == 0 && rightValue == 0) // Mobile version
             {
-                rigid.velocity = new Vector2(rigid.velocity.x * 0.5f, rigid.velocity.y);
-            }
-
-            if (Input.GetButtonDown("Horizontal"))
-            {
-                spriter.flipX = Input.GetAxisRaw("Horizontal") == -1;
+                //rigid.velocity = new Vector2(rigid.velocity.x * 0.5f, rigid.velocity.y);
             }
 
+            // Sprite Flip by Move Direction
+            if (Input.GetButton("Horizontal"))
+            {
+                spriteRenderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
+            }
             else if (leftValue == -1 || rightValue == 1)
             {
                 if (leftValue == -1)
                 {
-                    spriter.flipX = true;
+                    spriteRenderer.flipX = true;
                 }
                 else
                 {
-                    spriter.flipX = false;
+                    spriteRenderer.flipX = false;
                 }
             }
 
+            // ??
             if (isShifting == true)
             {
                 curHealth = 1099999999;
@@ -124,11 +132,11 @@ public class Player : MonoBehaviour
 
             if (Mathf.Abs(rigid.velocity.x) < 0.3)
             {
-                anim.SetBool("isWalking", false);
+                //anim.SetBool("isWalking", false);
             }
             else
             {
-                anim.SetBool("isWalking", true);
+                //anim.SetBool("isWalking", true);
             }
         }
     }
@@ -136,45 +144,31 @@ public class Player : MonoBehaviour
     {
         if (isLive)
         {
-            // Move By Key Control
-            float hor = Input.GetAxis("Horizontal") + rightValue + leftValue;
+            //Move By Key Control
+            float hor = Input.GetAxisRaw("Horizontal") + rightValue + leftValue;
             rigid.AddForce(Vector2.right * hor, ForceMode2D.Impulse);
 
-            if (rigid.velocity.x > maxSpeed) // Right Speed;
+            // set maxspeed
+            if (rigid.velocity.x > maxSpeed) // Right Speed
                 rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y);
-            else if (rigid.velocity.x < maxSpeed * (-1)) // Left Speed;
-                rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y);
+            else if (rigid.velocity.x < maxSpeed * -1) // Left Speed
+                rigid.velocity = new Vector2(maxSpeed * -1, rigid.velocity.y);
         }
 
-        // Landing Platform (RayCast)
-        /*
+        // Landing Platform using BoxCast
         if (rigid.velocity.y < 0)
         {
             Debug.DrawRay(rigid.position, Vector3.down, new Color(0, 1, 0));
 
-            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1, LayerMask.GetMask("Platform"));
+            Vector3 boxSize = new Vector3(1.2f, 1, 1); // set box size
 
-            if (rayHit.collider != null)
-            {
-                if (rayHit.distance <= 0.82f)
-                {
-                    isJumping = false;
-                }
-            }
-        }*/
+            // BoxCast
+            RaycastHit2D boxHit = Physics2D.BoxCast(rigid.position, boxSize / 2, 0f,
+                Vector2.down, 2, LayerMask.GetMask("Platform"));
 
-        // Landing Platform (BoxCast)
-        if (rigid.velocity.y < 0)
-        {
-            Debug.DrawRay(rigid.position, Vector3.down, new Color(0, 1, 0));
-
-            Vector3 boxSize = new Vector3(1, 1, 1);
-            RaycastHit2D boxHit = Physics2D.BoxCast(rigid.position, boxSize/2, 0f,
-                Vector2.down,  1f, LayerMask.GetMask("Platform"));
-            
             if (boxHit.collider != null)
             {
-                if (boxHit.distance <= 0.9f)
+                if (boxHit.distance < 1f)
                 {
                     isJumping = false;
                 }
@@ -182,9 +176,10 @@ public class Player : MonoBehaviour
         }
     }
 
-
     private void Dead()
     {
+        print("Player Dead");
+
         isLive = false;
         transform.position = spawnPoint;
         Init();
