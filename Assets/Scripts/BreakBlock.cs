@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 노랑 발판 제어
+ * 플레이어가 발판을 밟고 있을 때, 일정 시간이 지나면 사라짐
+ * 사라진 후 일정 시간이 지나면 다시 생성됨
+ */
+
+[RequireComponent(typeof(BoxCollider2D))]
 public class BreakBlock : MonoBehaviour
 {
-    public Player player;
-    public GameObject breakBlock;
-    Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
 
     // Start is called before the first frame update
     void Start()
     {
-        rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -29,12 +32,12 @@ public class BreakBlock : MonoBehaviour
 
     void ActiveFalse()
     {
-        breakBlock.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     void ActiveTrue()
     {
-        breakBlock.SetActive(true);
+        gameObject.SetActive(true);
         StartCoroutine("FadeIn");
     }
 
@@ -59,5 +62,4 @@ public class BreakBlock : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
         }
     }
-
 }
