@@ -2,37 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 연필, 지우개 제어
+ * Trigger Collider에 플레이어 진입 시 떨어짐
+ * Non-Trigger Collider에 플레이어 충돌 시 데미지 주고 사라짐
+ * Non-Trigger Collider에 바닥, 가시 충돌 시 사라짐
+ * 사라진 후 2초 뒤에 재생성
+ */
+
+[RequireComponent(typeof(Rigidbody2D))]
 public class FallingTrap : MonoBehaviour
 {   
-    public Player player;
-    public GameObject fallingTrap;
     Rigidbody2D rigid;
-    SpriteRenderer renderer;
+    SpriteRenderer spriteRenderer;
 
-    float x, y;
+    Vector2 spawnPoint;
 
     // Start is called before the first frame update
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
-        renderer = GetComponent<SpriteRenderer>();
-        x = transform.position.x;
-        y = transform.position.y;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        
+        spawnPoint = transform.position;
     }
 
     IEnumerator FadeIn()
     {
         for (int i = 0; i <= 10; i++)
         {
-            Color c = renderer.material.color;
+            Color c = spriteRenderer.material.color;
             c.a = i / 10f;
-            renderer.material.color = c;
+            spriteRenderer.material.color = c;
             yield return new WaitForSeconds(0.1f);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name.Equals("Player"))
+        if (collision.gameObject.tag == "Player")
         {
             rigid.isKinematic = false;
         }
@@ -42,14 +49,16 @@ public class FallingTrap : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            Player player = collision.gameObject.GetComponent<Player>();
             player.curHealth -= 20;
-            fallingTrap.SetActive(false);
+            
+            gameObject.SetActive(false);
             Invoke("Init", 2);
         }
 
         if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Trap")
         {
-            fallingTrap.SetActive(false);
+            gameObject.SetActive(false);
             Invoke("Init", 2);
         }
     }
@@ -57,8 +66,9 @@ public class FallingTrap : MonoBehaviour
     private void Init()
     {
         rigid.velocity = new Vector2(0, 0);
-        fallingTrap.transform.position = new Vector2(x, y);
-        fallingTrap.SetActive(true);
+        transform.position = spawnPoint;
+        gameObject.SetActive(true);
+        
         StartCoroutine("FadeIn");
         rigid.isKinematic = true;
     }

@@ -2,29 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * 볼펜 제어
+ * Trigger Collider에 플레이어 진입 시 왼쪽으로 delta만큼 움직임
+ * Non-Trigger Collider에 플레이어 충돌 시 데미지 주고 사라짐
+ * delta만큼 이동했을 경우 사라짐
+ * 사라진 후 2초 뒤에 재생성
+ */
+
+[RequireComponent(typeof(Rigidbody2D))]
 public class SideTrap : MonoBehaviour
 {   
-    public Player player;
-    public GameObject sideTrap;
     Rigidbody2D rigid;
-    SpriteRenderer renderer;
+    SpriteRenderer spriteRenderer;
 
-    float x, y;
+    Vector2 spawnPoint;
+
+    public float delta = 10f;
 
     // Start is called before the first frame update
     void Start()
     {   
         rigid = GetComponent<Rigidbody2D>();
-        renderer = GetComponent<SpriteRenderer>();
-        x = transform.position.x;
-        y = transform.position.y;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spawnPoint = transform.position;
     }
 
     private void Update()
     {
-        if (rigid.position.x <= x - 10)
+        if (rigid.position.x <= spawnPoint.x - delta)
         {
-            sideTrap.SetActive(false);
+            gameObject.SetActive(false);
             Invoke("Init", 2);
         }
     }
@@ -33,17 +41,17 @@ public class SideTrap : MonoBehaviour
     {
         for (int i = 0; i <= 10; i++)
         {
-            Color c = renderer.material.color;
+            Color c = spriteRenderer.material.color;
             c.a = i / 10f;
-            renderer.material.color = c;
+            spriteRenderer.material.color = c;
             yield return new WaitForSeconds(0.1f);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name.Equals("Player"))
+        if (collision.gameObject.tag == "Player")
         {
-            rigid.AddForce(Vector2.left * 150.0f);
+            rigid.AddForce(Vector2.left * 150.0f); // 수정 필요
         }
     }
 
@@ -51,14 +59,16 @@ public class SideTrap : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            Player player = collision.gameObject.GetComponent<Player>();
             player.curHealth -= 20;
-            sideTrap.SetActive(false);
+            
+            gameObject.SetActive(false);
             Invoke("Init", 2);
         }
 
         if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Trap")
         {
-            sideTrap.SetActive(false);
+            gameObject.SetActive(false);
             Invoke("Init", 2);
         }
     }
@@ -66,8 +76,9 @@ public class SideTrap : MonoBehaviour
     private void Init()
     {
         rigid.velocity = new Vector2(0, 0);
-        sideTrap.transform.position = new Vector2(x, y);
-        sideTrap.SetActive(true);
+        gameObject.transform.position = spawnPoint;
+        gameObject.SetActive(true);
+        
         StartCoroutine("FadeIn");
     }
 }
