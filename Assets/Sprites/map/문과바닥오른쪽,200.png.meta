@@ -42,7 +42,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -115,7 +115,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: "\uBB38\uACFC\uBC14\uB2E5\uC624\uB978\uCABD,200_0"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 100.5
+        width: 100.5
+        height: 100.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3164ae0245c70e4984516d1ff9db7df
+      internalID: 1994983302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uBB38\uACFC\uBC14\uB2E5\uC624\uB978\uCABD,200_1"
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 100.5
+        width: 100.5
+        height: 100.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7aac4d2213b90f45a4d0619e601554e
+      internalID: 1673411084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uBB38\uACFC\uBC14\uB2E5\uC624\uB978\uCABD,200_2"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0.5
+        width: 100.5
+        height: 100.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0e86a33e4831e74a8b790be6dea9929
+      internalID: -838597427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "\uBB38\uACFC\uBC14\uB2E5\uC624\uB978\uCABD,200_3"
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 0.5
+        width: 100.5
+        height: 100.5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f570f30db535a524d8f392911f281fc0
+      internalID: 1300150224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -126,7 +210,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "\uBB38\uACFC\uBC14\uB2E5\uC624\uB978\uCABD,200_0": 1994983302
+      "\uBB38\uACFC\uBC14\uB2E5\uC624\uB978\uCABD,200_1": 1673411084
+      "\uBB38\uACFC\uBC14\uB2E5\uC624\uB978\uCABD,200_2": -838597427
+      "\uBB38\uACFC\uBC14\uB2E5\uC624\uB978\uCABD,200_3": 1300150224
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
