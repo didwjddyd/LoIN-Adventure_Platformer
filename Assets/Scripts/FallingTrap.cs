@@ -10,7 +10,7 @@ using UnityEngine;
  * 사라진 후 2초 뒤에 재생성
  */
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D), typeof(BoxCollider2D))]
 public class FallingTrap : MonoBehaviour
 {   
     Rigidbody2D rigid;
