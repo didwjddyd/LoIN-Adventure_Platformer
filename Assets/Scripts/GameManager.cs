@@ -22,14 +22,16 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        if (instance == null)
+        player = GetComponent<Player>();
+
+        /*if (instance == null)
         {
             instance = this;
         }
         else
         {
             Destroy(gameObject);
-        }
+        }*/
     }
 
     void Update()
@@ -68,12 +70,14 @@ public class GameManager : MonoBehaviour
     {
         pauseActive = true;
         pauseUI.SetActive(true);
+        Time.timeScale = 0;
     }
 
     public void Resume()
     {
         pauseActive = false;
         pauseUI.SetActive(false);
+        Time.timeScale = 1;
     }
 
     public void Exit()

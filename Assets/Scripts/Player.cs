@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.InputSystem;
+using UnityEngine.InputSystem;
 
 /*
  * Player ¿Ãµø
@@ -25,19 +25,8 @@ public class Player : MonoBehaviour
 
     public bool isJumping = false;
 
-    // Mobile Key Var
-    int upValue;
-    int leftValue;
-    int rightValue;
-    int downValue;
-    bool upDown;
-    bool downDown;
-    bool leftDown;
-    bool rightDown;
-    bool upUp;
-    bool leftUp;
-    bool rightUp;
-    bool isButton;
+    public Vector2 inputVector;
+    public bool inputJump;
 
     // Start is called before the first frame update
     public void Awake()
@@ -51,66 +40,44 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         //anim = GetComponent<Animator>();
-        isButton = false;
     }
+
+    #region Input System
+    private void OnMove(InputValue value)
+    {
+        inputVector = value.Get<Vector2>();
+    }
+
+    void OnJump()
+    {
+        inputJump = true;
+    }
+    #endregion
 
     private void Update()
     {
         if (isLive)
         {
             // Jump
-            if (Input.GetButtonDown("Jump") && !isJumping) // PC version
+            if (inputJump && !isJumping)
             {
+                inputJump = false;
                 rigid.velocity = Vector2.zero;
                 Vector2 jumpVelocity = Vector2.up * jumpPower;
                 rigid.AddForce(jumpVelocity, ForceMode2D.Impulse);
                 isJumping = true;
             }
-            else if (upValue == 1 && !isJumping)
-            {
-                //rigid.velocity = Vector2.zero;
-                //Vector2 jumpVelocity = Vector2.up * jumpPower;
-                //rigid.AddForce(jumpVelocity, ForceMode2D.Impulse);
-                //isJumping = true;
-            }
-
-            // ??
-            // PC
-            else if (Input.GetButtonUp("Jump") && rigid.velocity.y > 0)
-            {
-                // rigid.velocity = rigid.velocity * 0.5f;
-            }
-            // Mobile
-            else if (upValue == 0 && rigid.velocity.y > 0)
-            {
-                //rigid.velocity = rigid.velocity * 0.5f;
-            }
 
             // Move
-            if (Input.GetButtonUp("Horizontal")) // PC version
+            if (inputVector.x == 0)
             {
                 rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0f, rigid.velocity.y);
             }
-            else if (leftValue == 0 && rightValue == 0) // Mobile version
-            {
-                //rigid.velocity = new Vector2(rigid.velocity.x * 0.5f, rigid.velocity.y);
-            }
 
             // Sprite Flip by Move Direction
-            if (Input.GetButton("Horizontal"))
+            if (inputVector.x != 0)
             {
-                spriteRenderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
-            }
-            else if (leftValue == -1 || rightValue == 1)
-            {
-                if (leftValue == -1)
-                {
-                    spriteRenderer.flipX = true;
-                }
-                else
-                {
-                    spriteRenderer.flipX = false;
-                }
+                spriteRenderer.flipX = inputVector.x == -1;
             }
 
             // ??
@@ -145,7 +112,7 @@ public class Player : MonoBehaviour
         if (isLive)
         {
             //Move By Key Control
-            float hor = Input.GetAxisRaw("Horizontal") + rightValue + leftValue;
+            float hor = inputVector.x;
             rigid.AddForce(Vector2.right * hor, ForceMode2D.Impulse);
 
             // set maxspeed
@@ -191,52 +158,4 @@ public class Player : MonoBehaviour
         isLive = true;
         isJumping = false;
     }
-
-    public void ButtonDown(string type)
-    {
-        switch (type)
-        {
-            case "UP":
-                upValue = 1;
-                upDown = true;
-                break;
-            case "LEFT":
-                leftValue = -1;
-                leftDown = true;
-                break;
-            case "RIGHT":
-                rightValue = 1;
-                rightDown = true;
-                break;
-            case "DOWN":
-                downValue = -1;
-                downDown = true;
-                isShifting = true;
-                break;
-        }
-    }
-
-    public void ButtonUp(string type)
-    {
-        switch (type)
-        {
-            case "UP":
-                upValue = 0;
-                upUp = true;
-                break;
-            case "LEFT":
-                leftValue = 0;
-                leftUp = true;
-                break;
-            case "RIGHT":
-                rightValue = 0;
-                rightUp = true;
-                break;
-            case "DOWN":
-                downValue = 0;
-                isShifting = true;
-                break;
-        }
-    }
-
 }
