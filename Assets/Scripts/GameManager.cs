@@ -16,25 +16,29 @@ public class GameManager : MonoBehaviour
     public bool pauseActive = false;
     public bool titleActive = false;
 
-    public Player player;
+    public GameObject player;
+    Player playerCom;
+
     public GameObject gameoverUI;
     public GameObject pauseUI;
 
     void Awake()
     {
-        if (instance == null)
+        playerCom = player.GetComponent<Player>();
+
+        /*if (instance == null)
         {
             instance = this;
         }
         else
         {
             Destroy(gameObject);
-        }
+        }*/
     }
 
     void Update()
     {
-        if (player.isLive == false)
+        if (playerCom.isLive == false)
         {
             // OnPlayerDead();
             gameTime = 0;
@@ -68,12 +72,14 @@ public class GameManager : MonoBehaviour
     {
         pauseActive = true;
         pauseUI.SetActive(true);
+        Time.timeScale = 0;
     }
 
     public void Resume()
     {
         pauseActive = false;
         pauseUI.SetActive(false);
+        Time.timeScale = 1;
     }
 
     public void Exit()
