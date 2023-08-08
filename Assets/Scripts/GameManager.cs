@@ -16,13 +16,15 @@ public class GameManager : MonoBehaviour
     public bool pauseActive = false;
     public bool titleActive = false;
 
-    public Player player;
+    public GameObject player;
+    Player playerCom;
+
     public GameObject gameoverUI;
     public GameObject pauseUI;
 
     void Awake()
     {
-        player = GetComponent<Player>();
+        playerCom = player.GetComponent<Player>();
 
         /*if (instance == null)
         {
@@ -36,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (player.isLive == false)
+        if (playerCom.isLive == false)
         {
             // OnPlayerDead();
             gameTime = 0;

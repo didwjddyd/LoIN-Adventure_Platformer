@@ -17,7 +17,6 @@ public class Player : MonoBehaviour
     public float curHealth;
     public Vector2 spawnPoint;
     public bool isLive;
-    bool isShifting;
 
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
@@ -67,14 +66,6 @@ public class Player : MonoBehaviour
             {
                 spriteRenderer.flipX = inputVector.x == -1;
             }
-
-            // ??
-            if (isShifting == true)
-            {
-                curHealth = 1099999999;
-                isShifting = false;
-            }
-
 
             if (curHealth <= 0)
             {
