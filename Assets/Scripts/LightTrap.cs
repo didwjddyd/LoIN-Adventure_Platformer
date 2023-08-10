@@ -7,36 +7,53 @@ public class LightTrap : MonoBehaviour
 {
     public float interval;
 
-    SpriteRenderer spriteRenderer;
+    //SpriteRenderer spriteRenderer;
+    private UnityEngine.Rendering.Universal.Light2D light2d;
+    private BoxCollider2D boxCollider;
 
-    private void Start()
+    void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        //spriteRenderer = GetComponent<SpriteRenderer>();
+        light2d = GetComponentInChildren<UnityEngine.Rendering.Universal.Light2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
+
+        StartCoroutine("FadeOut");
     }
 
-    private void Update()
+    IEnumerator FadeOut()
     {
-        Invoke("LightOn", interval);
-    }
+        //Color c = spriteRenderer.color;
 
-    void LightOn()
-    {
-        gameObject.SetActive(true);
+        yield return new WaitForSeconds(interval);
 
-        StartCoroutine("FadeIn");
+        light2d.intensity = 0f;
+        yield return new WaitForSeconds(0.1f);
+        light2d.intensity = 1f;
+        yield return new WaitForSeconds(0.1f);
 
-        gameObject.SetActive(false);
-    }
+        boxCollider.enabled = false;
 
-    IEnumerator FadeIn()
-    {
-        for (int i = 0; i <= 10; i++)
+        for (int i = 20; i >= 0; i--)
         {
-            Color c = spriteRenderer.material.color;
-            c.a = i / 10f;
-            spriteRenderer.material.color = c;
+            light2d.intensity = i / 20f;
+            //c.a = i / 50f;
+            //spriteRenderer.color = c;
             yield return new WaitForSeconds(0.001f);
         }
+
+        yield return new WaitForSeconds(interval);
+
+        for (int i = 0; i <= 20; i++)
+        {
+            light2d.intensity = i / 20f;
+            //c.a = i / 50f;
+            //spriteRenderer.color = c;
+            yield return new WaitForSeconds(0.001f);
+        }
+
+        boxCollider.enabled = true;
+
+        StartCoroutine("FadeOut");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

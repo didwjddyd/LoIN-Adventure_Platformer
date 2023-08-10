@@ -41,6 +41,18 @@ public class Player : MonoBehaviour
         //anim = GetComponent<Animator>();
     }
 
+    #region Input System
+    private void OnMove(InputValue value)
+    {
+        inputVector = value.Get<Vector2>();
+    }
+
+    void OnJump()
+    {
+        inputJump = true;
+    }
+    #endregion
+
     private void Update()
     {
         if (isLive)
