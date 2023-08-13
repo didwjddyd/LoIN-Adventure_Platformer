@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2833159801206243741}
   - component: {fileID: 2833159801206243740}
+  - component: {fileID: 513874983112757703}
   m_Layer: 0
   m_Name: "\uC804\uB4F1 \uBCF8\uCCB4"
   m_TagString: Untagged
@@ -84,6 +85,36 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &513874983112757703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2833159801206243731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.18099523, y: -0.04745568, z: 0}
+  - {x: -0.026089335, y: 0.38397533, z: 0}
+  - {x: 0.06348043, y: 0.37863368, z: 0}
+  - {x: 0.21838628, y: -0.058138847, z: 0}
+  m_ShapePathHash: 1875418998
+  m_Mesh: {fileID: 0}
+  m_InstanceId: 40366
+  m_LocalBounds:
+    m_Center: {x: 0.018695533, y: 0.16291824, z: 0}
+    m_Extent: {x: 0.19969076, y: 0.22105709, z: 0}
 --- !u!1 &2833159801211579565
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,7 +299,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3327816891778299109}
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_LocalPosition: {x: 0, y: 0.42, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -290,7 +321,7 @@ MonoBehaviour:
   m_ComponentVersion: 1
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.5
+  m_FalloffIntensity: 0.7
   m_Color: {r: 1, g: 0.97781986, b: 0.48584908, a: 1}
   m_Intensity: 1
   m_LightVolumeIntensity: 1
@@ -311,17 +342,18 @@ MonoBehaviour:
   m_LocalBounds:
     m_Center: {x: 0, y: -0.00000011920929, z: 0}
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
-  m_PointLightInnerAngle: 11.940298
-  m_PointLightOuterAngle: 20
+  m_PointLightInnerAngle: 15
+  m_PointLightOuterAngle: 30
   m_PointLightInnerRadius: 0
   m_PointLightOuterRadius: 10
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
-  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffSize: 0.2
   m_ShapeLightFalloffOffset: {x: 0, y: 0}
   m_ShapePath:
-  - {x: -0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: -0.5, z: 0}
-  - {x: 0.5, y: 0.5, z: 0}
-  - {x: -0.5, y: 0.5, z: 0}
+  - {x: -0.3707428, y: 0.36864075, z: 0}
+  - {x: -0.0074742595, y: 0.002080722, z: 0}
+  - {x: 0.37074286, y: 0.3729553, z: 0}
+  - {x: 0.39086875, y: 0.9376897, z: 0}
+  - {x: -0.40300885, y: 0.930876, z: 0}
