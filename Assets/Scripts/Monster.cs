@@ -4,80 +4,91 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-    private Vector3 initialPosition;
-    private bool isMoving = true; // 이동 여부 판단
-    private bool isMovingRight = true; // 방향 판단
+    private float initialPosition;
+    private float maxLeft;
+    private float maxRight;
+    private int randomMovement;
 
-    public float moveSpeed = 3f;    // 몬스터의 이동 속도
-    public float moveDistance = 4f; // 이동 거리
+    public float moveSpeed = 2f; // 몬스터의 이동 속도
+    public float moveDistance = 6f; // 이동 거리
     public float pauseTime = 1f; // 일정 거리 이동 후 쉬는 시간
 
     Rigidbody2D rigid;
-    Animator anim;
+    //Animator anim;
     SpriteRenderer spriteRenderer;
     CircleCollider2D circleCollider;
 
+
     void Awake()
     {
-        initialPosition = transform.position; // 맨 처음 몬스터의 위치
+        initialPosition = transform.position.x; // 맨 처음 몬스터의 위치
+        maxLeft = initialPosition - moveDistance; // 왼쪽 최대 이동
+        maxRight = initialPosition + moveDistance; // 오른쪽 최대 이동
 
         rigid = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         circleCollider = GetComponent<CircleCollider2D>();
     }
 
-    void Update()
+    void Start()
     {
         StartCoroutine("Move");
     }
 
+
+    void FixedUpdate()
+    {
+        MovePattern(randomMovement);
+    }
+
     IEnumerator Move()
     {
-        // 몬스터의 처음 위치와 이동 후 위치의 차이
-        float distance = Vector3.Distance(transform.position, initialPosition);
+        // 0: 왼쪽 이동, 1: 정지, 2: 오른쪽 이동
+        randomMovement = Random.Range(0, 3);
 
-        if (isMoving)
+        if (transform.position.x <= maxLeft) // 왼쪽 끝에 도달한 경우
         {
-            if (distance > moveDistance)
-            {
-                isMoving = false;
-                rigid.velocity = Vector2.zero;
-                anim.SetBool("isRunning", false);
+            rigid.velocity = Vector2.zero;
+            //anim.SetBool("isRunning", true);
 
-                yield return new WaitForSeconds(pauseTime);
+            yield return new WaitForSeconds(pauseTime);
 
-                // 멈춘 상태에서 initialPosition 초기화
-                initialPosition = transform.position;
-
-                spriteRenderer.flipX = !isMovingRight; // sprite를 좌우로 반전
-                isMovingRight = !isMovingRight; // 이동 방향을 반대로 설정
-                isMoving = true;
-            }
-            else
-            {
-                float direction;
-
-                // 설정한 방향 따라 이동
-                if (isMovingRight)
-                {
-                    direction = moveSpeed;
-                }
-                else
-                {
-                    direction = -moveSpeed;
-                }
-
-                rigid.velocity = new Vector2(direction, rigid.velocity.y);
-                anim.SetBool("isRunning", true);
-            }
-
+            randomMovement = Random.Range(1, 3); // 1: 정지, 2: 오른쪽 이동
         }
-        else
+        else if (transform.position.x >= maxRight) // 오른쪽 끝에 도달한 경우
         {
-            yield return null;
+            rigid.velocity = Vector2.zero;
+            //anim.SetBool("isRunning", false);
+
+            yield return new WaitForSeconds(pauseTime);
+
+            randomMovement = Random.Range(0, 2); // 0: 왼쪽 이동, 1: 정지
         }
 
-        yield return null;
+        yield return new WaitForSeconds(pauseTime);
+
+        StartCoroutine("Move");
+    }
+
+    void MovePattern(int randomMovement)
+    {
+        if (randomMovement == 0) // 왼쪽 이동
+        {
+            spriteRenderer.flipX = true; // sprite를 좌우로 반전
+            rigid.velocity = new Vector2(-moveSpeed, rigid.velocity.y);
+            //anim.SetBool("isRunning", true);
+        }
+        else if (randomMovement == 1) // 정지
+        {
+            rigid.velocity = Vector2.zero;
+            //anim.SetBool("isRunning", false);
+        }
+        else if (randomMovement == 2) // 오른쪽 이동
+        {
+            spriteRenderer.flipX = false;
+            rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
+            //anim.SetBool("isRunning", true);
+        }
     }
 }
