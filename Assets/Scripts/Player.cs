@@ -22,10 +22,10 @@ public class Player : MonoBehaviour
     SpriteRenderer spriteRenderer;
     //Animator anim;
 
-    public bool isJumping = false;
+    private bool isJumping = false;
 
-    public Vector2 inputVector;
-    public bool inputJump;
+    private Vector2 inputVector;
+    private bool inputJump;
 
     // Start is called before the first frame update
     public void Awake()
@@ -129,7 +129,12 @@ public class Player : MonoBehaviour
                 if (boxHit.distance < 1f)
                 {
                     isJumping = false;
+                    inputJump = false;
                 }
+            }
+            else
+            {
+                inputJump = false;
             }
         }
     }
