@@ -9,7 +9,7 @@ public class Monster : MonoBehaviour
     private float maxRight;
     private int randomMovement;
 
-    public float moveSpeed = 2f; // 몬스터의 이동 속도
+    public float moveSpeed = 1f; // 몬스터의 이동 속도
     public float moveDistance = 6f; // 이동 거리
     public float pauseTime = 1f; // 일정 거리 이동 후 쉬는 시간
 
@@ -90,5 +90,6 @@ public class Monster : MonoBehaviour
             rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
             //anim.SetBool("isRunning", true);
         }
+
     }
 }
