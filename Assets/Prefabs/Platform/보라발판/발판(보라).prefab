@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5962931698864527393}
   - component: {fileID: 5962931698864527392}
   m_Layer: 6
-  m_Name: "\uC6C0\uC9C1\uBC1C\uD310(\uBCF4\uB77C) 2-2"
+  m_Name: "\uBC1C\uD310(\uBCF4\uB77C)"
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
