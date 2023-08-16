@@ -22,7 +22,7 @@ public class Player : MonoBehaviour
     SpriteRenderer spriteRenderer;
     //Animator anim;
 
-    private bool isJumping = false;
+    public bool isJumping = false;
 
     private Vector2 inputVector;
     private bool inputJump;
