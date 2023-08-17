@@ -22,18 +22,21 @@ public class GameManager : MonoBehaviour
     public GameObject gameoverUI;
     public GameObject pauseUI;
 
+    public Image Heart;
+
     void Awake()
     {
         playerCom = player.GetComponent<Player>();
+        Heart.fillAmount = playerCom.curHealth / 120f;
 
-        /*if (instance == null)
+        if (instance == null)
         {
             instance = this;
         }
         else
         {
             Destroy(gameObject);
-        }*/
+        }
     }
 
     void Update()
@@ -54,6 +57,16 @@ public class GameManager : MonoBehaviour
                     gameTime = MaxGameTime;
                 }
             }
+        }
+
+        //HealthUI
+        if (playerCom.curHealth + 1f < Heart.fillAmount * 120f)
+        {
+            Heart.fillAmount -= 0.01f;
+        }
+        else if (playerCom.curHealth - 1f > Heart.fillAmount * 120f)
+        {
+            Heart.fillAmount += 0.01f;
         }
     }
 

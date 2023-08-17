@@ -22,22 +22,25 @@ public class Player : MonoBehaviour
     SpriteRenderer spriteRenderer;
     //Animator anim;
 
-    public bool isJumping = false;
+    bool isJumping = false;
 
-    private Vector2 inputVector;
-    private bool inputJump;
+    Vector2 inputVector;
+    bool inputJump;
 
-    // Start is called before the first frame update
+    //애니메이션 작업도 dressState를 활용하면 될 듯
+    public GameObject[] dressState;
+    public int coin;
+
     public void Awake()
     {
         jumpPower = 12f;
         maxSpeed = 5f;
-        maxHealth = 20f;
+        maxHealth = 120f;
         curHealth = maxHealth;
         isLive = true;
         spawnPoint = new Vector2(-1f, -1.4f);
         rigid = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        
         //anim = GetComponent<Animator>();
     }
 
@@ -53,7 +56,7 @@ public class Player : MonoBehaviour
     }
     #endregion
 
-    private void Update()
+    void Update()
     {
         if (isLive)
         {
@@ -97,7 +100,20 @@ public class Player : MonoBehaviour
                 //anim.SetBool("isWalking", true);
             }
         }
+
+        //character dress state
+        for (int i = 0; i < dressState.Length; i++)
+        {
+            if(i == coin)
+            {
+                dressState[i].SetActive(true);
+                spriteRenderer = dressState[i].GetComponent<SpriteRenderer>();
+            }
+            else
+                dressState[i].SetActive(false);
+        }
     }
+
     void FixedUpdate()
     {
         if (isLive)
