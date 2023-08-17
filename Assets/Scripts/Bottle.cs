@@ -2,26 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
- * 가시 트랩 작동
- * 플레이어 체력 감소
- */
-
-[RequireComponent(typeof(BoxCollider2D))]
-public class Trap : MonoBehaviour
+public class Bottle : MonoBehaviour
 {
-    public bool doRespawn;
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
             Player player = collision.gameObject.GetComponent<Player>();
-            player.curHealth -= 20;
+            player.maxSpeed = 7f;
+            player.jumpPower = 15f;
 
-            if(doRespawn)
-                collision.gameObject.transform.position = player.spawnPoint;
+            collision.gameObject.transform.localScale = new Vector3(0.7f, 0.7f, 1f);
+            
+            gameObject.SetActive(false);
         }
     }
-
 }
