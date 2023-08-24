@@ -18,6 +18,8 @@ public class FallingTrap : MonoBehaviour
 
     Vector2 spawnPoint;
 
+    public float damage = 20f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -50,7 +52,7 @@ public class FallingTrap : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Player player = collision.gameObject.GetComponent<Player>();
-            player.curHealth -= 20;
+            player.curHealth -= damage;
             
             gameObject.SetActive(false);
             Invoke("Init", 2);

@@ -19,6 +19,7 @@ public class SideTrap : MonoBehaviour
     Vector2 spawnPoint;
 
     public float delta = 10f;
+    public float damage = 20f;
 
     // Start is called before the first frame update
     void Start()
@@ -60,7 +61,7 @@ public class SideTrap : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Player player = collision.gameObject.GetComponent<Player>();
-            player.curHealth -= 20;
+            player.curHealth -= damage;
             
             gameObject.SetActive(false);
             Invoke("Init", 2);
