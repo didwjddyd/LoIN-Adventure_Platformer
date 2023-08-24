@@ -6,6 +6,8 @@ using UnityEngine;
 public class LightTrap : MonoBehaviour
 {
     public float interval;
+    public bool isFlash;
+
     private UnityEngine.Rendering.Universal.Light2D light2d;
     private BoxCollider2D boxCollider;
 
@@ -14,7 +16,8 @@ public class LightTrap : MonoBehaviour
         light2d = GetComponentInChildren<UnityEngine.Rendering.Universal.Light2D>();
         boxCollider = GetComponent<BoxCollider2D>();
 
-        StartCoroutine("FadeOut");
+        if(!isFlash)
+            StartCoroutine("FadeOut");
     }
 
     IEnumerator FadeOut()

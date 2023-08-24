@@ -20,14 +20,13 @@ public class Player : MonoBehaviour
 
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
-    //Animator anim;
+    Animator anim;
 
     bool isJumping = false;
 
     Vector2 inputVector;
     bool inputJump;
 
-    //애니메이션 작업도 dressState를 활용하면 될 듯
     public GameObject[] dressState;
     public int coin;
 
@@ -40,8 +39,6 @@ public class Player : MonoBehaviour
         isLive = true;
         spawnPoint = new Vector2(-1f, -1.4f);
         rigid = GetComponent<Rigidbody2D>();
-        
-        //anim = GetComponent<Animator>();
     }
 
     #region Input System
@@ -108,6 +105,7 @@ public class Player : MonoBehaviour
             {
                 dressState[i].SetActive(true);
                 spriteRenderer = dressState[i].GetComponent<SpriteRenderer>();
+                anim = dressState[i].GetComponent<Animator>();
             }
             else
                 dressState[i].SetActive(false);
@@ -127,6 +125,12 @@ public class Player : MonoBehaviour
                 rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y);
             else if (rigid.velocity.x < maxSpeed * -1) // Left Speed
                 rigid.velocity = new Vector2(maxSpeed * -1, rigid.velocity.y);
+
+            //walking animation
+            if(inputVector != new Vector2(0, 0))
+                anim.SetBool("isWalk", true);
+            else
+                anim.SetBool("isWalk", false);
         }
 
         // Landing Platform using BoxCast
@@ -155,7 +159,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Dead()
+    public void Dead()
     {
         print("Player Dead");
 
@@ -169,5 +173,9 @@ public class Player : MonoBehaviour
         curHealth = maxHealth;
         isLive = true;
         isJumping = false;
+        coin = 0;
+        transform.localScale = new Vector3(1f, 1f, 1f);
+        jumpPower = 12f;
+        maxSpeed = 5f;
     }
 }
