@@ -118,7 +118,7 @@ public class ThrowingMonster : MonoBehaviour
     {
         if (randomMovement == 0) // 왼쪽으로 이동할 때
         {
-            // throwPoint보다 2 앞에서 던지기
+            // throwPoint보다 2만큼 왼쪽에서 던지기
             Vector3 throwOffset = new Vector3(-2f, 0f, 0f);
             Vector3 throwPosition = throwPoint.position + throwOffset;
 
@@ -134,7 +134,7 @@ public class ThrowingMonster : MonoBehaviour
         }
         else if (randomMovement == 2) // 오른쪽으로 이동할 때
         {
-            // throwPoint보다 2 앞에서 던지기
+            // throwPoint보다 2만큼 오른쪽에서 던지기
             Vector3 throwOffset = new Vector3(2f, 0f, 0f);
             Vector3 throwPosition = throwPoint.position + throwOffset;
 
