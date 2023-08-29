@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
 public class Monster : MonoBehaviour
 {
     private float initialPosition;
@@ -14,7 +15,7 @@ public class Monster : MonoBehaviour
     public float pauseTime = 1f; // 일정 거리 이동 후 쉬는 시간
 
     Rigidbody2D rigid;
-    //Animator anim;
+    Animator anim;
     SpriteRenderer spriteRenderer;
     BoxCollider2D boxCollider;
 
@@ -26,7 +27,7 @@ public class Monster : MonoBehaviour
         maxRight = initialPosition + moveDistance; // 오른쪽 최대 이동
 
         rigid = GetComponent<Rigidbody2D>();
-        //anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider2D>();
     }
@@ -77,18 +78,18 @@ public class Monster : MonoBehaviour
         {
             spriteRenderer.flipX = true; // sprite를 좌우로 반전
             rigid.velocity = new Vector2(-moveSpeed, rigid.velocity.y);
-            //anim.SetBool("isRunning", true);
+            anim.SetBool("isRunning", true);
         }
         else if (randomMovement == 1) // 정지
         {
             rigid.velocity = Vector2.zero;
-            //anim.SetBool("isRunning", false);
+            anim.SetBool("isRunning", false);
         }
         else if (randomMovement == 2) // 오른쪽 이동
         {
             spriteRenderer.flipX = false;
             rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
-            //anim.SetBool("isRunning", true);
+            anim.SetBool("isRunning", true);
         }
 
     }
