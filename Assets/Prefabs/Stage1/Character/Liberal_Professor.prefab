@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5717272887553107165}
   - component: {fileID: 5717272887553107164}
-  - component: {fileID: 8071492793998356529}
+  - component: {fileID: 2646622865111999964}
   - component: {fileID: 4874984478956590178}
   - component: {fileID: -8992171992383696696}
   - component: {fileID: 6551196788285379736}
@@ -88,7 +88,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8071492793998356529
+--- !u!114 &2646622865111999964
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,12 +97,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 5717272887553107155}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4cd46dc92b30974fbf7dcc3d6d970ba, type: 3}
+  m_Script: {fileID: 11500000, guid: 13e74af53d9e04875933ebaec167c3f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
-  moveDistance: 4
-  pauseTime: 1
+  moveSpeed: 6
+  moveDistance: 7
+  pauseTime: 2
+  throwObject: {fileID: 8933987165105498382, guid: 82656c118554c4df29787b16bf284154, type: 3}
+  throwPoint: {fileID: 5717272887553107165}
+  throwForce: 12
+  maxThrowDistance: 8
 --- !u!95 &4874984478956590178
 Animator:
   serializedVersion: 5
@@ -139,7 +143,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
