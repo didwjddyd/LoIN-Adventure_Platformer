@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         playerCom = player.GetComponent<Player>();
-        Heart.fillAmount = playerCom.curHealth / 120f;
 
         if (instance == null)
         {
@@ -60,14 +59,7 @@ public class GameManager : MonoBehaviour
         }
 
         //HealthUI
-        if (playerCom.curHealth + 1f < Heart.fillAmount * 120f)
-        {
-            Heart.fillAmount -= 0.01f;
-        }
-        else if (playerCom.curHealth - 1f > Heart.fillAmount * 120f)
-        {
-            Heart.fillAmount += 0.01f;
-        }
+        Heart.fillAmount = playerCom.curHealth / 120f;
     }
 
     public void OnPlayerDead()
@@ -100,4 +92,8 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void NextScene(string stageName)
+    {
+        SceneManager.LoadScene(stageName);
+    }
 }

@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6901426180226103328}
   - component: {fileID: 3626764654001280186}
+  - component: {fileID: 6408341141426555583}
+  - component: {fileID: 3896206266939295547}
   m_Layer: 0
   m_Name: "\uC904\uB2EC\uB9B0 \uD1B1"
   m_TagString: Untagged
@@ -84,3 +86,44 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!68 &6408341141426555583
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8380546539629652566}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -1.3886299, y: -1.6704575}
+  - {x: -0.025821507, y: -2.35231}
+  - {x: 1.4350929, y: -1.6776243}
+  - {x: 1.4476303, y: -2.1807015}
+  - {x: 0.0471977, y: -3.1796463}
+  - {x: -1.4149699, y: -2.1876876}
+  - {x: -1.3944169, y: -1.6587138}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
+--- !u!114 &3896206266939295547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8380546539629652566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ca95fa89e9c24747bb92b730c0a05b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 20
+  angle: 60
