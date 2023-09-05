@@ -8,11 +8,11 @@ public class ThrowingMonster : MonoBehaviour
     private float maxLeft;
     private float maxRight;
     private int randomMovement;
-    private bool hasThrown = false; // 물채를 던진 상태인지 여부
+    private bool hasThrown = false; // 물체를 던진 상태인지 여부
 
     public float moveSpeed = 6f; // 몬스터의 이동 속도
     public float moveDistance = 7f; // 이동 거리
-    public float pauseTime = 2f; // 일정 거리 이동 후 쉬는 시간
+    public float pauseTime = 3f; // 일정 거리 이동 후 쉬는 시간
 
     public GameObject throwObject; // 던지는 물체
     public Transform throwPoint; // 물체 던지는 위치
@@ -73,7 +73,7 @@ public class ThrowingMonster : MonoBehaviour
 
         hasThrown = false;
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(4f);
 
         StartCoroutine("Move");
     }
@@ -83,15 +83,18 @@ public class ThrowingMonster : MonoBehaviour
         if (randomMovement == 0) // 왼쪽 이동
         {
             spriteRenderer.flipX = true; // sprite를 좌우로 반전
+
             rigid.velocity = new Vector2(-moveSpeed, rigid.velocity.y);
             anim.SetBool("isRunning", true);
 
             if (!hasThrown) // 물체를 던진 상태가 아니라면 물체를 던짐
             {
-                Invoke("Throw", 0.5f);
-                hasThrown = true; // 물체를 던진 상태가 됨
-            }
+                anim.SetBool("isRunning", false);
 
+                hasThrown = true; // 물체를 던진 상태가 됨
+                anim.SetTrigger("throwTrigger");
+                Invoke("Throw", 0.5f);
+            }
         }
         else if (randomMovement == 1) // 정지
         {
@@ -106,8 +109,13 @@ public class ThrowingMonster : MonoBehaviour
 
             if (!hasThrown)
             {
+                anim.SetBool("isRunning", false);
+
+                hasThrown = true; // 물체를 던진 상태가 됨
+                anim.SetTrigger("throwTrigger");
                 Invoke("Throw", 0.5f);
-                hasThrown = true;
+
+                anim.SetBool("isRunning", true);
             }
 
         }
@@ -130,7 +138,7 @@ public class ThrowingMonster : MonoBehaviour
             objectRigid.velocity = -throwPoint.right * throwForce; // 왼쪽으로 던지기
 
             // 일정 시간 후 던진 물체 삭제
-            Destroy(cloneObject, 1.5f);
+            Destroy(cloneObject, 1.2f);
         }
         else if (randomMovement == 2) // 오른쪽으로 이동할 때
         {
@@ -146,7 +154,7 @@ public class ThrowingMonster : MonoBehaviour
             objectRigid.velocity = throwPoint.right * throwForce; // 오른쪽으로 던지기
 
             // 일정 시간 후 던진 물체 삭제
-            Destroy(cloneObject, 1.5f);
+            Destroy(cloneObject, 1.2f);
         }
 
     }
