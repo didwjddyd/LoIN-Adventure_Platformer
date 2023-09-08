@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // ½Ì±ÛÅÏÀ¸·Î ±¸Çö
+    // ï¿½Ì±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public static GameManager instance;
 
     public float gameTime;
@@ -24,9 +24,13 @@ public class GameManager : MonoBehaviour
 
     public Image Heart;
 
+    public GameObject mainCamera;
+
     void Awake()
     {
-        playerCom = player.GetComponent<Player>();
+        if (SceneManager.GetActiveScene().name != "Start")
+            playerCom = player.GetComponent<Player>();
+        
 
         if (instance == null)
         {
@@ -40,26 +44,29 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (playerCom.isLive == false)
+        if(SceneManager.GetActiveScene().name != "Start")
         {
-            // OnPlayerDead();
-            gameTime = 0;
-        }
-        else
-        {
-            if (!pauseActive && !titleActive)
+            if (playerCom.isLive == false)
             {
-                gameTime += Time.deltaTime;
-
-                if (gameTime > MaxGameTime)
+                // OnPlayerDead();
+                gameTime = 0;
+            }
+            else
+            {
+                if (!pauseActive && !titleActive)
                 {
-                    gameTime = MaxGameTime;
+                    gameTime += Time.deltaTime;
+
+                    if (gameTime > MaxGameTime)
+                    {
+                        gameTime = MaxGameTime;
+                    }
                 }
             }
-        }
 
-        //HealthUI
-        Heart.fillAmount = playerCom.curHealth / 120f;
+            //HealthUI
+            Heart.fillAmount = playerCom.curHealth / 120f;
+        }
     }
 
     public void OnPlayerDead()
@@ -78,6 +85,7 @@ public class GameManager : MonoBehaviour
         pauseActive = true;
         pauseUI.SetActive(true);
         Time.timeScale = 0;
+        mainCamera.GetComponent<UnityEngine.Rendering.Volume>().enabled = true;
     }
 
     public void Resume()
@@ -85,6 +93,7 @@ public class GameManager : MonoBehaviour
         pauseActive = false;
         pauseUI.SetActive(false);
         Time.timeScale = 1;
+        mainCamera.GetComponent<UnityEngine.Rendering.Volume>().enabled = false;
     }
 
     public void Exit()
