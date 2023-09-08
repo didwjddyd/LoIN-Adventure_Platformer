@@ -8,7 +8,7 @@ using UnityEngine.InputSystem;
  * 애니메이션 제어
  */
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
     public float maxSpeed;
@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
     void OnJump()
     {
         inputJump = true;
+        anim.SetBool("isJump", true);
     }
     #endregion
 
@@ -97,11 +98,14 @@ public class Player : MonoBehaviour
                 //anim.SetBool("isWalking", true);
             }
         }
+    }
 
+    void FixedUpdate()
+    {
         //character dress state
         for (int i = 0; i < dressState.Length; i++)
         {
-            if(i == coin)
+            if (i == coin)
             {
                 dressState[i].SetActive(true);
                 spriteRenderer = dressState[i].GetComponent<SpriteRenderer>();
@@ -110,10 +114,7 @@ public class Player : MonoBehaviour
             else
                 dressState[i].SetActive(false);
         }
-    }
 
-    void FixedUpdate()
-    {
         if (isLive)
         {
             //Move By Key Control
@@ -150,6 +151,8 @@ public class Player : MonoBehaviour
                 {
                     isJumping = false;
                     inputJump = false;
+
+                    anim.SetBool("isJump", false);
                 }
             }
             else
