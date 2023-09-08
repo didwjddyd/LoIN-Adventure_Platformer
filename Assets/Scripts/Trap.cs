@@ -7,7 +7,6 @@ using UnityEngine;
  * 플레이어 체력 감소
  */
 
-[RequireComponent(typeof(BoxCollider2D))]
 public class Trap : MonoBehaviour
 {
     public bool doRespawn;
