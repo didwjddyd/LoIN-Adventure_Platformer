@@ -7,6 +7,7 @@ public class LightTrap : MonoBehaviour
 {
     public float interval;
     public bool isFlash;
+    public bool isBackground;
 
     private UnityEngine.Rendering.Universal.Light2D light2d;
     private BoxCollider2D boxCollider;
@@ -16,8 +17,10 @@ public class LightTrap : MonoBehaviour
         light2d = GetComponentInChildren<UnityEngine.Rendering.Universal.Light2D>();
         boxCollider = GetComponent<BoxCollider2D>();
 
-        if(!isFlash)
+        if(!isFlash && !isBackground)
             StartCoroutine("FadeOut");
+        else if(isBackground)
+            StartCoroutine("Blink");
     }
 
     IEnumerator FadeOut()
@@ -48,6 +51,21 @@ public class LightTrap : MonoBehaviour
         boxCollider.enabled = true;
 
         StartCoroutine("FadeOut");
+    }
+
+    IEnumerator Blink()
+    {
+        light2d.intensity = 1f;
+        yield return new WaitForSeconds(2f);
+        light2d.intensity = 0f;
+        yield return new WaitForSeconds(0.1f);
+        light2d.intensity = 1f;
+        yield return new WaitForSeconds(0.1f);
+        light2d.intensity = 0f;
+        yield return new WaitForSeconds(0.1f);
+        light2d.intensity = 1f;
+
+        StartCoroutine("Blink");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

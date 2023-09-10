@@ -30,7 +30,6 @@ public class GameManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name != "Start")
             playerCom = player.GetComponent<Player>();
-        
 
         if (instance == null)
         {
