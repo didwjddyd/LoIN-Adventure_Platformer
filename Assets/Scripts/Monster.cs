@@ -9,8 +9,8 @@ public class Monster : MonoBehaviour
     private float maxLeft;
     private float maxRight;
     private int randomMovement;
+    private float moveSpeed = 3.5f; // 몬스터의 이동 속도
 
-    public float moveSpeed = 3.5f; // 몬스터의 이동 속도
     public float moveDistance = 6f; // 이동 거리
     public float pauseTime = 1f; // 일정 거리 이동 후 쉬는 시간
 
@@ -74,9 +74,11 @@ public class Monster : MonoBehaviour
 
     void MovePattern(int randomMovement)
     {
+        Vector3 newScale = transform.localScale;
+
         if (randomMovement == 0) // 왼쪽 이동
         {
-            spriteRenderer.flipX = true; // sprite를 좌우로 반전
+            newScale.x = Mathf.Abs(newScale.x); // 양수가 되도록
             rigid.velocity = new Vector2(-moveSpeed, rigid.velocity.y);
             anim.SetBool("isRunning", true);
         }
@@ -87,10 +89,11 @@ public class Monster : MonoBehaviour
         }
         else if (randomMovement == 2) // 오른쪽 이동
         {
-            spriteRenderer.flipX = false;
+            newScale.x = -Mathf.Abs(newScale.x); // 좌우로 반전
             rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
             anim.SetBool("isRunning", true);
         }
 
+        transform.localScale = newScale;
     }
 }

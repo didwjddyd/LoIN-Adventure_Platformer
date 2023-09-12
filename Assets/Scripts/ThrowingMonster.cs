@@ -9,8 +9,8 @@ public class ThrowingMonster : MonoBehaviour
     private float maxRight;
     private int randomMovement;
     private bool hasThrown = false; // 물체를 던진 상태인지 여부
+    private float moveSpeed = 6f; // 몬스터의 이동 속도
 
-    public float moveSpeed = 6f; // 몬스터의 이동 속도
     public float moveDistance = 7f; // 이동 거리
     public float pauseTime = 3f; // 일정 거리 이동 후 쉬는 시간
 
@@ -80,10 +80,11 @@ public class ThrowingMonster : MonoBehaviour
 
     void MovePattern(int randomMovement)
     {
+        Vector3 newScale = transform.localScale;
+
         if (randomMovement == 0) // 왼쪽 이동
         {
-            spriteRenderer.flipX = true; // sprite를 좌우로 반전
-
+            newScale.x = Mathf.Abs(newScale.x); // 양수가 되도록
             rigid.velocity = new Vector2(-moveSpeed, rigid.velocity.y);
             anim.SetBool("isRunning", true);
 
@@ -103,7 +104,7 @@ public class ThrowingMonster : MonoBehaviour
         }
         else if (randomMovement == 2) // 오른쪽 이동
         {
-            spriteRenderer.flipX = false;
+            newScale.x = -Mathf.Abs(newScale.x); // 좌우로 반전
             rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
             anim.SetBool("isRunning", true);
 
@@ -120,10 +121,14 @@ public class ThrowingMonster : MonoBehaviour
 
         }
 
+        transform.localScale = newScale;
     }
 
     void Throw()
     {
+        // 몬스터 이동 멈추기
+        rigid.velocity = Vector2.zero;
+
         if (randomMovement == 0) // 왼쪽으로 이동할 때
         {
             // throwPoint보다 2만큼 왼쪽에서 던지기
@@ -136,6 +141,10 @@ public class ThrowingMonster : MonoBehaviour
             Rigidbody2D objectRigid = cloneObject.GetComponent<Rigidbody2D>();
 
             objectRigid.velocity = -throwPoint.right * throwForce; // 왼쪽으로 던지기
+
+            // 던지는 애니메이션 끝날 때까지 대기
+            float throwAniLength = 1f;
+            Invoke("ContinueMovement", throwAniLength);
 
             // 일정 시간 후 던진 물체 삭제
             Destroy(cloneObject, 1.2f);
@@ -152,6 +161,10 @@ public class ThrowingMonster : MonoBehaviour
             Rigidbody2D objectRigid = cloneObject.GetComponent<Rigidbody2D>();
 
             objectRigid.velocity = throwPoint.right * throwForce; // 오른쪽으로 던지기
+
+            // 던지는 애니메이션 끝날 때까지 대기
+            float throwAniLength = 1f;
+            Invoke("Move", throwAniLength);
 
             // 일정 시간 후 던진 물체 삭제
             Destroy(cloneObject, 1.2f);
