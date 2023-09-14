@@ -126,4 +126,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doRespawn: 0
   doRegen: 1
-  damage: 0
+  damage: 20
