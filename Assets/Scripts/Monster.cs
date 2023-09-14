@@ -78,7 +78,7 @@ public class Monster : MonoBehaviour
 
         if (randomMovement == 0) // 왼쪽 이동
         {
-            newScale.x = Mathf.Abs(newScale.x); // 양수가 되도록
+            newScale.x = -Mathf.Abs(newScale.x);
             rigid.velocity = new Vector2(-moveSpeed, rigid.velocity.y);
             anim.SetBool("isRunning", true);
         }
@@ -89,7 +89,7 @@ public class Monster : MonoBehaviour
         }
         else if (randomMovement == 2) // 오른쪽 이동
         {
-            newScale.x = -Mathf.Abs(newScale.x); // 좌우로 반전
+            newScale.x = Mathf.Abs(newScale.x);
             rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
             anim.SetBool("isRunning", true);
         }
