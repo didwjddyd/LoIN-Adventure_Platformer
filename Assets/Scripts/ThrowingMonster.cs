@@ -9,12 +9,14 @@ public class ThrowingMonster : MonoBehaviour
     private float maxRight;
     private int randomMovement;
     private bool hasThrown = false; // 물체를 던진 상태인지 여부
-    private float moveSpeed = 6f; // 몬스터의 이동 속도
 
+    public float moveSpeed = 6f; // 몬스터의 이동 속도
     public float moveDistance = 7f; // 이동 거리
     public float pauseTime = 3f; // 일정 거리 이동 후 쉬는 시간
+    public int damage = 20;
 
-    public GameObject throwObject; // 던지는 물체
+    public GameObject objectC; // 던지는 물체 C+
+    public GameObject objectF; // 던지는 물체 F
     public Transform throwPoint; // 물체 던지는 위치
     public float throwForce = 12f; // 던지는 힘
     public float maxThrowDistance = 8f; // 물체의 최대 이동 거리
@@ -94,7 +96,7 @@ public class ThrowingMonster : MonoBehaviour
 
                 hasThrown = true; // 물체를 던진 상태가 됨
                 anim.SetTrigger("throwTrigger");
-                Invoke("Throw", 0.5f);
+                Invoke("Throw", 0.3f);
             }
         }
         else if (randomMovement == 1) // 정지
@@ -114,7 +116,7 @@ public class ThrowingMonster : MonoBehaviour
 
                 hasThrown = true; // 물체를 던진 상태가 됨
                 anim.SetTrigger("throwTrigger");
-                Invoke("Throw", 0.5f);
+                Invoke("Throw", 0.3f);
 
                 anim.SetBool("isRunning", true);
             }
@@ -128,16 +130,27 @@ public class ThrowingMonster : MonoBehaviour
     {
         // 몬스터 이동 멈추기
         rigid.velocity = Vector2.zero;
+        int objNum = Random.Range(0, 2); // 랜덤으로 던질 오브젝트 호출
 
         if (randomMovement == 0) // 왼쪽으로 이동할 때
         {
             // throwPoint보다 2만큼 왼쪽에서 던지기
             Vector3 throwOffset = new Vector3(-2f, 0f, 0f);
             Vector3 throwPosition = throwPoint.position + throwOffset;
+            GameObject cloneObject;
 
             // 물체 생성
-            GameObject cloneObject
-                = Instantiate(throwObject, throwPosition, Quaternion.identity);
+            if (objNum == 0)
+            {
+                cloneObject
+                = Instantiate(objectC, throwPosition, Quaternion.identity);
+            }
+            else
+            {
+                cloneObject
+                = Instantiate(objectF, throwPosition, Quaternion.identity);
+            }
+            
             Rigidbody2D objectRigid = cloneObject.GetComponent<Rigidbody2D>();
 
             objectRigid.velocity = -throwPoint.right * throwForce; // 왼쪽으로 던지기
@@ -154,10 +167,20 @@ public class ThrowingMonster : MonoBehaviour
             // throwPoint보다 2만큼 오른쪽에서 던지기
             Vector3 throwOffset = new Vector3(2f, 0f, 0f);
             Vector3 throwPosition = throwPoint.position + throwOffset;
+            GameObject cloneObject;
 
             // 물체 생성
-            GameObject cloneObject
-                = Instantiate(throwObject, throwPosition, Quaternion.identity);
+            if (objNum == 0)
+            {
+                cloneObject
+                = Instantiate(objectC, throwPosition, Quaternion.identity);
+            }
+            else
+            {
+                cloneObject
+                = Instantiate(objectF, throwPosition, Quaternion.identity);
+            }
+
             Rigidbody2D objectRigid = cloneObject.GetComponent<Rigidbody2D>();
 
             objectRigid.velocity = throwPoint.right * throwForce; // 오른쪽으로 던지기
@@ -170,6 +193,15 @@ public class ThrowingMonster : MonoBehaviour
             Destroy(cloneObject, 1.2f);
         }
 
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Player player = collision.gameObject.GetComponent<Player>();
+            player.curHealth -= damage;
+        }
     }
 
 }

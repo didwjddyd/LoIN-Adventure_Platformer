@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
 public class Monster : MonoBehaviour
 {
     private float initialPosition;
     private float maxLeft;
     private float maxRight;
     private int randomMovement;
-    private float moveSpeed = 3.5f; // 몬스터의 이동 속도
 
+    public float moveSpeed = 3.5f; // 몬스터의 이동 속도
     public float moveDistance = 6f; // 이동 거리
     public float pauseTime = 1f; // 일정 거리 이동 후 쉬는 시간
+    public int damage = 20;
 
     Rigidbody2D rigid;
     Animator anim;
@@ -95,5 +95,14 @@ public class Monster : MonoBehaviour
         }
 
         transform.localScale = newScale;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Player player = collision.gameObject.GetComponent<Player>();
+            player.curHealth -= damage;
+        }
     }
 }
