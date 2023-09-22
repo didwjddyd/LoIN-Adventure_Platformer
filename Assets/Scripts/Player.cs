@@ -30,6 +30,8 @@ public class Player : MonoBehaviour
     public GameObject[] dressState;
     public int coin;
 
+    private Vector3 boxSize;
+
     public void Awake()
     {
         jumpPower = 12f;
@@ -62,7 +64,6 @@ public class Player : MonoBehaviour
             if (inputJump && !isJumping)
             {
                 inputJump = false;
-                rigid.velocity = Vector2.zero;
                 Vector2 jumpVelocity = Vector2.up * jumpPower;
                 rigid.AddForce(jumpVelocity, ForceMode2D.Impulse);
                 isJumping = true;
@@ -73,34 +74,77 @@ public class Player : MonoBehaviour
             {
                 rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0f, rigid.velocity.y);
             }
-
-            // Sprite Flip by Move Direction
-            if (inputVector.x != 0)
-            {
-                spriteRenderer.flipX = inputVector.x == -1;
-            }
-
-            if (curHealth <= 0)
-            {
-                Dead();
-            }
-            if (rigid.position.y <= -10)
-            {
-                Dead();
-            }
-
-            if (Mathf.Abs(rigid.velocity.x) < 0.3)
-            {
-                //anim.SetBool("isWalking", false);
-            }
             else
             {
-                //anim.SetBool("isWalking", true);
+                // Sprite Flip by Move Direction
+                spriteRenderer.flipX = inputVector.x == -1;
+
+                // set maxspeed
+                if (rigid.velocity.x > maxSpeed) // Right Speed
+                    rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y);
+                else if (rigid.velocity.x < maxSpeed * -1) // Left Speed
+                    rigid.velocity = new Vector2(maxSpeed * -1, rigid.velocity.y);
+            }
+
+            if (curHealth <= 0 || rigid.position.y <= -10)
+            {
+                Dead();
             }
         }
     }
 
     void FixedUpdate()
+    {
+        DressState();
+
+        if (isLive)
+        {
+            //Move By Key Control
+            float hor = inputVector.x;
+            rigid.AddForce(Vector2.right * hor, ForceMode2D.Impulse);
+
+            //walking animation
+            if(inputVector != new Vector2(0, 0))
+                anim.SetBool("isWalk", true);
+            else
+                anim.SetBool("isWalk", false);
+        }
+
+        // Landing Platform using BoxCast
+        if (rigid.velocity.y < 0)
+        {
+            // set box size
+            if (transform.localScale == new Vector3(1f, 1f, 1f))
+                boxSize = new Vector3(0.9f, 0.5f, 1);
+            else
+                boxSize = new Vector3(0.6f, 0.35f, 1);
+
+            // BoxCast
+            RaycastHit2D boxHit = Physics2D.BoxCast(transform.position, boxSize, 0f,
+                Vector2.down, boxSize.y + 0.1f, LayerMask.GetMask("Platform"));
+
+            if (boxHit.collider != null)
+            {
+                rigid.velocity = new Vector2(rigid.velocity.x, 0);
+
+                isJumping = false;
+                inputJump = false;
+
+                anim.SetBool("isJump", false);
+            }
+            else
+            {
+                inputJump = false;
+            }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position + Vector3.down * (boxSize.y + 0.1f), boxSize);
+    }
+
+    void DressState()
     {
         //character dress state
         for (int i = 0; i < dressState.Length; i++)
@@ -113,52 +157,6 @@ public class Player : MonoBehaviour
             }
             else
                 dressState[i].SetActive(false);
-        }
-
-        if (isLive)
-        {
-            //Move By Key Control
-            float hor = inputVector.x;
-            rigid.AddForce(Vector2.right * hor, ForceMode2D.Impulse);
-
-            // set maxspeed
-            if (rigid.velocity.x > maxSpeed) // Right Speed
-                rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y);
-            else if (rigid.velocity.x < maxSpeed * -1) // Left Speed
-                rigid.velocity = new Vector2(maxSpeed * -1, rigid.velocity.y);
-
-            //walking animation
-            if(inputVector != new Vector2(0, 0))
-                anim.SetBool("isWalk", true);
-            else
-                anim.SetBool("isWalk", false);
-        }
-
-        // Landing Platform using BoxCast
-        if (rigid.velocity.y < 0)
-        {
-            Debug.DrawRay(rigid.position, Vector3.down, new Color(0, 1, 0));
-
-            Vector3 boxSize = new Vector3(1.2f, 1, 1); // set box size
-
-            // BoxCast
-            RaycastHit2D boxHit = Physics2D.BoxCast(rigid.position, boxSize / 2, 0f,
-                Vector2.down, 2, LayerMask.GetMask("Platform"));
-
-            if (boxHit.collider != null)
-            {
-                if (boxHit.distance < 1f)
-                {
-                    isJumping = false;
-                    inputJump = false;
-
-                    anim.SetBool("isJump", false);
-                }
-            }
-            else
-            {
-                inputJump = false;
-            }
         }
     }
 

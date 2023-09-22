@@ -56,7 +56,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -103,6 +103,7 @@ MonoBehaviour:
   moveSpeed: 6
   moveDistance: 7
   pauseTime: 2
+  damage: 20
   objectC: {fileID: 7534471389890025320, guid: 4dbb35a6054d04d408631d079bb44e98, type: 3}
   objectF: {fileID: 6076419686925910596, guid: 6e111df54ecf99a44b055f93cef106b9, type: 3}
   throwPoint: {fileID: 5717272887553107165}
