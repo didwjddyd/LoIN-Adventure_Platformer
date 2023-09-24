@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 5717272887553107165}
   - component: {fileID: 5717272887553107164}
-  - component: {fileID: 8071492793998356529}
   - component: {fileID: 4874984478956590178}
   - component: {fileID: -8992171992383696696}
   - component: {fileID: 6551196788285379736}
+  - component: {fileID: 8736065355595691591}
+  - component: {fileID: -8831040327315963887}
   m_Layer: 0
   m_Name: President
   m_TagString: Untagged
@@ -88,22 +89,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8071492793998356529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5717272887553107155}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4cd46dc92b30974fbf7dcc3d6d970ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 3
-  moveDistance: 4
-  pauseTime: 1
-  damage: 20
 --- !u!95 &4874984478956590178
 Animator:
   serializedVersion: 5
@@ -159,7 +144,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.3, y: 0.05}
+  m_Offset: {x: 0.307647, y: 0.034706235}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -170,5 +155,37 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.4, y: 2.9}
+  m_Size: {x: 2.4458814, y: 2.9305875}
   m_EdgeRadius: 0
+--- !u!58 &8736065355595691591
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5717272887553107155}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &-8831040327315963887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5717272887553107155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19efddac9631f4fa5a3718a3eb0f11f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3.5
+  moveDistance: 6
+  pauseTime: 1
+  damage: 20
