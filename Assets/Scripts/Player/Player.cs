@@ -32,6 +32,13 @@ public class Player : MonoBehaviour
 
     private Vector3 boxSize;
 
+    public AudioClip walkSound;
+    public AudioClip jumpSound_Start;
+    public AudioClip jumpSound_Land;
+    public AudioClip damageSound;
+
+    AudioSource playerAudio;
+
     public void Awake()
     {
         jumpPower = 12f;
@@ -41,6 +48,7 @@ public class Player : MonoBehaviour
         isLive = true;
         spawnPoint = new Vector2(-1f, -1.4f);
         rigid = GetComponent<Rigidbody2D>();
+        playerAudio = GetComponent<AudioSource>();
     }
 
     #region Input System
@@ -73,6 +81,8 @@ public class Player : MonoBehaviour
             if (inputVector.x == 0)
             {
                 rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0f, rigid.velocity.y);
+
+                playerAudio.enabled = false;
             }
             else
             {
@@ -104,8 +114,12 @@ public class Player : MonoBehaviour
             rigid.AddForce(Vector2.right * hor, ForceMode2D.Impulse);
 
             //walking animation
-            if(inputVector != new Vector2(0, 0))
+            if (inputVector != new Vector2(0, 0))
+            {
                 anim.SetBool("isWalk", true);
+                playerAudio.clip = walkSound;
+                playerAudio.enabled = true;
+            }
             else
                 anim.SetBool("isWalk", false);
         }
@@ -129,6 +143,8 @@ public class Player : MonoBehaviour
 
                 isJumping = false;
                 inputJump = false;
+
+                //playerAudio.PlayOneShot(jumpSound_Land, 0.5f);
 
                 anim.SetBool("isJump", false);
             }
