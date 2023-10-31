@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using UnityEngine;
 
 /*
@@ -10,22 +11,29 @@ using UnityEngine;
  * 사라진 후 2초 뒤에 재생성
  */
 
-[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(AudioSource))]
 public class SideTrap : MonoBehaviour
 {   
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
+    AudioSource sideAudio;
 
     Vector2 spawnPoint;
 
     public float delta = 10f;
     public float damage = 20f;
 
+    public AudioClip sideSound;
+
     // Start is called before the first frame update
     void Start()
     {   
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        sideAudio = GetComponent<AudioSource>();
+
+        sideAudio.clip = sideSound;
+
         spawnPoint = transform.position;
     }
 
@@ -53,6 +61,8 @@ public class SideTrap : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             rigid.AddForce(Vector2.left * 150.0f); // 수정 필요
+
+            sideAudio.Play();
         }
     }
 
@@ -61,8 +71,9 @@ public class SideTrap : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Player player = collision.gameObject.GetComponent<Player>();
-            player.curHealth -= damage;
-            
+            //player.curHealth -= damage;
+            player.GetDamage(damage);
+
             gameObject.SetActive(false);
             Invoke("Init", 2);
         }

@@ -11,21 +11,28 @@ using UnityEngine;
  */
 
 [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D), typeof(BoxCollider2D))]
+[RequireComponent(typeof(AudioSource))]
 public class FallingTrap : MonoBehaviour
 {   
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
+    AudioSource fallingAudio;
 
     Vector2 spawnPoint;
 
     public float damage = 20f;
+
+    public AudioClip fallingSound;
 
     // Start is called before the first frame update
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        fallingAudio = GetComponent<AudioSource>();
         
+        fallingAudio.clip = fallingSound;
+
         spawnPoint = transform.position;
     }
 
@@ -44,6 +51,7 @@ public class FallingTrap : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             rigid.isKinematic = false;
+            fallingAudio.Play();
         }
     }
 
@@ -52,8 +60,9 @@ public class FallingTrap : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Player player = collision.gameObject.GetComponent<Player>();
-            player.curHealth -= damage;
-            
+            //player.curHealth -= damage;
+            player.GetDamage(damage);
+
             gameObject.SetActive(false);
             Invoke("Init", 2);
         }

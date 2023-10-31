@@ -5,36 +5,21 @@ using UnityEngine;
 
 public class CameraChanger : MonoBehaviour
 {
-    [SerializeField]
-    int cameraPriorityOffset = 5;
+    public int cameraPriorityOffset = 7;
 
-    public CinemachineVirtualCamera[] cameras = new CinemachineVirtualCamera[2];
-
-    float priorityOffset = 10f;
+    public CinemachineVirtualCamera[] cameras;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        switch (collision.gameObject.layer)
-        {
-            case 7: // VCamLayer1
-                cameras[0].Priority += cameraPriorityOffset;
-                break;
-            case 9: // VCamLayer3
-                cameras[1].Priority += cameraPriorityOffset;
-                break;
-        }
+        int index = collision.gameObject.layer - cameraPriorityOffset; // 0 ~ 4
+
+        cameras[index].Priority += cameraPriorityOffset;
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        switch (collision.gameObject.layer)
-        {
-            case 7: // VCamLayer1
-                cameras[0].Priority -= cameraPriorityOffset;
-                break;
-            case 9: // VCamLayer3
-                cameras[1].Priority -= cameraPriorityOffset;
-                break;
-        }
+        int index = collision.gameObject.layer - cameraPriorityOffset; // 0 ~ 4
+
+        cameras[index].Priority -= cameraPriorityOffset;
     }
 }

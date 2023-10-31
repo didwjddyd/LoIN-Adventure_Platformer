@@ -74,7 +74,9 @@ public class LightTrap : MonoBehaviour
         {
             Player player = collision.gameObject.GetComponent<Player>();
 
-            player.curHealth -= 20;
+            //player.curHealth -= 20;
+
+            player.GetDamage(20); // damage 변수가 없음
         }
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // �̱������� ����
+    // singleton
     public static GameManager instance;
 
     public float gameTime;

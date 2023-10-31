@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -37,7 +38,9 @@ public class Player : MonoBehaviour
     public AudioClip jumpSound_Land;
     public AudioClip damageSound;
 
-    AudioSource playerAudio;
+    public AudioSource walkAudio;
+    public AudioSource jumpAudio;
+    public AudioSource damageAudio;
 
     public void Awake()
     {
@@ -46,9 +49,10 @@ public class Player : MonoBehaviour
         maxHealth = 120f;
         curHealth = maxHealth;
         isLive = true;
-        spawnPoint = new Vector2(-1f, -1.4f);
         rigid = GetComponent<Rigidbody2D>();
-        playerAudio = GetComponent<AudioSource>();
+        
+        walkAudio.clip = walkSound;
+        walkAudio.loop = true;
     }
 
     #region Input System
@@ -72,6 +76,10 @@ public class Player : MonoBehaviour
             if (inputJump && !isJumping)
             {
                 inputJump = false;
+
+                jumpAudio.clip = jumpSound_Start;
+                jumpAudio.Play();
+
                 Vector2 jumpVelocity = Vector2.up * jumpPower;
                 rigid.AddForce(jumpVelocity, ForceMode2D.Impulse);
                 isJumping = true;
@@ -81,8 +89,6 @@ public class Player : MonoBehaviour
             if (inputVector.x == 0)
             {
                 rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0f, rigid.velocity.y);
-
-                playerAudio.enabled = false;
             }
             else
             {
@@ -117,15 +123,22 @@ public class Player : MonoBehaviour
             if (inputVector != new Vector2(0, 0))
             {
                 anim.SetBool("isWalk", true);
-                playerAudio.clip = walkSound;
-                playerAudio.enabled = true;
+
+                // paly walking sound if not jumping
+                if (!isJumping) walkAudio.enabled = true;
+                else walkAudio.enabled = false;
             }
             else
+            {
                 anim.SetBool("isWalk", false);
+
+                // turn off walking sound
+                walkAudio.enabled = false;
+            }
         }
 
         // Landing Platform using BoxCast
-        if (rigid.velocity.y < 0)
+        if (rigid.velocity.y < -2)
         {
             // set box size
             if (transform.localScale == new Vector3(1f, 1f, 1f))
@@ -144,7 +157,8 @@ public class Player : MonoBehaviour
                 isJumping = false;
                 inputJump = false;
 
-                //playerAudio.PlayOneShot(jumpSound_Land, 0.5f);
+                jumpAudio.clip = jumpSound_Land;
+                jumpAudio.Play();
 
                 anim.SetBool("isJump", false);
             }
@@ -194,5 +208,12 @@ public class Player : MonoBehaviour
         transform.localScale = new Vector3(1f, 1f, 1f);
         jumpPower = 12f;
         maxSpeed = 5f;
+    }
+
+    public void GetDamage(float damage)
+    {
+        curHealth -= damage;
+        damageAudio.clip = damageSound;
+        damageAudio.Play();
     }
 }

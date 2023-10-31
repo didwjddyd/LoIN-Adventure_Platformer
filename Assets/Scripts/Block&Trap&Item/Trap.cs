@@ -42,7 +42,8 @@ public class Trap : MonoBehaviour
             if (doRespawn)
                 player.Dead();
             else
-                player.curHealth -= damage;
+                //player.curHealth -= damage;
+                player.GetDamage(damage);
 
             if (doRegen)
             {
