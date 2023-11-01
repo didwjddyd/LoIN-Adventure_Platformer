@@ -5,21 +5,33 @@ using UnityEngine;
 
 public class CameraChanger : MonoBehaviour
 {
-    public int cameraPriorityOffset = 7;
+    int cameraPriorityOffset = 7;
 
     public CinemachineVirtualCamera[] cameras;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        int index = collision.gameObject.layer - cameraPriorityOffset; // 0 ~ 4
+        if(collision.gameObject.tag == "CameraConfiner")
+        {
+            int index = collision.gameObject.layer - cameraPriorityOffset; // 0 ~ 4
 
-        cameras[index].Priority += cameraPriorityOffset;
+            //print("Enter Layer: " + collision.gameObject.layer);
+            //print("Enter: " + index);
+
+            cameras[index].Priority += cameraPriorityOffset;
+        }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        int index = collision.gameObject.layer - cameraPriorityOffset; // 0 ~ 4
+        if(collision.gameObject.tag == "CameraConfiner")
+        {
+            int index = collision.gameObject.layer - cameraPriorityOffset; // 0 ~ 4
 
-        cameras[index].Priority -= cameraPriorityOffset;
+            //print("Exit Layer: " + collision.gameObject.layer);
+            //print("Exit: " + index);
+
+            cameras[index].Priority -= cameraPriorityOffset;
+        }
     }
 }

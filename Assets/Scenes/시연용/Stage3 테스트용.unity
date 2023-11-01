@@ -20696,6 +20696,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 952738514}
     m_Modifications:
     - target: {fileID: 4047790108707587968, guid: 935a141f7d070ec4a9eec35518c9cfda, type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4047790108707587968, guid: 935a141f7d070ec4a9eec35518c9cfda, type: 3}
       propertyPath: m_Name
       value: "\uAC00\uC2DC (317)"
       objectReference: {fileID: 0}
@@ -102423,7 +102427,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.4
+  m_Intensity: 0.7
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
   m_ApplyToSortingLayers: 00000000

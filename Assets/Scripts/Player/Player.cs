@@ -237,7 +237,7 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // set roof sound
-        if(collision.gameObject.layer == 11) // roof camera confiner layer
+        if(collision.gameObject.layer == 9) // roof camera confiner layer
         {
             currentWalkSound = walkSoundRoof;
             currentJumpSoundStart = jumpSoundStartRoof;
@@ -253,7 +253,7 @@ public class Player : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         // set non-roof sound
-        if(collision.gameObject.layer == 11) // roof camera confiner layer
+        if(collision.gameObject.layer == 9) // roof camera confiner layer
         {
             currentWalkSound = walkSound;
             currentJumpSoundStart = jumpSoundStart;

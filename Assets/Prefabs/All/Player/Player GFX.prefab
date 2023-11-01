@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 4267037452278402905}
   - component: {fileID: 5196731555124119711}
   - component: {fileID: 7428760855553892135}
+  - component: {fileID: -6219153184044472843}
   m_Layer: 0
   m_Name: Player GFX
   m_TagString: Player
@@ -88,8 +89,11 @@ MonoBehaviour:
   - {fileID: 7853606001694375447}
   coin: 0
   walkSound: {fileID: 8300000, guid: df3bc59ca75f5b34b914977f91508a2b, type: 3}
-  jumpSound_Start: {fileID: 8300000, guid: 8faf7b86187316d4a8b06162363f08e7, type: 3}
-  jumpSound_Land: {fileID: 8300000, guid: 62aaf304151153c41b9a566fd05c4d4a, type: 3}
+  jumpSoundStart: {fileID: 8300000, guid: 8faf7b86187316d4a8b06162363f08e7, type: 3}
+  jumpSoundLand: {fileID: 8300000, guid: 62aaf304151153c41b9a566fd05c4d4a, type: 3}
+  walkSoundRoof: {fileID: 8300000, guid: 7f5cf8e545b2f46489bdf0b0bad4ebdb, type: 3}
+  jumpSoundStartRoof: {fileID: 8300000, guid: 7912b314201ece141864a6c00b399cf4, type: 3}
+  jumpSoundLandRoof: {fileID: 8300000, guid: 116adac89525af844ba050fbcf12f0f1, type: 3}
   damageSound: {fileID: 8300000, guid: 9be6e5c48542916449fcc6129485d623, type: 3}
   walkAudio: {fileID: 4267037452278402905}
   jumpAudio: {fileID: 5196731555124119711}
@@ -158,7 +162,7 @@ MonoBehaviour:
   - {x: 0.25983572, y: -0.778913, z: 0}
   m_ShapePathHash: -242421163
   m_Mesh: {fileID: 0}
-  m_InstanceId: 64730
+  m_InstanceId: 84688
   m_LocalBounds:
     m_Center: {x: -0.0020554066, y: -0.0002090931, z: 0}
     m_Extent: {x: 0.461941, y: 0.7787039, z: 0}
@@ -485,6 +489,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-6219153184044472843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7645809593926202056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ba8eef77fb79e143a4049d95f0d453c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameras: []
 --- !u!1001 &7645809595872248116
 PrefabInstance:
   m_ObjectHideFlags: 0
