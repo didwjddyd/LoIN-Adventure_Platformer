@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -32,11 +33,22 @@ public class Player : MonoBehaviour
     public int coin;
 
     private Vector3 boxSize;
-
+    
+    // non-roof sound
     public AudioClip walkSound;
-    public AudioClip jumpSound_Start;
-    public AudioClip jumpSound_Land;
+    public AudioClip jumpSoundStart;
+    public AudioClip jumpSoundLand;
+
+    // roof sound
+    public AudioClip walkSoundRoof;
+    public AudioClip jumpSoundStartRoof;
+    public AudioClip jumpSoundLandRoof;
+
     public AudioClip damageSound;
+
+    AudioClip currentWalkSound;
+    AudioClip currentJumpSoundStart;
+    AudioClip currentJumpSoundLand;
 
     public AudioSource walkAudio;
     public AudioSource jumpAudio;
@@ -50,9 +62,14 @@ public class Player : MonoBehaviour
         curHealth = maxHealth;
         isLive = true;
         rigid = GetComponent<Rigidbody2D>();
-        
-        walkAudio.clip = walkSound;
+
+        // set default sound: non-roof
+        currentWalkSound = walkSound;
+        walkAudio.clip = currentWalkSound;
         walkAudio.loop = true;
+
+        currentJumpSoundStart = jumpSoundStart;
+        currentJumpSoundLand = jumpSoundLand;
     }
 
     #region Input System
@@ -77,7 +94,7 @@ public class Player : MonoBehaviour
             {
                 inputJump = false;
 
-                jumpAudio.clip = jumpSound_Start;
+                jumpAudio.clip = currentJumpSoundStart;
                 jumpAudio.Play();
 
                 Vector2 jumpVelocity = Vector2.up * jumpPower;
@@ -157,7 +174,7 @@ public class Player : MonoBehaviour
                 isJumping = false;
                 inputJump = false;
 
-                jumpAudio.clip = jumpSound_Land;
+                jumpAudio.clip = currentJumpSoundLand;
                 jumpAudio.Play();
 
                 anim.SetBool("isJump", false);
@@ -215,5 +232,36 @@ public class Player : MonoBehaviour
         curHealth -= damage;
         damageAudio.clip = damageSound;
         damageAudio.Play();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // set roof sound
+        if(collision.gameObject.layer == 11) // roof camera confiner layer
+        {
+            currentWalkSound = walkSoundRoof;
+            currentJumpSoundStart = jumpSoundStartRoof;
+            currentJumpSoundLand = jumpSoundLandRoof;
+
+
+            //print(currentWalkSound);
+            //print(currentJumpSoundStart);
+            //print(currentJumpSoundLand);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        // set non-roof sound
+        if(collision.gameObject.layer == 11) // roof camera confiner layer
+        {
+            currentWalkSound = walkSound;
+            currentJumpSoundStart = jumpSoundStart;
+            currentJumpSoundLand = jumpSoundLand;
+
+            //print(currentWalkSound);
+            //print(currentJumpSoundStart);
+            //print(currentJumpSoundLand);
+        }
     }
 }
