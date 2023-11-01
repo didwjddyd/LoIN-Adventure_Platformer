@@ -3,39 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
- * 볼펜 제어
- * Trigger Collider에 플레이어 진입 시 왼쪽으로 delta만큼 움직임
+ * 연필, 지우개 제어
+ * Trigger Collider에 플레이어 진입 시 떨어짐
  * Non-Trigger Collider에 플레이어 충돌 시 데미지 주고 사라짐
- * delta만큼 이동했을 경우 사라짐
+ * Non-Trigger Collider에 바닥, 가시 충돌 시 사라짐
  * 사라진 후 2초 뒤에 재생성
  */
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class SideTrap : MonoBehaviour
+[RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D), typeof(BoxCollider2D))]
+[RequireComponent(typeof(AudioSource))]
+public class FallingTrap : MonoBehaviour
 {   
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
+    AudioSource fallingAudio;
 
     Vector2 spawnPoint;
 
-    public float delta = 10f;
     public float damage = 20f;
+
+    public AudioClip fallingSound;
 
     // Start is called before the first frame update
     void Start()
-    {   
+    {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        spawnPoint = transform.position;
-    }
+        fallingAudio = GetComponent<AudioSource>();
+        
+        fallingAudio.clip = fallingSound;
 
-    private void Update()
-    {
-        if (rigid.position.x <= spawnPoint.x - delta)
-        {
-            gameObject.SetActive(false);
-            Invoke("Init", 2);
-        }
+        spawnPoint = transform.position;
     }
 
     IEnumerator FadeIn()
@@ -52,7 +50,8 @@ public class SideTrap : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            rigid.AddForce(Vector2.left * 150.0f); // 수정 필요
+            rigid.isKinematic = false;
+            fallingAudio.Play();
         }
     }
 
@@ -61,8 +60,9 @@ public class SideTrap : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Player player = collision.gameObject.GetComponent<Player>();
-            player.curHealth -= damage;
-            
+            //player.curHealth -= damage;
+            player.GetDamage(damage);
+
             gameObject.SetActive(false);
             Invoke("Init", 2);
         }
@@ -77,9 +77,10 @@ public class SideTrap : MonoBehaviour
     private void Init()
     {
         rigid.velocity = new Vector2(0, 0);
-        gameObject.transform.position = spawnPoint;
+        transform.position = spawnPoint;
         gameObject.SetActive(true);
         
         StartCoroutine("FadeIn");
+        rigid.isKinematic = true;
     }
 }

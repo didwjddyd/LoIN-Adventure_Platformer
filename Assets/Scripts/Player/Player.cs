@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -31,6 +33,26 @@ public class Player : MonoBehaviour
     public int coin;
 
     private Vector3 boxSize;
+    
+    // non-roof sound
+    public AudioClip walkSound;
+    public AudioClip jumpSoundStart;
+    public AudioClip jumpSoundLand;
+
+    // roof sound
+    public AudioClip walkSoundRoof;
+    public AudioClip jumpSoundStartRoof;
+    public AudioClip jumpSoundLandRoof;
+
+    public AudioClip damageSound;
+
+    AudioClip currentWalkSound;
+    AudioClip currentJumpSoundStart;
+    AudioClip currentJumpSoundLand;
+
+    public AudioSource walkAudio;
+    public AudioSource jumpAudio;
+    public AudioSource damageAudio;
 
     public void Awake()
     {
@@ -39,8 +61,15 @@ public class Player : MonoBehaviour
         maxHealth = 120f;
         curHealth = maxHealth;
         isLive = true;
-        spawnPoint = new Vector2(-1f, -1.4f);
         rigid = GetComponent<Rigidbody2D>();
+
+        // set default sound: non-roof
+        currentWalkSound = walkSound;
+        walkAudio.clip = currentWalkSound;
+        walkAudio.loop = true;
+
+        currentJumpSoundStart = jumpSoundStart;
+        currentJumpSoundLand = jumpSoundLand;
     }
 
     #region Input System
@@ -64,6 +93,10 @@ public class Player : MonoBehaviour
             if (inputJump && !isJumping)
             {
                 inputJump = false;
+
+                jumpAudio.clip = currentJumpSoundStart;
+                jumpAudio.Play();
+
                 Vector2 jumpVelocity = Vector2.up * jumpPower;
                 rigid.AddForce(jumpVelocity, ForceMode2D.Impulse);
                 isJumping = true;
@@ -104,14 +137,25 @@ public class Player : MonoBehaviour
             rigid.AddForce(Vector2.right * hor, ForceMode2D.Impulse);
 
             //walking animation
-            if(inputVector != new Vector2(0, 0))
+            if (inputVector != new Vector2(0, 0))
+            {
                 anim.SetBool("isWalk", true);
+
+                // paly walking sound if not jumping
+                if (!isJumping) walkAudio.enabled = true;
+                else walkAudio.enabled = false;
+            }
             else
+            {
                 anim.SetBool("isWalk", false);
+
+                // turn off walking sound
+                walkAudio.enabled = false;
+            }
         }
 
         // Landing Platform using BoxCast
-        if (rigid.velocity.y < 0)
+        if (rigid.velocity.y < -2)
         {
             // set box size
             if (transform.localScale == new Vector3(1f, 1f, 1f))
@@ -129,6 +173,9 @@ public class Player : MonoBehaviour
 
                 isJumping = false;
                 inputJump = false;
+
+                jumpAudio.clip = currentJumpSoundLand;
+                jumpAudio.Play();
 
                 anim.SetBool("isJump", false);
             }
@@ -178,5 +225,43 @@ public class Player : MonoBehaviour
         transform.localScale = new Vector3(1f, 1f, 1f);
         jumpPower = 12f;
         maxSpeed = 5f;
+    }
+
+    public void GetDamage(float damage)
+    {
+        curHealth -= damage;
+        damageAudio.clip = damageSound;
+        damageAudio.Play();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        // set roof sound
+        if(collision.gameObject.layer == 9) // roof camera confiner layer
+        {
+            currentWalkSound = walkSoundRoof;
+            currentJumpSoundStart = jumpSoundStartRoof;
+            currentJumpSoundLand = jumpSoundLandRoof;
+
+
+            //print(currentWalkSound);
+            //print(currentJumpSoundStart);
+            //print(currentJumpSoundLand);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        // set non-roof sound
+        if(collision.gameObject.layer == 9) // roof camera confiner layer
+        {
+            currentWalkSound = walkSound;
+            currentJumpSoundStart = jumpSoundStart;
+            currentJumpSoundLand = jumpSoundLand;
+
+            //print(currentWalkSound);
+            //print(currentJumpSoundStart);
+            //print(currentJumpSoundLand);
+        }
     }
 }

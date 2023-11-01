@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,21 +11,27 @@ public class ThrowingMonster : MonoBehaviour
     private int randomMovement;
     private bool hasThrown = false; // 물체를 던진 상태인지 여부
 
+    //----------temp variable----------
+    int isRunningHash;
+    int throwTriggerHash;
+    //----------temp variable----------
+
     public float moveSpeed = 6f; // 몬스터의 이동 속도
-    public float moveDistance = 7f; // 이동 거리
+    public float moveDistance = 7f; // 이동 반경
     public float pauseTime = 3f; // 일정 거리 이동 후 쉬는 시간
     public int damage = 20;
 
-    public GameObject objectC; // 던지는 물체 C+
-    public GameObject objectF; // 던지는 물체 F
-    public Transform throwPoint; // 물체 던지는 위치
+    public GameObject[] throwObjects; // 던지는 오브젝트 배열
     public float throwForce = 12f; // 던지는 힘
     public float maxThrowDistance = 8f; // 물체의 최대 이동 거리
+
+    public AudioClip throwSound;
 
     Rigidbody2D rigid;
     Animator anim;
     SpriteRenderer spriteRenderer;
     BoxCollider2D boxCollider;
+    AudioSource monsterAudio;
 
     void Awake()
     {
@@ -36,19 +43,29 @@ public class ThrowingMonster : MonoBehaviour
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider2D>();
+        monsterAudio = GetComponent<AudioSource>();
+
+        isRunningHash = Animator.StringToHash("isRunning");
+        throwTriggerHash = Animator.StringToHash("throwTrigger");
+
+        //print("maxLeft: " + maxLeft);
+        //print("maxRight: " + maxRight);
     }
 
     void Start()
     {
-        StartCoroutine("Move");
+        //StartCoroutine("Move");
+        StartCoroutine(nameof(New_Move));
     }
 
 
-    void FixedUpdate()
+    void Update()
     {
-        MovePattern(randomMovement);
+        //MovePattern(randomMovement);
+        New_MovePattern();
     }
 
+    #region Old System
     IEnumerator Move()
     {
         // 0: 왼쪽 이동, 1: 정지, 2: 오른쪽 이동
@@ -57,7 +74,7 @@ public class ThrowingMonster : MonoBehaviour
         if (transform.position.x <= maxLeft) // 왼쪽 끝에 도달한 경우
         {
             rigid.velocity = Vector2.zero;
-            anim.SetBool("isRunning", true);
+            anim.SetBool("isRunning", false);
 
             yield return new WaitForSeconds(pauseTime);
 
@@ -118,9 +135,8 @@ public class ThrowingMonster : MonoBehaviour
                 anim.SetTrigger("throwTrigger");
                 Invoke("Throw", 0.3f);
 
-                anim.SetBool("isRunning", true);
+                //anim.SetBool("isRunning", true);
             }
-
         }
 
         transform.localScale = newScale;
@@ -128,6 +144,12 @@ public class ThrowingMonster : MonoBehaviour
 
     void Throw()
     {
+        //----------에러 방지를 위해 임시로 선언----------
+        Transform throwPoint = gameObject.transform;
+        GameObject objectC = new GameObject();
+        GameObject objectF = new GameObject();
+        //----------에러 방지를 위해 임시로 선언----------
+
         // 몬스터 이동 멈추기
         rigid.velocity = Vector2.zero;
         int objNum = Random.Range(0, 2); // 랜덤으로 던질 오브젝트 호출
@@ -157,7 +179,8 @@ public class ThrowingMonster : MonoBehaviour
 
             // 던지는 애니메이션 끝날 때까지 대기
             float throwAniLength = 1f;
-            Invoke("ContinueMovement", throwAniLength);
+
+            Invoke("Move", throwAniLength);
 
             // 일정 시간 후 던진 물체 삭제
             Destroy(cloneObject, 1.2f);
@@ -187,11 +210,100 @@ public class ThrowingMonster : MonoBehaviour
 
             // 던지는 애니메이션 끝날 때까지 대기
             float throwAniLength = 1f;
+
             Invoke("Move", throwAniLength);
 
             // 일정 시간 후 던진 물체 삭제
             Destroy(cloneObject, 1.2f);
         }
+    }
+    #endregion
+
+    //----------Refactoring----------
+    /*
+     * 1. separate move & attack pattern
+     * 2. move attack into coroutine
+     */
+    IEnumerator New_Move()
+    {
+        // 0: 공격, 1: 왼쪽 이동, 2: 정지, 3: 오른쪽 이동
+        randomMovement = Random.Range(0, 4);
+
+        if(randomMovement == 0) // 0: 공격
+        {
+            anim.SetTrigger(throwTriggerHash);
+            monsterAudio.PlayOneShot(throwSound, 0.6f);
+            Invoke(nameof(New_Throw), 0.3f);
+        }
+
+        #region 이동반경 제한 기능. 실제로 필요한 기능인지 잘 모르겠음
+        /*if (transform.position.x <= maxLeft) // 왼쪽 끝에 도달한 경우
+        {
+            
+            //rigid.velocity = Vector2.zero;
+            //anim.SetBool("isRunning", false);
+            
+
+            yield return new WaitForSeconds(pauseTime);
+
+            randomMovement = Random.Range(1, 3);
+        }
+        else if (transform.position.x >= maxRight) // 오른쪽 끝에 도달한 경우
+        {
+            
+            //rigid.velocity = Vector2.zero;
+            //anim.SetBool("isRunning", false);
+            
+
+            yield return new WaitForSeconds(pauseTime);
+
+            randomMovement = Random.Range(2, 4);
+        }*/
+        #endregion
+
+        yield return new WaitForSeconds(pauseTime);
+
+        StartCoroutine(nameof(New_Move));
+    }
+
+    void New_MovePattern()
+    {
+        // default, 2: 정지
+        rigid.velocity = Vector2.zero;
+        anim.SetBool(isRunningHash, false);
+
+        if (randomMovement == 1) // 1: 왼쪽 이동
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+
+            rigid.velocity = new Vector2(-moveSpeed, rigid.velocity.y);
+            anim.SetBool(isRunningHash, true);
+        }
+        else if (randomMovement == 3) // 3: 오른쪽 이동
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+
+            rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
+            anim.SetBool(isRunningHash, true);
+        }
+    }
+
+    void New_Throw()
+    {
+        int objNum = Random.Range(0, 2); // 랜덤으로 던질 오브젝트 호출
+        float throwDirection = transform.localScale.x;
+
+        // set cloneObject's spawn point
+        Vector3 throwOffset = new Vector3(2f * throwDirection, 0f, 0f);
+        Vector3 throwPoint = transform.position + throwOffset;
+
+        // Instantiate
+        GameObject cloneObject = Instantiate(throwObjects[objNum], throwPoint, Quaternion.identity);
+
+        // setting cloneObject's RigidBody2D.velocity
+        Rigidbody2D objectRigid = cloneObject.GetComponent<Rigidbody2D>();
+
+        objectRigid.velocity = transform.right * throwDirection * throwForce; // 바라보는 방향으로 던지기
 
     }
 
@@ -203,5 +315,4 @@ public class ThrowingMonster : MonoBehaviour
             player.curHealth -= damage;
         }
     }
-
 }
