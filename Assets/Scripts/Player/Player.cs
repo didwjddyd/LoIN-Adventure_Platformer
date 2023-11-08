@@ -45,14 +45,16 @@ public class Player : MonoBehaviour
     public AudioClip jumpSoundLandRoof;
 
     public AudioClip damageSound;
+    public AudioClip itemSound;
 
+    // current AudioClip
     AudioClip currentWalkSound;
     AudioClip currentJumpSoundStart;
     AudioClip currentJumpSoundLand;
 
     public AudioSource walkAudio;
     public AudioSource jumpAudio;
-    public AudioSource damageAudio;
+    public AudioSource otherAudio;
 
     public void Awake()
     {
@@ -230,8 +232,8 @@ public class Player : MonoBehaviour
     public void GetDamage(float damage)
     {
         curHealth -= damage;
-        damageAudio.clip = damageSound;
-        damageAudio.Play();
+        otherAudio.clip = damageSound;
+        otherAudio.Play();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
