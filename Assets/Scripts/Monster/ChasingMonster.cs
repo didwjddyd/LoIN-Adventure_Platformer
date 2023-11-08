@@ -22,7 +22,6 @@ public class ChasingMonster : MonoBehaviour
     BoxCollider2D boxCollider;
     CircleCollider2D circleCollider;
 
-
     void Awake()
     {
         initialPosition = transform.position.x; // 맨 처음 몬스터의 위치
@@ -37,67 +36,12 @@ public class ChasingMonster : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine("Move");
-    }
 
+    }
 
     void FixedUpdate()
     {
-        MovePattern(randomMovement);
-    }
 
-    IEnumerator Move()
-    {
-        // 0: 왼쪽 이동, 1: 정지, 2: 오른쪽 이동
-        randomMovement = Random.Range(0, 3);
-
-        if (transform.position.x <= maxLeft) // 왼쪽 끝에 도달한 경우
-        {
-            rigid.velocity = Vector2.zero;
-            //anim.SetBool("isRunning", true);
-
-            yield return new WaitForSeconds(pauseTime);
-
-            randomMovement = Random.Range(1, 3); // 1: 정지, 2: 오른쪽 이동
-        }
-        else if (transform.position.x >= maxRight) // 오른쪽 끝에 도달한 경우
-        {
-            rigid.velocity = Vector2.zero;
-            //anim.SetBool("isRunning", false);
-
-            yield return new WaitForSeconds(pauseTime);
-
-            randomMovement = Random.Range(0, 2); // 0: 왼쪽 이동, 1: 정지
-        }
-
-        yield return new WaitForSeconds(pauseTime);
-
-        StartCoroutine("Move");
-    }
-
-    void MovePattern(int randomMovement)
-    {
-        Vector3 newScale = transform.localScale;
-
-        if (randomMovement == 0) // 왼쪽 이동
-        {
-            newScale.x = -Mathf.Abs(newScale.x);
-            rigid.velocity = new Vector2(-moveSpeed, rigid.velocity.y);
-            anim.SetBool("isRunning", true);
-        }
-        else if (randomMovement == 1) // 정지
-        {
-            rigid.velocity = Vector2.zero;
-            anim.SetBool("isRunning", false);
-        }
-        else if (randomMovement == 2) // 오른쪽 이동
-        {
-            newScale.x = Mathf.Abs(newScale.x);
-            rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
-            anim.SetBool("isRunning", true);
-        }
-
-        transform.localScale = newScale;
     }
 
     IEnumerator Trace()
@@ -111,7 +55,8 @@ public class ChasingMonster : MonoBehaviour
             if (playerPos.x < transform.position.x) // 왼쪽
             {
                 moveVelocity = Vector3.left;
-                transform.localScale = new Vector3(-1, 1, 1);
+                Vector3 newScale = transform.localScale;
+                newScale = new Vector3(-1, 1, 1);
 
                 playerPos.x = -Mathf.Abs(playerPos.x);
                 rigid.velocity = new Vector2(-moveSpeed, rigid.velocity.y);
@@ -120,7 +65,8 @@ public class ChasingMonster : MonoBehaviour
             else if (playerPos.x > transform.position.x) // 오른쪽
             {
                 moveVelocity = Vector3.right;
-                transform.localScale = new Vector3(1, 1, 1);
+                Vector3 newScale = transform.localScale;
+                newScale = new Vector3(1, 1, 1);
 
                 playerPos.x = Mathf.Abs(playerPos.x);
                 rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
@@ -137,8 +83,6 @@ public class ChasingMonster : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             targetPlayer = collision.gameObject;
-
-            StopCoroutine("Move"); // 기존의 이동 코루틴 정지
 
             StartCoroutine("Trace");
         }
@@ -164,8 +108,6 @@ public class ChasingMonster : MonoBehaviour
             isTracing = false;
 
             StopCoroutine("Trace");
-
-            StartCoroutine("Move"); // 기존의 이동 코루틴 실행
         }
     }
 
