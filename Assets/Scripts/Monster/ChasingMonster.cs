@@ -22,7 +22,6 @@ public class ChasingMonster : MonoBehaviour
     BoxCollider2D boxCollider;
     CircleCollider2D circleCollider;
 
-
     void Awake()
     {
         initialPosition = transform.position.x; // 맨 처음 몬스터의 위치
@@ -37,43 +36,13 @@ public class ChasingMonster : MonoBehaviour
 
     void Start()
     {
-        //StartCoroutine("Move");
-    }
 
+    }
 
     void FixedUpdate()
     {
-        //MovePattern(randomMovement);
+
     }
-
-    //IEnumerator Move()
-    //{
-    //    // 0: 왼쪽 이동, 1: 정지, 2: 오른쪽 이동
-    //    randomMovement = Random.Range(0, 3);
-
-    //    if (transform.position.x <= maxLeft) // 왼쪽 끝에 도달한 경우
-    //    {
-    //        rigid.velocity = Vector2.zero;
-    //        //anim.SetBool("isRunning", true);
-
-    //        yield return new WaitForSeconds(pauseTime);
-
-    //        randomMovement = Random.Range(1, 3); // 1: 정지, 2: 오른쪽 이동
-    //    }
-    //    else if (transform.position.x >= maxRight) // 오른쪽 끝에 도달한 경우
-    //    {
-    //        rigid.velocity = Vector2.zero;
-    //        //anim.SetBool("isRunning", false);
-
-    //        yield return new WaitForSeconds(pauseTime);
-
-    //        randomMovement = Random.Range(0, 2); // 0: 왼쪽 이동, 1: 정지
-    //    }
-
-    //    yield return new WaitForSeconds(pauseTime);
-
-    //    StartCoroutine("Move");
-    //}
 
     IEnumerator Trace()
     {
