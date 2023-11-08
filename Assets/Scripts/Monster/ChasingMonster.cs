@@ -115,8 +115,6 @@ public class ChasingMonster : MonoBehaviour
         {
             targetPlayer = collision.gameObject;
 
-            StopCoroutine("Move"); // 기존의 이동 코루틴 정지
-
             StartCoroutine("Trace");
         }
     }
@@ -141,8 +139,6 @@ public class ChasingMonster : MonoBehaviour
             isTracing = false;
 
             StopCoroutine("Trace");
-
-            StartCoroutine("Move"); // 기존의 이동 코루틴 실행
         }
     }
 
