@@ -11,10 +11,10 @@ public class ThrowingMonster : MonoBehaviour
     private int randomMovement;
     private bool hasThrown = false; // 물체를 던진 상태인지 여부
 
-    //----------temp variable----------
-    int isRunningHash;
-    int throwTriggerHash;
-    //----------temp variable----------
+    //----------Animator Parameter Hash----------
+    private int isRunningHash;
+    private int throwTriggerHash;
+    //----------Animator Parameter Hash----------
 
     public float moveSpeed = 6f; // 몬스터의 이동 속도
     public float moveDistance = 7f; // 이동 반경
@@ -23,14 +23,12 @@ public class ThrowingMonster : MonoBehaviour
 
     public GameObject[] throwObjects; // 던지는 오브젝트 배열
     public float throwForce = 12f; // 던지는 힘
-    public float maxThrowDistance = 8f; // 물체의 최대 이동 거리
 
     public AudioClip throwSound;
 
     Rigidbody2D rigid;
     Animator anim;
     SpriteRenderer spriteRenderer;
-    BoxCollider2D boxCollider;
     AudioSource monsterAudio;
 
     void Awake()
@@ -42,7 +40,6 @@ public class ThrowingMonster : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        boxCollider = GetComponent<BoxCollider2D>();
         monsterAudio = GetComponent<AudioSource>();
 
         isRunningHash = Animator.StringToHash("isRunning");

@@ -95,9 +95,11 @@ MonoBehaviour:
   jumpSoundStartRoof: {fileID: 8300000, guid: 7912b314201ece141864a6c00b399cf4, type: 3}
   jumpSoundLandRoof: {fileID: 8300000, guid: 116adac89525af844ba050fbcf12f0f1, type: 3}
   damageSound: {fileID: 8300000, guid: 9be6e5c48542916449fcc6129485d623, type: 3}
+  itemSound: {fileID: 8300000, guid: cf3c5b63fec777646af6be3ddb193b51, type: 3}
   walkAudio: {fileID: 4267037452278402905}
   jumpAudio: {fileID: 5196731555124119711}
   damageAudio: {fileID: 7428760855553892135}
+  itemAudio: {fileID: 0}
 --- !u!114 &7645809593926202048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,7 +164,7 @@ MonoBehaviour:
   - {x: 0.25983572, y: -0.778913, z: 0}
   m_ShapePathHash: -242421163
   m_Mesh: {fileID: 0}
-  m_InstanceId: 84688
+  m_InstanceId: 281006
   m_LocalBounds:
     m_Center: {x: -0.0020554066, y: -0.0002090931, z: 0}
     m_Extent: {x: 0.461941, y: 0.7787039, z: 0}
