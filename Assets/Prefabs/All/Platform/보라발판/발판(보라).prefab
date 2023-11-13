@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5962931698864527392}
   m_Layer: 6
   m_Name: "\uBC1C\uD310(\uBCF4\uB77C)"
-  m_TagString: Ground
+  m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
