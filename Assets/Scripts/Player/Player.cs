@@ -5,45 +5,42 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/*
- * Player 이동
- * 애니메이션 제어
- */
-
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
+    [Header("State")]
     public float maxSpeed;
     public float jumpPower;
     public float maxHealth;
     public float curHealth;
     public Vector2 spawnPoint;
     public bool isLive;
+    public int coin;
+    public GameObject[] dressState;
+
+    bool isJumping = false;
+
+    Vector3 boxSize;
+    Vector2 inputVector;
+    bool inputJump;
 
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     Animator anim;
 
-    bool isJumping = false;
-
-    Vector2 inputVector;
-    bool inputJump;
-
-    public GameObject[] dressState;
-    public int coin;
-
-    private Vector3 boxSize;
-    
     // non-roof sound
+    [Header("Non-Roof Sound")]
     public AudioClip walkSound;
     public AudioClip jumpSoundStart;
     public AudioClip jumpSoundLand;
 
     // roof sound
+    [Header("Roof Sound")]
     public AudioClip walkSoundRoof;
     public AudioClip jumpSoundStartRoof;
     public AudioClip jumpSoundLandRoof;
 
+    [Header("Player Sound")]
     public AudioClip damageSound;
     public AudioClip itemSound;
 
@@ -102,6 +99,8 @@ public class Player : MonoBehaviour
                 Vector2 jumpVelocity = Vector2.up * jumpPower;
                 rigid.AddForce(jumpVelocity, ForceMode2D.Impulse);
                 isJumping = true;
+
+                gameObject.transform.parent = null;
             }
 
             // Move
@@ -157,13 +156,13 @@ public class Player : MonoBehaviour
         }
 
         // Landing Platform using BoxCast
-        if (rigid.velocity.y < -2)
+        if (rigid.velocity.y < -1)
         {
             // set box size
             if (transform.localScale == new Vector3(1f, 1f, 1f))
-                boxSize = new Vector3(0.9f, 0.5f, 1);
+                boxSize = new Vector3(0.4f, 0.5f, 1);
             else
-                boxSize = new Vector3(0.6f, 0.35f, 1);
+                boxSize = new Vector3(0.2f, 0.35f, 1);
 
             // BoxCast
             RaycastHit2D boxHit = Physics2D.BoxCast(transform.position, boxSize, 0f,
@@ -173,24 +172,29 @@ public class Player : MonoBehaviour
             {
                 rigid.velocity = new Vector2(rigid.velocity.x, 0);
 
+                if(isJumping)
+                {
+                    jumpAudio.clip = currentJumpSoundLand;
+                    jumpAudio.Play();
+                }
+
                 isJumping = false;
                 inputJump = false;
 
-                jumpAudio.clip = currentJumpSoundLand;
-                jumpAudio.Play();
-
                 anim.SetBool("isJump", false);
+
+                if (boxHit.collider.gameObject.tag == "MovingPlatform")
+                {
+                    gameObject.transform.parent = boxHit.collider.transform;
+                }
+                else
+                    gameObject.transform.parent = null;
             }
             else
             {
                 inputJump = false;
             }
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireCube(transform.position + Vector3.down * (boxSize.y + 0.1f), boxSize);
     }
 
     void DressState()
