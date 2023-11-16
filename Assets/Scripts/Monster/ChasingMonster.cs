@@ -6,8 +6,8 @@ public class ChasingMonster : MonoBehaviour
 {
     private float initialPosition;
     private GameObject targetPlayer;
-    private bool isTracing = false;
 
+    public bool isTracing = false;
     public float moveSpeed = 3.5f; // 몬스터의 이동 속도
     public float moveDistance = 6f; // 이동 거리
     public float pauseTime = 1f; // 일정 거리 이동 후 쉬는 시간
@@ -22,25 +22,39 @@ public class ChasingMonster : MonoBehaviour
 
     void Awake()
     {
+        initialPosition = transform.position.x; // 맨 처음 몬스터의 위치
+
         rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider2D>();
     }
 
-    // 추적 시작
-    private void OnTriggerEnter2D(Collider2D collision)
+    void Update()
     {
-        if (collision.CompareTag("Player"))
+        if (isTracing)
         {
-            targetPlayer = collision.gameObject;
+            Debug.Log("A");
 
-            isTracing = true;
             anim.SetBool("isRunning", true);
 
             StartCoroutine("Trace");
         }
     }
+
+    // 추적 시작
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (isTracing)
+    //    {
+    //        Debug.Log("A");
+    //        targetPlayer = collision.gameObject;
+
+    //        anim.SetBool("isRunning", true);
+
+    //        StartCoroutine("Trace");
+    //    }
+    //}
 
     IEnumerator Trace()
     {
@@ -62,7 +76,7 @@ public class ChasingMonster : MonoBehaviour
             }
         }
 
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
