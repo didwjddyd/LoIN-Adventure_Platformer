@@ -5,8 +5,9 @@ using UnityEngine;
 public class ChasingMonster : MonoBehaviour
 {
     private float initialPosition;
-    private GameObject targetPlayer;
+    private bool isCoroutineRunning = false;
 
+    public GameObject targetPlayer = null;
     public bool isTracing = false;
     public float moveSpeed = 3.5f; // 몬스터의 이동 속도
     public float moveDistance = 6f; // 이동 거리
@@ -32,13 +33,14 @@ public class ChasingMonster : MonoBehaviour
 
     void Update()
     {
-        if (isTracing)
+        if (isTracing && !isCoroutineRunning)
         {
             Debug.Log("A");
 
             anim.SetBool("isRunning", true);
 
             StartCoroutine("Trace");
+            isCoroutineRunning = true;
         }
     }
 

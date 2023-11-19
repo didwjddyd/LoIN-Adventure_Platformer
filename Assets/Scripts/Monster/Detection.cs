@@ -5,11 +5,13 @@ using UnityEngine;
 public class Detection : MonoBehaviour
 {
     public ChasingMonster chasingMonster;
+    public GameObject player;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("player"))
+        if (collision.CompareTag("Player"))
         {
+            chasingMonster.targetPlayer = collision.gameObject;
             chasingMonster.isTracing = true;
         }
     }
