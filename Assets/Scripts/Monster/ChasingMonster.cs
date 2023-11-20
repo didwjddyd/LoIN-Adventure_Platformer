@@ -29,14 +29,14 @@ public class ChasingMonster : MonoBehaviour
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider2D>();
+
+        gameObject.SetActive(false);
     }
 
     void Update()
     {
         if (isTracing && !isCoroutineRunning)
         {
-            Debug.Log("A");
-
             anim.SetBool("isRunning", true);
 
             StartCoroutine("Trace");
@@ -44,33 +44,13 @@ public class ChasingMonster : MonoBehaviour
         }
     }
 
-    // 추적 시작
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (isTracing)
-    //    {
-    //        Debug.Log("A");
-    //        targetPlayer = collision.gameObject;
-
-    //        anim.SetBool("isRunning", true);
-
-    //        StartCoroutine("Trace");
-    //    }
-    //}
-
     IEnumerator Trace()
     {
         if (isTracing)
         {
             Vector3 playerPos = targetPlayer.transform.position;
 
-            if (playerPos.x < transform.position.x) // 왼쪽
-            {
-                playerPos.x = -Mathf.Abs(playerPos.x);
-                rigid.velocity = new Vector2(-moveSpeed, rigid.velocity.y);
-                anim.SetBool("isRunning", true);
-            }
-            else if (playerPos.x > transform.position.x) // 오른쪽
+            if (transform.position.x < playerPos.x) // 오른쪽
             {
                 playerPos.x = Mathf.Abs(playerPos.x);
                 rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);

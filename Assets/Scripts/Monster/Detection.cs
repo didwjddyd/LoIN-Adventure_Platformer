@@ -11,6 +11,7 @@ public class Detection : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            chasingMonster.gameObject.SetActive(true);
             chasingMonster.targetPlayer = collision.gameObject;
             chasingMonster.isTracing = true;
         }
