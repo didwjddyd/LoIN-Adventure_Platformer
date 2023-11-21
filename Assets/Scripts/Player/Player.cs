@@ -107,6 +107,14 @@ public class Player : MonoBehaviour
             if (inputVector.x == 0)
             {
                 rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0f, rigid.velocity.y);
+
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.up, 1, LayerMask.GetMask("Platform"));
+
+                if (hit.collider != null && hit.collider.gameObject.tag == "MovingPlatform" && !isJumping)
+                {
+                    gameObject.transform.parent = hit.collider.transform;
+                }
+
             }
             else
             {
@@ -118,6 +126,8 @@ public class Player : MonoBehaviour
                     rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y);
                 else if (rigid.velocity.x < maxSpeed * -1) // Left Speed
                     rigid.velocity = new Vector2(maxSpeed * -1, rigid.velocity.y);
+
+                gameObject.transform.parent = null;
             }
 
             if (curHealth <= 0 || rigid.position.y <= -10)
