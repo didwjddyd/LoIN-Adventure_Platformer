@@ -83,13 +83,11 @@ MonoBehaviour:
   curHealth: 0
   spawnPoint: {x: 0, y: 0}
   isLive: 0
+  coin: 0
   dressState:
   - {fileID: 7853606001868882403}
   - {fileID: 7853606001746396278}
   - {fileID: 7853606001694375447}
-  coin: 0
-  platform: {fileID: 0}
-  distance: {x: 0, y: 0, z: 0}
   walkSound: {fileID: 8300000, guid: df3bc59ca75f5b34b914977f91508a2b, type: 3}
   jumpSoundStart: {fileID: 8300000, guid: 8faf7b86187316d4a8b06162363f08e7, type: 3}
   jumpSoundLand: {fileID: 8300000, guid: 62aaf304151153c41b9a566fd05c4d4a, type: 3}
@@ -100,8 +98,7 @@ MonoBehaviour:
   itemSound: {fileID: 8300000, guid: cf3c5b63fec777646af6be3ddb193b51, type: 3}
   walkAudio: {fileID: 4267037452278402905}
   jumpAudio: {fileID: 5196731555124119711}
-  damageAudio: {fileID: 7428760855553892135}
-  itemAudio: {fileID: 0}
+  otherAudio: {fileID: 7428760855553892135}
 --- !u!114 &7645809593926202048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,7 +163,7 @@ MonoBehaviour:
   - {x: 0.25983572, y: -0.778913, z: 0}
   m_ShapePathHash: -242421163
   m_Mesh: {fileID: 0}
-  m_InstanceId: 281006
+  m_InstanceId: 73038
   m_LocalBounds:
     m_Center: {x: -0.0020554066, y: -0.0002090931, z: 0}
     m_Extent: {x: 0.461941, y: 0.7787039, z: 0}
@@ -521,6 +518,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 497298514053185751, guid: dc453fbb8d577734d9e712c6e41d8ebc, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 1756038668137185335, guid: dc453fbb8d577734d9e712c6e41d8ebc, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -596,6 +597,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 497298514053185751, guid: 67799bd66872c2f4fbc55a0be779201b, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 1756038668137185335, guid: 67799bd66872c2f4fbc55a0be779201b, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -670,6 +675,10 @@ PrefabInstance:
     - target: {fileID: 497298514053185751, guid: f3aa02caa0806f744b1cdfd9decb3949, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 497298514053185751, guid: f3aa02caa0806f744b1cdfd9decb3949, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1756038668137185335, guid: f3aa02caa0806f744b1cdfd9decb3949, type: 3}
       propertyPath: m_RootOrder
