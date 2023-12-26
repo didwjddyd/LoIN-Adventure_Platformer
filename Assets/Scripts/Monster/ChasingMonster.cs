@@ -9,11 +9,14 @@ public class ChasingMonster : MonoBehaviour
 
     public GameObject targetPlayer = null;
     public bool isTracing = false;
-    public float moveSpeed = 3.5f; // 몬스터의 이동 속도
+    public float moveSpeed = 2f; // 몬스터의 이동 속도
     public float moveDistance = 6f; // 이동 거리
     public float pauseTime = 1f; // 일정 거리 이동 후 쉬는 시간
     public int damage = 20;
     public Collider2D detection;
+
+    public GameObject[] throwObjects; // 던지는 오브젝트 배열
+    public float throwForce = 12f; // 던지는 힘
 
     Rigidbody2D rigid;
     Animator anim;
@@ -38,9 +41,10 @@ public class ChasingMonster : MonoBehaviour
         if (isTracing && !isCoroutineRunning)
         {
             anim.SetBool("isRunning", true);
-
             StartCoroutine("Trace");
             isCoroutineRunning = true;
+
+            InvokeRepeating("New_Throw", 0.3f, 2f);
         }
     }
 
@@ -52,13 +56,38 @@ public class ChasingMonster : MonoBehaviour
 
             if (transform.position.x < playerPos.x) // 오른쪽
             {
-                playerPos.x = Mathf.Abs(playerPos.x);
+                //playerPos.x = Mathf.Abs(playerPos.x);
                 rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
                 anim.SetBool("isRunning", true);
             }
         }
 
         yield return new WaitForSeconds(0.1f);
+    }
+
+    void New_Throw()
+    {
+        Debug.Log("New_Throw 실행");
+
+        int objNum = Random.Range(0, 2); // 랜덤으로 던질 오브젝트 호출
+
+        // 오브젝트 생성 위치 설정
+        Vector3 throwOffset = new Vector3(6f, 0f, 0f);
+        Vector3 throwPoint = transform.position + throwOffset;
+
+        GameObject cloneObject = Instantiate(throwObjects[objNum], throwPoint, Quaternion.identity);
+
+        // 플레이어 위치 찾기
+        Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
+
+        // 오브젝트 Rigidbody2D 가져오기
+        Rigidbody2D objectRigid = cloneObject.GetComponent<Rigidbody2D>();
+
+        // 플레이어를 향해 오브젝트 발사
+        Vector2 throwDirection = (playerPosition - throwPoint).normalized;
+        objectRigid.velocity = throwDirection * throwForce;
+
+        Debug.Log("발사 완료");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
