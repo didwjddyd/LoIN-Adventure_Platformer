@@ -165,18 +165,22 @@ public class Player : MonoBehaviour
             }
         }
 
+        Debug.DrawRay(rigid.position, new Vector3(0f, -0.7f, 0f), Color.red);
+        Debug.DrawRay(rigid.position + new Vector2(0.55f, 0), new Vector3(0f, -0.7f, 0f), Color.yellow);
+        Debug.DrawRay(rigid.position + new Vector2(-0.55f, 0), new Vector3(0f, -0.7f, 0f), Color.yellow);
+
         // Landing Platform using BoxCast
         if (rigid.velocity.y < -1)
         {
             // set box size
             if (transform.localScale == new Vector3(1f, 1f, 1f))
-                boxSize = new Vector3(0.4f, 0.5f, 1);
+                boxSize = new Vector3(0.4f, 0.7f, 1);
             else
-                boxSize = new Vector3(0.2f, 0.35f, 1);
+                boxSize = new Vector3(0.4f, 0.7f, 1);
 
             // BoxCast
-            RaycastHit2D boxHit = Physics2D.BoxCast(transform.position, boxSize, 0f,
-                Vector2.down, boxSize.y + 0.1f, LayerMask.GetMask("Platform"));
+            RaycastHit2D boxHit = Physics2D.BoxCast(rigid.position, boxSize, 0f,
+                Vector2.down, boxSize.y, LayerMask.GetMask("Platform"));
 
             if (boxHit.collider != null)
             {
