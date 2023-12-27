@@ -20,6 +20,9 @@ public class SideTrap : MonoBehaviour
 
     Vector2 spawnPoint;
 
+    [Range(300, 600)]
+    public int speed = 300;
+
     public float delta = 10f;
     public float damage = 20f;
 
@@ -60,7 +63,7 @@ public class SideTrap : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            rigid.AddForce(Vector2.left * 150.0f); // 수정 필요
+            rigid.AddForce(Vector2.left * speed); // 수정 필요
 
             sideAudio.Play();
         }

@@ -13,6 +13,9 @@ public class BreakBlock : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
 
+    [Range(0.01f, 0.1f)]
+    public float fadeOutSpeed = 0.05f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,7 +51,7 @@ public class BreakBlock : MonoBehaviour
             Color c = spriteRenderer.material.color;
             c.a = i / 10f;
             spriteRenderer.material.color = c;
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(fadeOutSpeed);
         }
     }
 

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 /*
@@ -20,6 +21,9 @@ public class FallingTrap : MonoBehaviour
 
     Vector2 spawnPoint;
 
+    [Range(1, 4)]
+    public int fallingSpeed = 1;
+
     public float damage = 20f;
 
     public AudioClip fallingSound;
@@ -34,6 +38,8 @@ public class FallingTrap : MonoBehaviour
         fallingAudio.clip = fallingSound;
 
         spawnPoint = transform.position;
+
+        rigid.gravityScale = fallingSpeed;
     }
 
     IEnumerator FadeIn()
