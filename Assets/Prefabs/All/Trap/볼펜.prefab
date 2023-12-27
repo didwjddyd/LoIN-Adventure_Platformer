@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b18f1b9a52917349a2906c141d05b09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 300
   delta: 10
   damage: 20
   sideSound: {fileID: 8300000, guid: 11896dd4db77cd9438cb385254c69835, type: 3}

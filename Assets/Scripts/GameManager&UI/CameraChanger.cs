@@ -9,6 +9,9 @@ public class CameraChanger : MonoBehaviour
 
     public CinemachineVirtualCamera[] cameras;
 
+    public AudioSource BGMAudio;
+    public AudioClip[] BGM;
+
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "CameraConfiner")
@@ -19,6 +22,10 @@ public class CameraChanger : MonoBehaviour
             //print("Enter: " + index);
 
             cameras[index].Priority += cameraPriorityOffset;
+
+            BGMAudio.Stop();
+            BGMAudio.clip = BGM[index];
+            BGMAudio.Play();
         }
     }
 
@@ -31,7 +38,8 @@ public class CameraChanger : MonoBehaviour
             //print("Exit Layer: " + collision.gameObject.layer);
             //print("Exit: " + index);
 
-            cameras[index].Priority -= cameraPriorityOffset;
+            if(cameras[index].Priority == 11) cameras[index].Priority = 10;
+            else cameras[index].Priority -= cameraPriorityOffset;
         }
     }
 }
