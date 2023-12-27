@@ -173,7 +173,7 @@ public class SelectSceneHandler : MonoBehaviour
     public void StartGame()
     {
         if (locker.activeSelf == false)
-            SceneManager.LoadScene(selectedStage);
+            StartCoroutine("StartFadeout");
         else
             StartCoroutine("Lock");
     }
@@ -203,6 +203,18 @@ public class SelectSceneHandler : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
         isTransition = false;
+    }
+
+    IEnumerator StartFadeout()
+    {
+        transition.transform.localScale = new Vector3(1, 2, 1);
+        while (transition.value < 1)
+        {
+            transition.value += 0.1f;
+            yield return new WaitForSeconds(0.01f);
+        }
+        yield return new WaitForSeconds(0.1f);
+        SceneManager.LoadScene(selectedStage);
     }
 
     IEnumerator Lock()
