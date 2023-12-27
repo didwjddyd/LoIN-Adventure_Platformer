@@ -10,6 +10,7 @@ public class ThrowingMonster : MonoBehaviour
     private float maxRight;
     private int randomMovement;
     private bool hasThrown = false; // 물체를 던진 상태인지 여부
+    private float localScaleOffset;
 
     //----------Animator Parameter Hash----------
     private int isRunningHash;
@@ -44,6 +45,8 @@ public class ThrowingMonster : MonoBehaviour
 
         isRunningHash = Animator.StringToHash("isRunning");
         throwTriggerHash = Animator.StringToHash("throwTrigger");
+
+        localScaleOffset = transform.localScale.x;
 
         //print("maxLeft: " + maxLeft);
         //print("maxRight: " + maxRight);
@@ -271,14 +274,14 @@ public class ThrowingMonster : MonoBehaviour
 
         if (randomMovement == 1) // 1: 왼쪽 이동
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-localScaleOffset, localScaleOffset, localScaleOffset);
 
             rigid.velocity = new Vector2(-moveSpeed, rigid.velocity.y);
             anim.SetBool(isRunningHash, true);
         }
         else if (randomMovement == 3) // 3: 오른쪽 이동
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(localScaleOffset, localScaleOffset, localScaleOffset);
 
             rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
             anim.SetBool(isRunningHash, true);
