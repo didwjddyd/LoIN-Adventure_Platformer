@@ -70,27 +70,23 @@ public class ChasingMonster : MonoBehaviour
 
     void New_Throw()
     {
-        Debug.Log("New_Throw 실행");
+        int objNum = Random.Range(0, 2); //랜덤으로 던질 오브젝트 호출
 
-        int objNum = Random.Range(0, 2); // 랜덤으로 던질 오브젝트 호출
-
-        // 오브젝트 생성 위치 설정
-        Vector3 throwOffset = new Vector3(6f, 0f, 0f);
+        //오브젝트 생성 위치 설정
+        Vector3 throwOffset = new Vector3(4f, 0f, 0f);
         Vector3 throwPoint = transform.position + throwOffset;
 
         GameObject cloneObject = Instantiate(throwObjects[objNum], throwPoint, Quaternion.identity);
 
-        // 플레이어 위치 찾기
+        //플레이어 위치 찾기
         Vector3 playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
 
-        // 오브젝트 Rigidbody2D 가져오기
+        //오브젝트 Rigidbody2D 가져오기
         Rigidbody2D objectRigid = cloneObject.GetComponent<Rigidbody2D>();
 
-        // 플레이어를 향해 오브젝트 발사
+        //플레이어를 향해 오브젝트 발사
         Vector2 throwDirection = (playerPosition - throwPoint).normalized;
         objectRigid.velocity = throwDirection * throwForce;
-
-        Debug.Log("발사 완료");
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
