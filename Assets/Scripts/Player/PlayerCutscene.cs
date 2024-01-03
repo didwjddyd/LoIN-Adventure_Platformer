@@ -33,12 +33,12 @@ public class PlayerCutscene : MonoBehaviour
         anim.SetBool("isWalk", true);
 
         spriteRenderer.flipX = false;
-        rigid.velocity = new Vector2(3, 0);
-        yield return new WaitForSeconds(1f);
+        rigid.velocity = new Vector2(4, 0);
+        yield return new WaitForSeconds(3f);
 
         spriteRenderer.flipX = true;
-        rigid.velocity = new Vector2(-3, 0);
-        yield return new WaitForSeconds(1f);
+        rigid.velocity = new Vector2(-4, 0);
+        yield return new WaitForSeconds(3f);
 
         StartCoroutine("Move");
     }
@@ -70,7 +70,7 @@ public class PlayerCutscene : MonoBehaviour
         anim.speed = 2;
 
         spriteRenderer.flipX = false;
-        rigid.velocity = new Vector2(6, 0);
+        rigid.velocity = new Vector2(8, 0);
 
         yield return new WaitForSeconds(1f);
 
@@ -81,6 +81,6 @@ public class PlayerCutscene : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
 
-        gameManagerCom.NextScene("Stage1");
+        gameManagerCom.NextScene("UI");
     }
 }
