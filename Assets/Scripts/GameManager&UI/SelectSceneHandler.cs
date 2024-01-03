@@ -39,9 +39,11 @@ public class SelectSceneHandler : MonoBehaviour
     [Header("Transition")]
     public Slider transition;
 
-    string selectedStage = "Stage1";
-    int clearState = 0;
-    bool isTransition = false;
+    [Header("Menu")]
+    public GameObject menuUI;
+
+    string selectedStage;
+    public int clearState = 0;
 
     private void Start()
     {
@@ -61,13 +63,10 @@ public class SelectSceneHandler : MonoBehaviour
 
     public void OnStage1Button()
     {
-        if (!isTransition && selectedStage != "Stage1")
+        if (selectedStage != "Stage1")
         {
             selectedStage = "Stage1";
-            StartCoroutine("Fadeout");
-        }
-        else
-        {
+
             stage1Button.GetComponent<Image>().sprite = enableMark;
             stage2Button.GetComponent<Image>().sprite = disableMark;
             stage3Button.GetComponent<Image>().sprite = disableMark;
@@ -96,13 +95,10 @@ public class SelectSceneHandler : MonoBehaviour
 
     public void OnStage2Button()
     {
-        if (!isTransition && selectedStage != "Stage2")
+        if (selectedStage != "Stage2")
         {
             selectedStage = "Stage2";
-            StartCoroutine("Fadeout");
-        }
-        else
-        {
+
             stage1Button.GetComponent<Image>().sprite = disableMark;
             stage2Button.GetComponent<Image>().sprite = enableMark;
             stage3Button.GetComponent<Image>().sprite = disableMark;
@@ -134,13 +130,10 @@ public class SelectSceneHandler : MonoBehaviour
 
     public void OnStage3Button()
     {
-        if (!isTransition && selectedStage != "Stage3")
+        if (selectedStage != "Stage3")
         {
             selectedStage = "Stage3";
-            StartCoroutine("Fadeout");
-        }
-        else
-        {
+
             stage1Button.GetComponent<Image>().sprite = disableMark;
             stage2Button.GetComponent<Image>().sprite = disableMark;
             stage3Button.GetComponent<Image>().sprite = enableMark;
@@ -178,31 +171,17 @@ public class SelectSceneHandler : MonoBehaviour
             StartCoroutine("Lock");
     }
 
-    IEnumerator Fadeout()
+    public void ExitGame()
     {
-        transition.transform.localScale = new Vector3(1, 2, 1);
-        while (transition.value < 1)
-        {
-            transition.value += 0.1f;
-            yield return new WaitForSeconds(0.01f);
-        }
-        yield return new WaitForSeconds(0.1f);
+        SceneManager.LoadScene("Start");
+    }
 
-        isTransition = true;
-        if (selectedStage == "Stage1")
-            OnStage1Button();
-        else if (selectedStage == "Stage2")
-            OnStage2Button();
+    public void MenuButton()
+    {
+        if (menuUI.activeSelf == false)
+            menuUI.SetActive(true);
         else
-            OnStage3Button();
-
-        transition.transform.localScale = new Vector3(-1, 2, 1);
-        while (transition.value > 0)
-        {
-            transition.value -= 0.1f;
-            yield return new WaitForSeconds(0.01f);
-        }
-        isTransition = false;
+            menuUI.SetActive(false);
     }
 
     IEnumerator StartFadeout()
@@ -224,5 +203,6 @@ public class SelectSceneHandler : MonoBehaviour
             locker.transform.localPosition = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0);
             yield return new WaitForSeconds(0.05f);
         }
+        locker.transform.localPosition = Vector3.zero;
     }
 }
