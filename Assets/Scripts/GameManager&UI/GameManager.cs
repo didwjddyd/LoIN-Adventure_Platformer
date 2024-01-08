@@ -6,30 +6,32 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // singleton
-    public static GameManager instance;
-
-    public float gameTime;
-    public float MaxGameTime = 3 * 60f * 60f;
-    public bool Dead = false;
-
-    public bool pauseActive = false;
-    public bool titleActive = false;
-
     public GameObject player;
     Player playerCom;
 
+    [Header("UI")]
     public GameObject gameoverUI;
     public GameObject pauseUI;
-
-    public Image Heart;
+    public Image heart;
+    public Text timer;
 
     public GameObject mainCamera;
+
+    float time;
+    static GameManager instance;    // singleton
+    bool pauseActive = false;
 
     void Awake()
     {
         if (SceneManager.GetActiveScene().name != "Start")
             playerCom = player.GetComponent<Player>();
+
+        if (SceneManager.GetActiveScene().name == "Stage1")
+            time = 600;
+        else if (SceneManager.GetActiveScene().name == "Stage2")
+            time = 780;
+        else
+            time = 960;
 
         if (instance == null)
         {
@@ -45,32 +47,27 @@ public class GameManager : MonoBehaviour
     {
         if(SceneManager.GetActiveScene().name != "Start")
         {
-            if (playerCom.isLive == false)
+            if (!pauseActive)
             {
-                // OnPlayerDead();
-                gameTime = 0;
-            }
-            else
-            {
-                if (!pauseActive && !titleActive)
-                {
-                    gameTime += Time.deltaTime;
+                time -= Time.deltaTime;
 
-                    if (gameTime > MaxGameTime)
-                    {
-                        gameTime = MaxGameTime;
-                    }
+                if (time < 0)
+                {
+                    time = 0;
+                    StartCoroutine("GameOver");
+                    pauseActive = true;
                 }
             }
 
             //HealthUI
-            Heart.fillAmount = playerCom.curHealth / 120f;
+            heart.fillAmount = playerCom.curHealth / 120f;
+
+            timer.text = ((int)time / 60).ToString() + ":" + ((int)time % 60).ToString("D2");
         }
     }
 
     public void OnPlayerDead()
     {
-        Dead = true;
         gameoverUI.SetActive(true);
     }
 
@@ -103,5 +100,18 @@ public class GameManager : MonoBehaviour
     public void NextScene(string stageName)
     {
         SceneManager.LoadScene(stageName);
+    }
+
+    IEnumerator GameOver()
+    {
+        gameoverUI.GetComponent<CanvasGroup>().alpha = 0;
+        gameoverUI.SetActive(true);
+        while (gameoverUI.GetComponent<CanvasGroup>().alpha < 1)
+        {
+            gameoverUI.GetComponent<CanvasGroup>().alpha += 0.05f;
+            yield return new WaitForSeconds(0.01f);
+        }
+        yield return new WaitForSeconds(2f);
+        NextScene("UI");
     }
 }
