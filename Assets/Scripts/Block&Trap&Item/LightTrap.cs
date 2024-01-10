@@ -18,12 +18,24 @@ public class LightTrap : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
 
         if(!isFlash && !isBackground)
-            StartCoroutine("FadeOut");
+            RandomCall();
         else if(isBackground)
             StartCoroutine("Blink");
     }
 
-    IEnumerator FadeOut()
+    void RandomCall()
+    {
+        int pattern = Random.Range(1, 4);
+
+        if (pattern == 1)
+            StartCoroutine("Pattern1");
+        else if (pattern == 2)
+            StartCoroutine("Pattern2");
+        else
+            StartCoroutine("Pattern3");
+    }
+
+    IEnumerator Pattern1()
     {
         yield return new WaitForSeconds(interval);
 
@@ -50,7 +62,71 @@ public class LightTrap : MonoBehaviour
 
         boxCollider.enabled = true;
 
-        StartCoroutine("FadeOut");
+        RandomCall();
+    }
+
+    IEnumerator Pattern2()
+    {
+        yield return new WaitForSeconds(interval);
+
+        boxCollider.enabled = false;
+
+        for (int i = 20; i >= 0; i--)
+        {
+            light2d.intensity = i / 20f;
+            yield return new WaitForSeconds(0.001f);
+        }
+
+        yield return new WaitForSeconds(interval);
+
+        for (int i = 0; i <= 20; i++)
+        {
+            light2d.intensity = i / 20f;
+            yield return new WaitForSeconds(0.001f);
+        }
+
+        boxCollider.enabled = true;
+
+        RandomCall();
+    }
+
+    IEnumerator Pattern3()
+    {
+        yield return new WaitForSeconds(interval);
+
+        light2d.intensity = 0f;
+        yield return new WaitForSeconds(0.05f);
+        light2d.intensity = 1f;
+        yield return new WaitForSeconds(0.05f);
+        light2d.intensity = 0f;
+        yield return new WaitForSeconds(0.05f);
+        light2d.intensity = 1f;
+        yield return new WaitForSeconds(0.05f);
+
+        boxCollider.enabled = false;
+
+        for (int i = 20; i >= 0; i--)
+        {
+            light2d.intensity = i / 20f;
+            yield return new WaitForSeconds(0.001f);
+        }
+
+        yield return new WaitForSeconds(interval);
+
+        light2d.intensity = 1f;
+        yield return new WaitForSeconds(0.05f);
+        light2d.intensity = 0f;
+        yield return new WaitForSeconds(0.05f);
+
+        for (int i = 0; i <= 20; i++)
+        {
+            light2d.intensity = i / 20f;
+            yield return new WaitForSeconds(0.001f);
+        }
+
+        boxCollider.enabled = true;
+
+        RandomCall();
     }
 
     IEnumerator Blink()
