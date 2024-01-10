@@ -252,6 +252,12 @@ public class Player : MonoBehaviour
     {
         if (coin > 0)
             coin--;
+        else if (maxSpeed != 5f)
+        {
+            transform.localScale = new Vector3(1f, 1f, 1f);
+            jumpPower = 12f;
+            maxSpeed = 5f;
+        }
         else
             curHealth -= damage;
 
