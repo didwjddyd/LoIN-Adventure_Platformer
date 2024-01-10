@@ -21,6 +21,8 @@ public class ChasingMonster : MonoBehaviour
     public GameObject[] throwObjects; // 던지는 오브젝트 배열
     public float throwForce = 12f; // 던지는 힘
 
+    private int throwTriggerHash;
+
     Rigidbody2D rigid;
     Animator anim;
     SpriteRenderer spriteRenderer;
@@ -35,6 +37,8 @@ public class ChasingMonster : MonoBehaviour
         anim = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider2D>();
+
+        throwTriggerHash = Animator.StringToHash("throwTrigger");
 
         gameObject.SetActive(false);
     }
@@ -86,7 +90,9 @@ public class ChasingMonster : MonoBehaviour
 
         //플레이어를 향해 오브젝트 발사
         Vector2 throwDirection = (playerPosition - throwPoint).normalized;
-        objectRigid.velocity = throwDirection * throwForce;
+        objectRigid.velocity = transform.right * throwDirection * throwForce;
+
+        anim.SetTrigger(throwTriggerHash);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -94,7 +100,7 @@ public class ChasingMonster : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Player player = collision.gameObject.GetComponent<Player>();
-            player.curHealth -= damage;
+            player.GetDamage(damage);
         }
     }
 }
