@@ -211,6 +211,9 @@ public class Player : MonoBehaviour
 
     void DressState()
     {
+        if(coin > 2)
+            coin = 2;
+
         //character dress state
         for (int i = 0; i < dressState.Length; i++)
         {
@@ -247,7 +250,11 @@ public class Player : MonoBehaviour
 
     public void GetDamage(float damage)
     {
-        curHealth -= damage;
+        if (coin > 0)
+            coin--;
+        else
+            curHealth -= damage;
+
         otherAudio.clip = damageSound;
         otherAudio.Play();
     }
