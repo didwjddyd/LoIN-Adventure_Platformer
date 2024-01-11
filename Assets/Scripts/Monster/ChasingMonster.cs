@@ -21,6 +21,7 @@ public class ChasingMonster : MonoBehaviour
     public GameObject[] throwObjects; // 던지는 오브젝트 배열
     public float throwForce = 12f; // 던지는 힘
 
+    private int isRunningHash;
     private int throwTriggerHash;
 
     Rigidbody2D rigid;
@@ -38,6 +39,7 @@ public class ChasingMonster : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider2D>();
 
+        isRunningHash = Animator.StringToHash("isRunning");
         throwTriggerHash = Animator.StringToHash("throwTrigger");
 
         gameObject.SetActive(false);
@@ -47,7 +49,7 @@ public class ChasingMonster : MonoBehaviour
     {
         if (isTracing && !isCoroutineRunning)
         {
-            anim.SetBool("isRunning", true);
+            anim.SetBool(isRunningHash, true);
             StartCoroutine("Trace");
             isCoroutineRunning = true;
 
@@ -65,7 +67,7 @@ public class ChasingMonster : MonoBehaviour
             {
                 //playerPos.x = Mathf.Abs(playerPos.x);
                 rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
-                anim.SetBool("isRunning", true);
+                anim.SetBool(isRunningHash, true);
             }
         }
 
