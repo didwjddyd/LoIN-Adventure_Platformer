@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     public Vector2 spawnPoint;
     public bool isLive;
     public int coin;
+    public int bottle;
     public GameObject[] dressState;
 
     bool isJumping = false;
@@ -134,6 +135,11 @@ public class Player : MonoBehaviour
             {
                 Dead();
             }
+
+            if (curHealth >= maxHealth)
+            {
+                curHealth = maxHealth;
+            }
         }
     }
 
@@ -247,16 +253,20 @@ public class Player : MonoBehaviour
         jumpPower = 12f;
         maxSpeed = 5f;
     }
-
+    
     public void GetDamage(float damage)
     {
-        if (coin > 0)
-            coin--;
-        else if (maxSpeed != 5f)
+        if (bottle > coin)
         {
+            bottle = 0;
+
             transform.localScale = new Vector3(1f, 1f, 1f);
             jumpPower = 12f;
             maxSpeed = 5f;
+        }
+        else if (coin > 0)
+        {
+            coin--;
         }
         else
             curHealth -= damage;

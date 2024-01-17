@@ -24,7 +24,7 @@ public class Item : MonoBehaviour
             }
             else if(heart)
             {
-                player.GetDamage(heal * -1f);
+                player.curHealth += heal;
             }
 
             gameObject.SetActive(false);

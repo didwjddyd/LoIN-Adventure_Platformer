@@ -27,11 +27,11 @@ public class GameManager : MonoBehaviour
             playerCom = player.GetComponent<Player>();
 
         if (SceneManager.GetActiveScene().name == "Stage1")
-            time = 600;
+            time = 420;
         else if (SceneManager.GetActiveScene().name == "Stage2")
-            time = 780;
+            time = 600;
         else
-            time = 960;
+            time = 780;
 
         if (instance == null)
         {
@@ -63,6 +63,15 @@ public class GameManager : MonoBehaviour
             heart.fillAmount = playerCom.curHealth / 120f;
 
             timer.text = ((int)time / 60).ToString() + ":" + ((int)time % 60).ToString("D2");
+
+            if(time <= 120)
+            {
+                timer.color = Color.red;
+            }
+            else
+            {
+                timer.color = Color.white;
+            }
         }
     }
 
