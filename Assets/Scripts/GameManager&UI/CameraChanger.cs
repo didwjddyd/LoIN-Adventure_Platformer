@@ -9,8 +9,7 @@ public class CameraChanger : MonoBehaviour
 
     public CinemachineVirtualCamera[] cameras;
 
-    public AudioSource BGMAudio;
-    public AudioClip[] BGM;
+    public AudioSource[] BGMAudio;
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -23,9 +22,7 @@ public class CameraChanger : MonoBehaviour
 
             cameras[index].Priority += cameraPriorityOffset;
 
-            BGMAudio.Stop();
-            BGMAudio.clip = BGM[index];
-            BGMAudio.Play();
+            BGMAudio[index].Play();
         }
     }
 
@@ -40,6 +37,8 @@ public class CameraChanger : MonoBehaviour
 
             if(cameras[index].Priority == 11) cameras[index].Priority = 10;
             else cameras[index].Priority -= cameraPriorityOffset;
+
+            BGMAudio[index].Stop();
         }
     }
 }
