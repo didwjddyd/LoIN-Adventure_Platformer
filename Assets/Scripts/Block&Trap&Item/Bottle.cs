@@ -16,6 +16,8 @@ public class Bottle : MonoBehaviour
             player.maxSpeed = 7f;
             player.jumpPower = 15f;
 
+            player.bottle = player.coin + 1;
+
             collision.gameObject.transform.localScale = new Vector3(0.7f, 0.7f, 1f);
 
             gameObject.SetActive(false);

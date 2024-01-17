@@ -25,7 +25,7 @@ public class FallingOverObject : MonoBehaviour
 
     IEnumerator FallOver()
     {
-        while (delta <= objectRot)
+        while (Mathf.Abs(delta) <= Mathf.Abs(objectRot))
         {
             transform.rotation = Quaternion.Euler(0, transform.localEulerAngles.y, -1 * delta);
             delta *= 1.02f;

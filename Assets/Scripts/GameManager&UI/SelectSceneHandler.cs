@@ -71,7 +71,7 @@ public class SelectSceneHandler : MonoBehaviour
             stage2Button.GetComponent<Image>().sprite = disableMark;
             stage3Button.GetComponent<Image>().sprite = disableMark;
 
-            time.text = "10:00";
+            time.text = "7:00";
 
             stage1Enemy.SetActive(true);
             stage2Enemy.SetActive(false);
@@ -103,7 +103,7 @@ public class SelectSceneHandler : MonoBehaviour
             stage2Button.GetComponent<Image>().sprite = enableMark;
             stage3Button.GetComponent<Image>().sprite = disableMark;
 
-            time.text = "13:00";
+            time.text = "10:00";
 
             stage1Enemy.SetActive(false);
             stage2Enemy.SetActive(true);
@@ -138,7 +138,7 @@ public class SelectSceneHandler : MonoBehaviour
             stage2Button.GetComponent<Image>().sprite = disableMark;
             stage3Button.GetComponent<Image>().sprite = enableMark;
 
-            time.text = "16:00";
+            time.text = "13:00";
 
             stage1Enemy.SetActive(false);
             stage2Enemy.SetActive(false);
