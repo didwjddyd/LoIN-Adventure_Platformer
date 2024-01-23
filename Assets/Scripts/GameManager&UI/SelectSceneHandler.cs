@@ -5,6 +5,11 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+public static class SceneVariable
+{
+    public static int clearState = 0;
+}
+
 public class SelectSceneHandler : MonoBehaviour
 {
     [Header("Image Sprite")]
@@ -43,7 +48,6 @@ public class SelectSceneHandler : MonoBehaviour
     public GameObject menuUI;
 
     string selectedStage;
-    public int clearState = 0;
 
     private void Start()
     {
@@ -77,7 +81,7 @@ public class SelectSceneHandler : MonoBehaviour
             stage2Enemy.SetActive(false);
             stage3Enemy.SetActive(false);
 
-            if (clearState == 1)
+            if (SceneVariable.clearState > 0)
                 stamp.SetActive(true);
             else
                 stamp.SetActive(false);
@@ -109,12 +113,12 @@ public class SelectSceneHandler : MonoBehaviour
             stage2Enemy.SetActive(true);
             stage3Enemy.SetActive(false);
 
-            if (clearState == 2)
+            if (SceneVariable.clearState > 1)
                 stamp.SetActive(true);
             else
                 stamp.SetActive(false);
 
-            if (clearState > 0)
+            if (SceneVariable.clearState > 0)
                 locker.SetActive(false);
             else
                 locker.SetActive(true);
@@ -144,12 +148,12 @@ public class SelectSceneHandler : MonoBehaviour
             stage2Enemy.SetActive(false);
             stage3Enemy.SetActive(true);
 
-            if (clearState == 3)
+            if (SceneVariable.clearState > 2)
                 stamp.SetActive(true);
             else
                 stamp.SetActive(false);
 
-            if (clearState > 1)
+            if (SceneVariable.clearState > 1)
                 locker.SetActive(false);
             else
                 locker.SetActive(true);
