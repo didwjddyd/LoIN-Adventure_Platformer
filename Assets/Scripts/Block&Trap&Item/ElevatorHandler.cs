@@ -9,6 +9,10 @@ public class ElevatorHandler : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            if (SceneManager.GetActiveScene().name == "Stage1") SceneVariable.clearState = 1;
+            else if (SceneManager.GetActiveScene().name == "Stage2") SceneVariable.clearState = 2;
+            else SceneVariable.clearState = 3;
+
             SceneManager.LoadScene("UI");
         }
     }
