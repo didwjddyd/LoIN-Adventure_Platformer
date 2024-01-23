@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 178029377113826320}
   - component: {fileID: 178029377113826323}
   - component: {fileID: 3923083193706029007}
-  - component: {fileID: 2955925349178600968}
+  - component: {fileID: -599974129813211712}
   m_Layer: 0
   m_Name: "\uBCBD\uB3CC"
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,7 +112,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.5, y: 1.2}
   m_EdgeRadius: 0
---- !u!114 &2955925349178600968
+--- !u!114 &-599974129813211712
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 178029377113826321}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f69db55246ad394c8b940a0ed5f28e4, type: 3}
+  m_Script: {fileID: 11500000, guid: 1649b09cef53e4ccaa05b07f288de79a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   doRespawn: 0

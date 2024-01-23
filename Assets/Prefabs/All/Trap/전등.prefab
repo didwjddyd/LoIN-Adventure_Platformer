@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4554013136994136787}
   m_Layer: 0
   m_Name: "\uC804\uB4F1"
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,6 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interval: 1
   isFlash: 0
+  isBackground: 0
 --- !u!1 &8301798622815807213
 GameObject:
   m_ObjectHideFlags: 0
