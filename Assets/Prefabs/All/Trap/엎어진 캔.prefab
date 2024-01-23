@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5209761434576541781}
   m_Layer: 0
   m_Name: "\uC5CE\uC5B4\uC9C4 \uCE94"
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
