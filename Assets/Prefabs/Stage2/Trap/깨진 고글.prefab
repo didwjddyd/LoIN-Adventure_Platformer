@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 4269660634236450081}
   - component: {fileID: 2026404764153669828}
   - component: {fileID: 97085188349357368}
-  - component: {fileID: 20570102306178529}
+  - component: {fileID: 3787074973635205083}
   m_Layer: 0
   m_Name: "\uAE68\uC9C4 \uACE0\uAE00"
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -112,7 +112,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.55, y: 1}
   m_EdgeRadius: 0
---- !u!114 &20570102306178529
+--- !u!114 &3787074973635205083
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

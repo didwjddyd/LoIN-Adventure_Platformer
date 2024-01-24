@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 6841167677108188842}
   - component: {fileID: 2958082743625095960}
   - component: {fileID: 1995409146031182797}
-  - component: {fileID: 3248597931573996762}
   - component: {fileID: 4659983081025645659}
+  - component: {fileID: -3620348258988170197}
   m_Layer: 0
   m_Name: "\uB354\uB7EC\uC6B4 \uCC45"
-  m_TagString: Untagged
+  m_TagString: Trap
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -97,7 +97,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -116,21 +116,6 @@ PolygonCollider2D:
       - {x: -0.12937233, y: -0.24742696}
       - {x: 0.40581727, y: 0.03456805}
       - {x: 0.11129893, y: 0.38562462}
---- !u!114 &3248597931573996762
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7916151578651438079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f69db55246ad394c8b940a0ed5f28e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  doRespawn: 0
-  doRegen: 1
-  damage: 20
 --- !u!114 &4659983081025645659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,7 +142,22 @@ MonoBehaviour:
   - {x: -0.11633186, y: -0.22942482, z: 0}
   m_ShapePathHash: -1914536990
   m_Mesh: {fileID: 0}
-  m_InstanceId: -30232
+  m_InstanceId: 100602
   m_LocalBounds:
     m_Center: {x: 0.016125321, y: 0.080677375, z: 0}
     m_Extent: {x: 0.3930773, y: 0.3101022, z: 0}
+--- !u!114 &-3620348258988170197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7916151578651438079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f69db55246ad394c8b940a0ed5f28e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doRespawn: 0
+  doRegen: 1
+  damage: 20
