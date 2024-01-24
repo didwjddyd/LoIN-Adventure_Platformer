@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
- * °¡½Ã Æ®·¦ ÀÛµ¿
- * ÇÃ·¹ÀÌ¾î Ã¼·Â °¨¼Ò
+ * ï¿½ï¿½ï¿½ï¿½ Æ®ï¿½ï¿½ ï¿½Ûµï¿½
+ * ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
  */
 
 public class Trap : MonoBehaviour
@@ -33,11 +33,11 @@ public class Trap : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collider.gameObject.tag == "Player")
         {
-            Player player = collision.gameObject.GetComponent<Player>();
+            Player player = collider.gameObject.GetComponent<Player>();
 
             if (doRespawn)
                 player.Dead();
