@@ -66,7 +66,9 @@ public class GameManager : MonoBehaviour
 
             if(time <= 120)
             {
-                timer.color = Color.red;
+                Color redColor;
+                ColorUtility.TryParseHtmlString("#8A181A", out redColor);
+                timer.GetComponent<Text>().color = redColor;
             }
             else
             {
