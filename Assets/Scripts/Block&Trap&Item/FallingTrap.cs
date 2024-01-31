@@ -4,11 +4,11 @@ using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 /*
- * ¿¬ÇÊ, Áö¿ì°³ Á¦¾î
- * Trigger Collider¿¡ ÇÃ·¹ÀÌ¾î ÁøÀÔ ½Ã ¶³¾îÁü
- * Non-Trigger Collider¿¡ ÇÃ·¹ÀÌ¾î Ãæµ¹ ½Ã µ¥¹ÌÁö ÁÖ°í »ç¶óÁü
- * Non-Trigger Collider¿¡ ¹Ù´Ú, °¡½Ã Ãæµ¹ ½Ã »ç¶óÁü
- * »ç¶óÁø ÈÄ 2ÃÊ µÚ¿¡ Àç»ý¼º
+ * ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ì°³ ï¿½ï¿½ï¿½ï¿½
+ * Trigger Colliderï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * Non-Trigger Colliderï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½æµ¹ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+ * Non-Trigger Colliderï¿½ï¿½ ï¿½Ù´ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 2ï¿½ï¿½ ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 
 [RequireComponent(typeof(Rigidbody2D), typeof(BoxCollider2D), typeof(BoxCollider2D))]
@@ -21,8 +21,8 @@ public class FallingTrap : MonoBehaviour
 
     Vector2 spawnPoint;
 
-    [Range(1, 4)]
-    public int fallingSpeed = 1;
+    [Range(0f, 4f)]
+    public float fallingSpeed = 1;
 
     public float damage = 20f;
 
