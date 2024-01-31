@@ -4,11 +4,11 @@ using System.Data.SqlTypes;
 using UnityEngine;
 
 /*
- * º¼Ææ Á¦¾î
- * Trigger Collider¿¡ ÇÃ·¹ÀÌ¾î ÁøÀÔ ½Ã ¿ÞÂÊÀ¸·Î delta¸¸Å­ ¿òÁ÷ÀÓ
- * Non-Trigger Collider¿¡ ÇÃ·¹ÀÌ¾î Ãæµ¹ ½Ã µ¥¹ÌÁö ÁÖ°í »ç¶óÁü
- * delta¸¸Å­ ÀÌµ¿ÇßÀ» °æ¿ì »ç¶óÁü
- * »ç¶óÁø ÈÄ 2ÃÊ µÚ¿¡ Àç»ý¼º
+ * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+ * Trigger Colliderï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ deltaï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+ * Non-Trigger Colliderï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½æµ¹ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+ * deltaï¿½ï¿½Å­ ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ 2ï¿½ï¿½ ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 
 [RequireComponent(typeof(Rigidbody2D), typeof(AudioSource))]
@@ -20,7 +20,7 @@ public class SideTrap : MonoBehaviour
 
     Vector2 spawnPoint;
 
-    [Range(300, 600)]
+    [Range(0, 600)]
     public int speed = 300;
 
     public float delta = 10f;
@@ -63,7 +63,7 @@ public class SideTrap : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            rigid.AddForce(Vector2.left * speed); // ¼öÁ¤ ÇÊ¿ä
+            rigid.AddForce(Vector2.left * speed); // ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½
 
             sideAudio.Play();
         }
