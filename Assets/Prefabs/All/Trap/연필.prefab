@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 114c077e922d6004b8dead7dbf7fa211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fallingSpeed: 1
   damage: 20
   fallingSound: {fileID: 8300000, guid: 11896dd4db77cd9438cb385254c69835, type: 3}
 --- !u!61 &4686089852668960490
