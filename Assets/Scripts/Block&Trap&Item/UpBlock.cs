@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
- * º¸¶ó ¹ßÆÇ Á¦¾î
- * »óÇÏ·Î delta¸¸Å­ ÀÌµ¿
+ * ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+ * ï¿½ï¿½ï¿½Ï·ï¿½ deltaï¿½ï¿½Å­ ï¿½Ìµï¿½
  */
 
 public class UpBlock : MonoBehaviour
 {
     Vector3 pos;
 
-    [Range(0f, 4f)]
-    public float delta = 2f; // »óÇÏ·Î ÀÌµ¿°¡´ÉÇÑ (y)ÃÖ´ë°ª
+    [Range(0f, 6f)]
+    public float delta = 2f; // ï¿½ï¿½ï¿½Ï·ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (y)ï¿½Ö´ë°ª
 
-    [Range(0f, 1f)]
-    public float speed = 0.7f; // ÀÌµ¿¼Óµµ
+    [Range(0f, 4f)]
+    public float speed = 0.7f; // ï¿½Ìµï¿½ï¿½Óµï¿½
 
     // Start is called before the first frame update
     void Start()

@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
- * ÁÖÈ² ¹ßÆÇ Á¦¾î
- * ÁÂ¿ì·Î delta¸¸Å­ ÀÌµ¿
+ * ï¿½ï¿½È² ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+ * ï¿½Â¿ï¿½ï¿½ deltaï¿½ï¿½Å­ ï¿½Ìµï¿½
  */
 
 public class MovingBlock : MonoBehaviour
 {
     Rigidbody2D rigid;
-    Vector3 pos; // ÇöÀçÀ§Ä¡
+    Vector3 pos; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡
 
+    [Range(0f, 6f)]
+    public float delta = 2f; // ï¿½Â¿ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (x)ï¿½Ö´ë°ª
     [Range(0f, 4f)]
-    public float delta = 2f; // ÁÂ¿ì·Î ÀÌµ¿°¡´ÉÇÑ (x)ÃÖ´ë°ª
-    [Range(0f, 2f)]
-    public float speed = 1f; // ÀÌµ¿¼Óµµ
+    public float speed = 1f; // ï¿½Ìµï¿½ï¿½Óµï¿½
 
     void Start()
     {   
