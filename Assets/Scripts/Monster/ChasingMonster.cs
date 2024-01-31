@@ -53,7 +53,7 @@ public class ChasingMonster : MonoBehaviour
             StartCoroutine("Trace");
             isCoroutineRunning = true;
 
-            InvokeRepeating("New_Throw", 0.3f, 2f);
+            InvokeRepeating("New_Throw", 0.3f, 4f);
         }
     }
 
