@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
- * ³ë¶û ¹ßÆÇ Á¦¾î
- * ÇÃ·¹ÀÌ¾î°¡ ¹ßÆÇÀ» ¹â°í ÀÖÀ» ¶§, ÀÏÁ¤ ½Ã°£ÀÌ Áö³ª¸é »ç¶óÁü
- * »ç¶óÁø ÈÄ ÀÏÁ¤ ½Ã°£ÀÌ Áö³ª¸é ´Ù½Ã »ý¼ºµÊ
+ * ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+ * ï¿½Ã·ï¿½ï¿½Ì¾î°¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
+ * ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  */
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -13,7 +13,7 @@ public class BreakBlock : MonoBehaviour
 {
     SpriteRenderer spriteRenderer;
 
-    [Range(0.01f, 0.1f)]
+    [Range(0.001f, 0.1f)]
     public float fadeOutSpeed = 0.05f;
 
     // Start is called before the first frame update
