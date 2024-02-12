@@ -18,6 +18,7 @@ public class FallingTrap : MonoBehaviour
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     AudioSource fallingAudio;
+    BoxCollider2D[] colls;
 
     Vector2 spawnPoint;
 
@@ -34,7 +35,8 @@ public class FallingTrap : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         fallingAudio = GetComponent<AudioSource>();
-        
+        colls = GetComponents<BoxCollider2D>();
+
         fallingAudio.clip = fallingSound;
 
         spawnPoint = transform.position;
@@ -44,6 +46,8 @@ public class FallingTrap : MonoBehaviour
 
     IEnumerator FadeIn()
     {
+        colls[0].enabled = false;
+        colls[1].enabled = false;
         for (int i = 0; i <= 10; i++)
         {
             Color c = spriteRenderer.material.color;
@@ -51,6 +55,8 @@ public class FallingTrap : MonoBehaviour
             spriteRenderer.material.color = c;
             yield return new WaitForSeconds(0.1f);
         }
+        colls[0].enabled = true;
+        colls[1].enabled = true;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {

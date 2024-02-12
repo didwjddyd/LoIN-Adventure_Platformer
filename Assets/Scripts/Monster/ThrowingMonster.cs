@@ -269,7 +269,7 @@ public class ThrowingMonster : MonoBehaviour
     void New_MovePattern()
     {
         // default, 2: 정지
-        rigid.velocity = Vector2.zero;
+        rigid.velocity = new Vector2(0, rigid.velocity.y);
         anim.SetBool(isRunningHash, false);
 
         if (randomMovement == 1) // 1: 왼쪽 이동

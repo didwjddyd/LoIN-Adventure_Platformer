@@ -20,6 +20,7 @@ public class Player : MonoBehaviour
     public GameObject[] dressState;
 
     bool isJumping = false;
+    int jumpCount = 2;
 
     Vector3 boxSize;
     Vector2 inputVector;
@@ -90,13 +91,15 @@ public class Player : MonoBehaviour
         if (isLive)
         {
             // Jump
-            if (inputJump && !isJumping)
+            if (inputJump && jumpCount > 0)
             {
                 inputJump = false;
+                jumpCount--;
 
                 jumpAudio.clip = currentJumpSoundStart;
                 jumpAudio.Play();
 
+                rigid.velocity = new Vector2(rigid.velocity.x, 0);
                 Vector2 jumpVelocity = Vector2.up * jumpPower;
                 rigid.AddForce(jumpVelocity, ForceMode2D.Impulse);
                 isJumping = true;
@@ -198,6 +201,7 @@ public class Player : MonoBehaviour
 
                 isJumping = false;
                 inputJump = false;
+                jumpCount = 2;
 
                 anim.SetBool("isJump", false);
 
