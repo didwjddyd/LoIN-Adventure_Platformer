@@ -78,12 +78,17 @@ public class FallingTrap : MonoBehaviour
             gameObject.SetActive(false);
             Invoke("Init", 2);
         }
-
-        if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Trap")
+        else
         {
             gameObject.SetActive(false);
             Invoke("Init", 2);
         }
+
+        //if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Trap")
+        //{
+        //    gameObject.SetActive(false);
+        //    Invoke("Init", 2);
+        //}
     }
 
     private void Init()
