@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3283525416724340296}
   - component: {fileID: 3283525416724340295}
   - component: {fileID: 5225015145814564246}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: "\uBC88\uAC1C"
   m_TagString: Trap
   m_Icon: {fileID: 0}
@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 114c077e922d6004b8dead7dbf7fa211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fallingSpeed: 1
   damage: 40
   fallingSound: {fileID: 8300000, guid: 89e5809fbca7e3c4898610be6e5a48b4, type: 3}
 --- !u!61 &3283525416724340298

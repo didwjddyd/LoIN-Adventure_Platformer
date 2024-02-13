@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 6610694915191719214}
   - component: {fileID: 6610694915191719212}
   - component: {fileID: 6610694915191719211}
-  - component: {fileID: 6610694915191719210}
   - component: {fileID: 6610694915191719209}
+  - component: {fileID: 6610694915191719210}
   - component: {fileID: 710440002950513148}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: "\uB77C\uC774\uD130"
   m_TagString: Trap
   m_Icon: {fileID: 0}
@@ -131,27 +131,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.65, y: 1.6}
   m_EdgeRadius: 0
---- !u!50 &6610694915191719210
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6610694915191719215}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 6
 --- !u!61 &6610694915191719209
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -178,6 +157,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.6, y: 10}
   m_EdgeRadius: 0
+--- !u!50 &6610694915191719210
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6610694915191719215}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 6
 --- !u!82 &710440002950513148
 AudioSource:
   m_ObjectHideFlags: 0
