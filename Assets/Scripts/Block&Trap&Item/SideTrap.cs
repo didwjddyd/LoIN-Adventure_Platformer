@@ -17,6 +17,7 @@ public class SideTrap : MonoBehaviour
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     AudioSource sideAudio;
+    BoxCollider2D[] colls;
 
     Vector2 spawnPoint;
 
@@ -34,6 +35,7 @@ public class SideTrap : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         sideAudio = GetComponent<AudioSource>();
+        colls = GetComponents<BoxCollider2D>();
 
         sideAudio.clip = sideSound;
 
@@ -51,6 +53,8 @@ public class SideTrap : MonoBehaviour
 
     IEnumerator FadeIn()
     {
+        colls[0].enabled = false;
+        colls[1].enabled = false;
         for (int i = 0; i <= 10; i++)
         {
             Color c = spriteRenderer.material.color;
@@ -58,6 +62,8 @@ public class SideTrap : MonoBehaviour
             spriteRenderer.material.color = c;
             yield return new WaitForSeconds(0.1f);
         }
+        colls[0].enabled = true;
+        colls[1].enabled = true;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
