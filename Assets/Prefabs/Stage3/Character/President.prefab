@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6551196788285379736}
   - component: {fileID: 8736065355595691591}
   - component: {fileID: -8831040327315963887}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: President
   m_TagString: Untagged
   m_Icon: {fileID: 0}
