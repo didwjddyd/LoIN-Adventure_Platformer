@@ -18,7 +18,7 @@ public class ThrowObject : MonoBehaviour
         {
             Player player = collision.gameObject.GetComponent<Player>();
 
-            player.curHealth -= damage;
+            player.GetDamage(damage);
         }
 
         Destroy(gameObject);
