@@ -149,9 +149,9 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         // Draw BoxCast Gizmo
-        Debug.DrawRay(rigid.position + new Vector2(0f, 0f), new Vector3(0f, -1.2f, 0f), Color.red);
-        Debug.DrawRay(rigid.position + new Vector2(0.45f, 0f), new Vector3(0f, -1.2f, 0f), Color.yellow);
-        Debug.DrawRay(rigid.position + new Vector2(-0.45f, 0f), new Vector3(0f, -1.2f, 0f), Color.yellow);
+        Debug.DrawRay(rigid.position + new Vector2(0f, 0f), new Vector3(0f, -1.2f * transform.localScale.x, 0f), Color.red);
+        Debug.DrawRay(rigid.position + new Vector2(0.45f * transform.localScale.x, 0f), new Vector3(0f, -1.2f * transform.localScale.x, 0f), Color.yellow);
+        Debug.DrawRay(rigid.position + new Vector2(-0.45f * transform.localScale.x, 0f), new Vector3(0f, -1.2f * transform.localScale.x, 0f), Color.yellow);
 
         DressState();
 
@@ -180,10 +180,10 @@ public class Player : MonoBehaviour
         }
 
         // Landing Platform using BoxCast
-        if (rigid.velocity.y < -1)
+        if (rigid.velocity.y < -0.5f)
         {
             // set box size
-            boxSize = new Vector3(0.9f, 0.6f, 1f);
+            boxSize = new Vector3(0.9f, 0.6f, 1f) * transform.localScale.x;
 
             // BoxCast
             RaycastHit2D boxHit = Physics2D.BoxCast(rigid.position, boxSize, 0f,

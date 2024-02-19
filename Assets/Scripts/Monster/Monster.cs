@@ -102,7 +102,7 @@ public class Monster : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             Player player = collision.gameObject.GetComponent<Player>();
-            player.curHealth -= damage;
+            player.GetDamage(damage);
         }
     }
 }
