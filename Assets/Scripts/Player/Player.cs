@@ -30,6 +30,8 @@ public class Player : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Animator anim;
 
+    public static Player instance;
+
     // non-roof sound
     [Header("Non-Roof Sound")]
     public AudioClip walkSound;
@@ -63,6 +65,11 @@ public class Player : MonoBehaviour
         curHealth = maxHealth;
         isLive = true;
         rigid = GetComponent<Rigidbody2D>();
+
+        if (instance == null)
+        {
+            instance = this;
+        }
 
         // set default sound: non-roof
         currentWalkSound = walkSound;
@@ -308,5 +315,15 @@ public class Player : MonoBehaviour
             //print(currentJumpSoundStart);
             //print(currentJumpSoundLand);
         }
+    }
+
+    public bool isPlayerMoving()
+    {
+        if (inputVector.x == 0)
+        {
+            return false;
+        }
+
+        return true;
     }
 }
