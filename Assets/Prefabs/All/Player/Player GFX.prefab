@@ -168,7 +168,7 @@ MonoBehaviour:
   - {x: 0.25983572, y: -0.778913, z: 0}
   m_ShapePathHash: -242421163
   m_Mesh: {fileID: 0}
-  m_InstanceId: 58206
+  m_InstanceId: 35358
   m_LocalBounds:
     m_Center: {x: -0.0020554066, y: -0.0002090931, z: 0}
     m_Extent: {x: 0.461941, y: 0.7787039, z: 0}
@@ -547,7 +547,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
@@ -643,10 +643,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -739,10 +739,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
