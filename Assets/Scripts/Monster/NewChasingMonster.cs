@@ -11,8 +11,8 @@ public class NewChasingMonster : MonoBehaviour
     public GameObject targetPlayer = null;
     public bool isTracing = false;
 
-    [Range(0f, 10f)]
-    public float moveSpeed = 2f; // 몬스터의 이동 속도
+    //[Range(0f, 10f)]
+    //public float moveSpeed = 2f; // 몬스터의 이동 속도
 
     public float moveDistance = 6f; // 이동 거리
     public float pauseTime = 1f; // 일정 거리 이동 후 쉬는 시간
@@ -21,6 +21,8 @@ public class NewChasingMonster : MonoBehaviour
 
     public GameObject[] throwObjects; // 던지는 오브젝트 배열
     public float throwForce = 12f; // 던지는 힘
+
+    public float followDistance = 10f; //플레이어와 몬스터 사이 거리
 
     private int isRunningHash;
     private int throwTriggerHash;
@@ -46,58 +48,23 @@ public class NewChasingMonster : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    void Update()
+    void Start()
     {
-        isTracing = Player.instance.isPlayerMoving();
-
-        if (isTracing)
-        {
-            if (!isCoroutineRunning)
-            {
-                anim.SetBool(isRunningHash, true);
-                StartCoroutine("Trace");
-                isCoroutineRunning = true;
-                InvokeRepeating("New_Throw", 0.3f, 4f);
-            }
-        }
-        else
-        {
-            if (isCoroutineRunning)
-            {
-                StopCoroutine("Trace");
-                isCoroutineRunning = false;
-                rigid.velocity = Vector2.zero;
-                anim.SetBool(isRunningHash, false);
-            }
-        }
+        InvokeRepeating("New_Throw", 0.3f, 3f);
     }
 
-    IEnumerator Trace()
+    void Update()
     {
-        if (isTracing)
-        {
-            Vector3 playerPos = targetPlayer.transform.position;
-            Vector2 moveDirection = (playerPos - transform.position).normalized;
+        Vector3 playerPosition = targetPlayer.transform.position;
+        transform.position = new Vector3(playerPosition.x - followDistance, transform.position.y, transform.position.z);
 
-            if (!Player.instance.isPlayerMoving())
-            {
-                rigid.velocity = Vector2.zero;
-                anim.SetBool(isRunningHash, false);
-                yield break;
-            }
-            else
-            {
-                rigid.velocity = new Vector2(moveDirection.x * moveSpeed, rigid.velocity.y);
-                anim.SetBool(isRunningHash, true);
-
-            }
-
-            yield return new WaitForSeconds(0.1f);
-        }
+        anim.SetBool(isRunningHash, Player.instance.isPlayerMoving());
     }
 
     void New_Throw()
     {
+        anim.SetTrigger(throwTriggerHash);
+
         int objNum = Random.Range(0, 2); //랜덤으로 던질 오브젝트 호출
 
         //오브젝트 생성 위치 설정
@@ -115,8 +82,6 @@ public class NewChasingMonster : MonoBehaviour
         //플레이어를 향해 오브젝트 발사
         Vector2 throwDirection = (playerPosition - throwPoint).normalized;
         objectRigid.velocity = transform.right * throwDirection * throwForce;
-
-        anim.SetTrigger(throwTriggerHash);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
