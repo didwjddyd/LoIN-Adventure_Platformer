@@ -11,8 +11,6 @@ public class NewChasingMonster : MonoBehaviour
     public GameObject targetPlayer = null;
     public bool isTracing = false;
 
-    //[Range(0f, 10f)]
-    //public float moveSpeed = 2f; // 몬스터의 이동 속도
 
     public float moveDistance = 6f; // 이동 거리
     public float pauseTime = 1f; // 일정 거리 이동 후 쉬는 시간
@@ -58,7 +56,9 @@ public class NewChasingMonster : MonoBehaviour
         Vector3 playerPosition = targetPlayer.transform.position;
         transform.position = new Vector3(playerPosition.x - followDistance, transform.position.y, transform.position.z);
 
-        anim.SetBool(isRunningHash, Player.instance.isPlayerMoving());
+        Player player = targetPlayer.GetComponent<Player>();
+        bool isMoving = player.isPlayerMoving();
+        anim.SetBool(isRunningHash, isMoving);
     }
 
     void New_Throw()
