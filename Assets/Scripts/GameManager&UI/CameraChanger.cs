@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraChanger : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class CameraChanger : MonoBehaviour
             //print("Enter: " + index);
 
             cameras[index].Priority += cameraPriorityOffset;
+
+            if (index == 1 && SceneManager.GetActiveScene().name == "Stage1") BGMAudio[1].time = 3.5f;
+            else BGMAudio[1].time = 0;
 
             BGMAudio[index].Play();
         }
