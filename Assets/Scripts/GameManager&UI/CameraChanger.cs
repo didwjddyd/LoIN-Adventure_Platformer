@@ -6,10 +6,18 @@ using UnityEngine;
 public class CameraChanger : MonoBehaviour
 {
     int cameraPriorityOffset = 7;
-
+    int currentFloor;
+    
     public CinemachineVirtualCamera[] cameras;
 
     public AudioSource[] BGMAudio;
+
+    public int[] floorIndex;
+
+    private void Start()
+    {
+        currentFloor = floorIndex[0];
+    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -17,12 +25,18 @@ public class CameraChanger : MonoBehaviour
         {
             int index = collision.gameObject.layer - cameraPriorityOffset; // 0 ~ 4
 
-            //print("Enter Layer: " + collision.gameObject.layer);
-            //print("Enter: " + index);
+            print("Enter Layer: " + collision.gameObject.layer);
+            print("Enter: " + index);
 
             cameras[index].Priority += cameraPriorityOffset;
 
-            BGMAudio[index].Play();
+            if(currentFloor != floorIndex[index])
+            {
+                BGMAudio[currentFloor - 1].Stop();
+                BGMAudio[floorIndex[index] - 1].Play();
+
+                currentFloor = floorIndex[index];
+            }
         }
     }
 
@@ -32,13 +46,11 @@ public class CameraChanger : MonoBehaviour
         {
             int index = collision.gameObject.layer - cameraPriorityOffset; // 0 ~ 4
 
-            //print("Exit Layer: " + collision.gameObject.layer);
-            //print("Exit: " + index);
+            print("Exit Layer: " + collision.gameObject.layer);
+            print("Exit: " + index);
 
             if(cameras[index].Priority == 11) cameras[index].Priority = 10;
             else cameras[index].Priority -= cameraPriorityOffset;
-
-            BGMAudio[index].Stop();
         }
     }
 }
