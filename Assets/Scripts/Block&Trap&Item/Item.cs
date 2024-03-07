@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,12 @@ public class Item : MonoBehaviour
     public bool heart = false;
 
     public float heal = 0f;
+
+    private void Start()
+    {
+        Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        player.OnInit += Item_OnInit;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -29,5 +36,10 @@ public class Item : MonoBehaviour
 
             gameObject.SetActive(false);
         }
+    }
+
+    private void Item_OnInit(object sender, EventArgs eventArgs)
+    {
+        gameObject.SetActive(true);
     }
 }

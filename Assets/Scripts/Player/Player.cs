@@ -4,10 +4,13 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player : MonoBehaviour
 {
+    public event EventHandler OnInit;
+
     [Header("State")]
     public float maxSpeed;
     public float jumpPower;
@@ -256,6 +259,8 @@ public class Player : MonoBehaviour
         transform.localScale = new Vector3(1f, 1f, 1f);
         jumpPower = 12f;
         maxSpeed = 5f;
+
+        if (OnInit != null) OnInit(this, EventArgs.Empty);
     }
     
     public void GetDamage(float damage)
