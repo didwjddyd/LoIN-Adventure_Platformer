@@ -284,6 +284,12 @@ public class Player : MonoBehaviour
         otherAudio.Play();
     }
 
+    public bool isPlayerMoving()
+    {
+        if (inputVector.x == 0) return false;
+        else return true;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         // set roof sound
