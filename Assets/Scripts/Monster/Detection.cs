@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Detection : MonoBehaviour
 {
-    public ChasingMonster chasingMonster;
+    public NewChasingMonster chasingMonster;
     public GameObject player;
 
     void OnTriggerEnter2D(Collider2D collision)
