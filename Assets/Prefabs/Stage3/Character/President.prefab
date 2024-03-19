@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -8992171992383696696}
   - component: {fileID: 6551196788285379736}
   - component: {fileID: 8736065355595691591}
-  - component: {fileID: -8831040327315963887}
+  - component: {fileID: 3295739869252596437}
   m_Layer: 13
   m_Name: President
   m_TagString: Untagged
@@ -173,7 +173,7 @@ CircleCollider2D:
   m_Offset: {x: 0.51, y: 0}
   serializedVersion: 2
   m_Radius: 5
---- !u!114 &-8831040327315963887
+--- !u!114 &3295739869252596437
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -182,12 +182,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5717272887553107155}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19efddac9631f4fa5a3718a3eb0f11f1, type: 3}
+  m_Script: {fileID: 11500000, guid: ca43f1972daf2e442849c6fb947f60fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   targetPlayer: {fileID: 0}
   isTracing: 1
-  moveSpeed: 3.5
   moveDistance: 6
   pauseTime: 1
   damage: 20
@@ -196,3 +195,4 @@ MonoBehaviour:
   - {fileID: 1366542033490686296, guid: 31103e59fb3ce794eb7385e254ed1d14, type: 3}
   - {fileID: 3680946331250832275, guid: d2f94c3e2ba12594fafc2404086b268b, type: 3}
   throwForce: 12
+  followDistance: 10
