@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public GameObject player;
     Player playerCom;
+    CameraChanger changer;
 
     [Header("UI")]
     public GameObject gameoverUI;
@@ -22,7 +23,10 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         if (SceneManager.GetActiveScene().name != "Start")
+        {
             playerCom = player.GetComponent<Player>();
+            changer = player.GetComponent<CameraChanger>();
+        }
 
         if (SceneManager.GetActiveScene().name == "Stage1")
             time = 420;
@@ -48,6 +52,11 @@ public class GameManager : MonoBehaviour
             if (!pauseActive)
             {
                 time -= Time.deltaTime;
+
+                if ((int)time == 11)
+                {
+                    changer.PlayHurryUpSound();
+                }
 
                 if (time < 0)
                 {
@@ -111,6 +120,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator GameOver()
     {
+        changer.PlayGameOverSound();
         gameoverUI.GetComponent<CanvasGroup>().alpha = 0;
         gameoverUI.SetActive(true);
         while (gameoverUI.GetComponent<CanvasGroup>().alpha < 1)
