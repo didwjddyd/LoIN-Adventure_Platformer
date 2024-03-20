@@ -195,4 +195,4 @@ MonoBehaviour:
   - {fileID: 1366542033490686296, guid: 31103e59fb3ce794eb7385e254ed1d14, type: 3}
   - {fileID: 3680946331250832275, guid: d2f94c3e2ba12594fafc2404086b268b, type: 3}
   throwForce: 12
-  followDistance: 10
+  followDistance: 6

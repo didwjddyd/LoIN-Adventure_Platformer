@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Ending : MonoBehaviour
 {
@@ -17,9 +18,11 @@ public class Ending : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector2.up * Speed * Time.deltaTime);
-        if (rectTransform.position.y >= 2800f)
+        if (rectTransform.localPosition.y > 5000f)
         {
             Speed = 0;
+            SceneVariable.clearState = 3;
+            SceneManager.LoadScene("Start");
         }
     }
 }
