@@ -17,6 +17,9 @@ public class SelectSceneHandler : MonoBehaviour
     public Sprite enableMark;
     public Sprite offStar;
     public Sprite onStar;
+    public Sprite stage1Image;
+    public Sprite stage2Image;
+    public Sprite stage3Image;
 
     [Header("Bookmark")]
     public GameObject stage1Button;
@@ -40,6 +43,7 @@ public class SelectSceneHandler : MonoBehaviour
     public Text numText;
     public Text infoText;
     public List<GameObject> stars;
+    public GameObject stageImage;
 
     [Header("Transition")]
     public Slider transition;
@@ -94,6 +98,8 @@ public class SelectSceneHandler : MonoBehaviour
                 "STAGE 1 - 복도와 인문대를 지나기 위해 드디어, 발걸음을 옯기게 되는데...";
 
             SetStar(1);
+
+            stageImage.GetComponent<Image>().sprite = stage1Image;
         }
     }
 
@@ -129,6 +135,8 @@ public class SelectSceneHandler : MonoBehaviour
                 "STAGE 2는 STAGE 1의 비해 난이도가 높다고 알려져 있다. 자연대가 이렇게 무서웠나... 분위기가 매우 스산하고 어둡다.";
 
             SetStar(3);
+
+            stageImage.GetComponent<Image>().sprite = stage2Image;
         }
     }
 
@@ -164,6 +172,8 @@ public class SelectSceneHandler : MonoBehaviour
                 "미대와 복도를 거쳐 옥상 어딘가에 최종 보스가 우리를 기다리고 있다고 하는데...";
 
             SetStar(5);
+
+            stageImage.GetComponent<Image>().sprite = stage3Image;
         }
     }
 

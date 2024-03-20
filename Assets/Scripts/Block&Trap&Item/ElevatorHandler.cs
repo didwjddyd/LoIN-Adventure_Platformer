@@ -33,17 +33,20 @@ public class ElevatorHandler : MonoBehaviour
         }
         yield return new WaitForSeconds(0.3f);
 
-        rightGate.GetComponent<SpriteRenderer>().sortingOrder = 5;
-        leftGate.GetComponent<SpriteRenderer>().sortingOrder = 5;
-
-        float curPos = 2.9f;
-
-        for (int i = 0; i < 20; i++)
+        if(rightGate != null)
         {
-            curPos -= 1.3f / 20;
-            rightGate.transform.localPosition = new Vector3(curPos, 0, 0);
-            leftGate.transform.localPosition = new Vector3(-curPos, 0, 0);
-            yield return new WaitForSeconds(0.02f);
+            rightGate.GetComponent<SpriteRenderer>().sortingOrder = 5;
+            leftGate.GetComponent<SpriteRenderer>().sortingOrder = 5;
+
+            float curPos = 2.9f;
+
+            for (int i = 0; i < 20; i++)
+            {
+                curPos -= 1.3f / 20;
+                rightGate.transform.localPosition = new Vector3(curPos, 0, 0);
+                leftGate.transform.localPosition = new Vector3(-curPos, 0, 0);
+                yield return new WaitForSeconds(0.02f);
+            }
         }
 
         StartCoroutine(FadeOut());
@@ -70,7 +73,12 @@ public class ElevatorHandler : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Stage1") SceneVariable.clearState = 1;
         else if (SceneManager.GetActiveScene().name == "Stage2") SceneVariable.clearState = 2;
-        else SceneVariable.clearState = 3;
+        else
+        {
+            SceneVariable.clearState = 3;
+            SceneManager.LoadScene("Ending");
+            return;
+        }
 
         SceneManager.LoadScene("UI");
     }

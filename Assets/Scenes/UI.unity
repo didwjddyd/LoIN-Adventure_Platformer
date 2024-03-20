@@ -1512,8 +1512,8 @@ RectTransform:
   - {fileID: 1924597149}
   - {fileID: 441684056}
   - {fileID: 864284860}
-  - {fileID: 1455401262}
   - {fileID: 1474104439638688888}
+  - {fileID: 1455401262}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1538,6 +1538,9 @@ MonoBehaviour:
   enableMark: {fileID: 21300000, guid: b7db8de6bb6806a47a157495f7f9cb55, type: 3}
   offStar: {fileID: -1576821264, guid: d561e849d5b25444bb71fc967d6af563, type: 3}
   onStar: {fileID: -97027320, guid: d561e849d5b25444bb71fc967d6af563, type: 3}
+  stage1Image: {fileID: 21300000, guid: 37778f1f5727c824d81ae6df7d1fc514, type: 3}
+  stage2Image: {fileID: 21300000, guid: f508f2d4d1c6bf644a29770f349e06e2, type: 3}
+  stage3Image: {fileID: 21300000, guid: 6ee0d37f0bffb54478630168dff6dda4, type: 3}
   stage1Button: {fileID: 2014470526}
   stage2Button: {fileID: 612676169}
   stage3Button: {fileID: 645669637}
@@ -1556,6 +1559,7 @@ MonoBehaviour:
   - {fileID: 217120537}
   - {fileID: 511430358}
   - {fileID: 1624620369}
+  stageImage: {fileID: 1523644512}
   transition: {fileID: 1455401261}
   menuUI: {fileID: 1474104438825427912}
 --- !u!1 &511430358
@@ -3798,7 +3802,7 @@ RectTransform:
   m_Children:
   - {fileID: 1241899246}
   m_Father: {fileID: 503641511}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -4093,7 +4097,7 @@ GameObject:
   - component: {fileID: 1523644515}
   - component: {fileID: 1523644514}
   m_Layer: 5
-  m_Name: NULLImage
+  m_Name: StageImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4116,8 +4120,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -150, y: 180}
-  m_SizeDelta: {x: 500, y: 300}
+  m_AnchoredPosition: {x: -150, y: 170}
+  m_SizeDelta: {x: 500, y: 280}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1523644514
 MonoBehaviour:
@@ -4132,14 +4136,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
-  m_Color: {r: 0.80392164, g: 0.7607844, b: 0.6666667, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 37778f1f5727c824d81ae6df7d1fc514, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6789,12 +6793,12 @@ RectTransform:
   m_Children:
   - {fileID: 1474104438825427915}
   m_Father: {fileID: 503641511}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -20, y: -20}
-  m_SizeDelta: {x: 80, y: 80}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!1 &1474104439638688889
 GameObject:
