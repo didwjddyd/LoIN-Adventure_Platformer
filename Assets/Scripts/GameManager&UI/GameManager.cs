@@ -15,8 +15,6 @@ public class GameManager : MonoBehaviour
     public Image heart;
     public Text timer;
 
-    public GameObject mainCamera;
-
     float time;
     static GameManager instance;    // singleton
     bool pauseActive = false;
@@ -92,7 +90,6 @@ public class GameManager : MonoBehaviour
         pauseActive = true;
         pauseUI.SetActive(true);
         Time.timeScale = 0;
-        mainCamera.GetComponent<UnityEngine.Rendering.Volume>().enabled = true;
     }
 
     public void Resume()
@@ -100,7 +97,6 @@ public class GameManager : MonoBehaviour
         pauseActive = false;
         pauseUI.SetActive(false);
         Time.timeScale = 1;
-        mainCamera.GetComponent<UnityEngine.Rendering.Volume>().enabled = false;
     }
 
     public void Exit()
