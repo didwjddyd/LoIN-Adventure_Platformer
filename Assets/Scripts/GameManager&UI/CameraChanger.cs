@@ -12,12 +12,27 @@ public class CameraChanger : MonoBehaviour
     public CinemachineVirtualCamera[] cameras;
 
     public AudioSource[] BGMAudio;
+    public AudioClip hurryUpSound;
+    public AudioClip gameOverSound;
 
     public int[] floorIndex;
 
     private void Start()
     {
         currentFloor = floorIndex[0];
+    }
+
+    public void PlayHurryUpSound()
+    {
+        BGMAudio[0].clip = hurryUpSound;
+        BGMAudio[0].Play();
+    }
+
+    public void PlayGameOverSound()
+    {
+        BGMAudio[0].Stop();
+        BGMAudio[0].clip = gameOverSound;
+        BGMAudio[0].Play();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -33,8 +48,8 @@ public class CameraChanger : MonoBehaviour
 
             if(currentFloor != floorIndex[index])
             {
-                BGMAudio[currentFloor - 1].Stop();
-                BGMAudio[floorIndex[index] - 1].Play();
+                BGMAudio[currentFloor].Stop();
+                BGMAudio[floorIndex[index]].Play();
 
                 currentFloor = floorIndex[index];
             }

@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
     [Header("Player Sound")]
     public AudioClip damageSound;
     public AudioClip itemSound;
+    public AudioClip deadSound;
 
     // current AudioClip
     AudioClip currentWalkSound;
@@ -245,6 +246,8 @@ public class Player : MonoBehaviour
     {
         print("Player Dead");
 
+        otherAudio.clip = deadSound;
+        otherAudio.Play();
         isLive = false;
         transform.position = spawnPoint;
         Init();
