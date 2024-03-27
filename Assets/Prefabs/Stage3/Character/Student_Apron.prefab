@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4874984478956590178}
   - component: {fileID: 1408213396759677580}
   - component: {fileID: 4805081318205383625}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Student_Apron
   m_TagString: Untagged
   m_Icon: {fileID: 0}

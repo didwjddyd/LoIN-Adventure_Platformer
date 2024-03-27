@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -8992171992383696696}
   - component: {fileID: 6551196788285379736}
   - component: {fileID: 8093797315799067065}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Liberal_Professor
   m_TagString: Untagged
   m_Icon: {fileID: 0}

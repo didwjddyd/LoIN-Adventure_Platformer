@@ -124,6 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interval: 0
   isFlash: 1
+  isBackground: 0
 --- !u!1 &5717272887553107155
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,7 +140,7 @@ GameObject:
   - component: {fileID: 4874984478956590178}
   - component: {fileID: -8992171992383696696}
   - component: {fileID: 8717717149208901568}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Security
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -229,6 +230,7 @@ MonoBehaviour:
   moveSpeed: 3
   moveDistance: 4
   pauseTime: 1
+  damage: 20
 --- !u!61 &8648348803644269354
 BoxCollider2D:
   m_ObjectHideFlags: 0
