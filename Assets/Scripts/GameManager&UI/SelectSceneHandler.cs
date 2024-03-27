@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public static class SceneVariable
 {
-    public static int clearState = 0;
+    public static int clearState = 3;
 }
 
 public class SelectSceneHandler : MonoBehaviour

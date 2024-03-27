@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6551196788285379736}
   - component: {fileID: 6707057131737109720}
   - component: {fileID: 1609066619780067816}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Science_Professor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
