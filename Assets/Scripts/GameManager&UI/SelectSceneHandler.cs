@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
@@ -102,10 +102,10 @@ public class SelectSceneHandler : MonoBehaviour
 
             locker.SetActive(false);
 
-            subText.text = "������ �ι��븦 ����";
+            subText.text = "복도와 인문대를 지나";
             numText.text = "Stage 1";
-            infoText.text = "���б��� Ż���ϱ� ���ؼ� 3���� STAGE�� ����ؾ� �Ѵ�. �츮���� �ð��� �˹��ϴ�.\n" +
-                "STAGE 1 - ������ �ι��븦 ������ ���� ����, �߰����� ����� �Ǵµ�...";
+            infoText.text = "대학교를 탈출하기 위해선 3개의 STAGE를 통과해야 한다. 우리에겐 시간이 촉박하다.\n" +
+                "STAGE 1 - 복도와 인문대를 지나기 위해 드디어, 발걸음을 옯기게 되는데...";
 
             SetStar(1);
 
@@ -141,10 +141,10 @@ public class SelectSceneHandler : MonoBehaviour
             else
                 locker.SetActive(true);
 
-            subText.text = "�ڿ��븦 ����";
+            subText.text = "자연대를 거쳐";
             numText.text = "Stage 2";
-            infoText.text = "���� ������ ���� ���� �� ����.\n" +
-                "STAGE 2�� STAGE 1�� ���� ���̵��� ���ٰ� �˷��� �ִ�. �ڿ��밡 �̷��� ��������... �����Ⱑ �ſ� �����ϰ� ��Ӵ�.";
+            infoText.text = "아직 긴장의 끈을 놓을 수 없다.\n" +
+                "STAGE 2는 STAGE 1에 비해 난이도가 높다고 알려져 있다. 자연대가 이렇게 무서웠나... 분위기가 매우 스산하고 어둡다.";
 
             SetStar(3);
 
@@ -180,10 +180,10 @@ public class SelectSceneHandler : MonoBehaviour
             else
                 locker.SetActive(true);
 
-            subText.text = "�̴�� ����, �׸��� ����";
+            subText.text = "미대와 복도, 그리고 옥상";
             numText.text = "Stage 3";
-            infoText.text = "������ STAGE���� �����ߴ�.\n���⼭ ���� �� ����.\n" +
-                "�̴�� ������ ���� ���� ��򰡿� ���� ������ �츮�� ��ٸ��� �ִٰ� �ϴµ�...";
+            infoText.text = "마지막 STAGE까지 도달했다.\n여기서 멈출 수 없다.\n" +
+                "미대와 복도를 거쳐 옥상 어딘가에 최종 보스가 우리를 기다리고 있다고 하는데...";
 
             SetStar(5);
 
