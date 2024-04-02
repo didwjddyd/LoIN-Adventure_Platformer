@@ -51,6 +51,9 @@ public class SelectSceneHandler : MonoBehaviour
     [Header("Menu")]
     public GameObject menuUI;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+
     string selectedStage;
 
     private void Start()
@@ -69,11 +72,18 @@ public class SelectSceneHandler : MonoBehaviour
         }
     }
 
+    public void PlaySound()
+    {
+        audioSource.Play();
+    }
+
     public void OnStage1Button()
     {
         if (selectedStage != "Stage1")
         {
             selectedStage = "Stage1";
+
+            PlaySound();
 
             stage1Button.GetComponent<Image>().sprite = enableMark;
             stage2Button.GetComponent<Image>().sprite = disableMark;
@@ -92,10 +102,10 @@ public class SelectSceneHandler : MonoBehaviour
 
             locker.SetActive(false);
 
-            subText.text = "º¹µµ¿Í ÀÎ¹®´ë¸¦ Áö³ª";
+            subText.text = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î¹ï¿½ï¿½ë¸¦ ï¿½ï¿½ï¿½ï¿½";
             numText.text = "Stage 1";
-            infoText.text = "´ëÇÐ±³¸¦ Å»ÃâÇÏ±â À§ÇØ¼± 3°³ÀÇ STAGE¸¦ Åë°úÇØ¾ß ÇÑ´Ù. ¿ì¸®¿¡°Õ ½Ã°£ÀÌ ÃË¹ÚÇÏ´Ù.\n" +
-                "STAGE 1 - º¹µµ¿Í ÀÎ¹®´ë¸¦ Áö³ª±â À§ÇØ µåµð¾î, ¹ß°ÉÀ½À» ž«±â°Ô µÇ´Âµ¥...";
+            infoText.text = "ï¿½ï¿½ï¿½Ð±ï¿½ï¿½ï¿½ Å»ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ 3ï¿½ï¿½ï¿½ï¿½ STAGEï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ ï¿½Ñ´ï¿½. ï¿½ì¸®ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½Ë¹ï¿½ï¿½Ï´ï¿½.\n" +
+                "STAGE 1 - ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î¹ï¿½ï¿½ë¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´Âµï¿½...";
 
             SetStar(1);
 
@@ -108,6 +118,8 @@ public class SelectSceneHandler : MonoBehaviour
         if (selectedStage != "Stage2")
         {
             selectedStage = "Stage2";
+
+            PlaySound();
 
             stage1Button.GetComponent<Image>().sprite = disableMark;
             stage2Button.GetComponent<Image>().sprite = enableMark;
@@ -129,10 +141,10 @@ public class SelectSceneHandler : MonoBehaviour
             else
                 locker.SetActive(true);
 
-            subText.text = "ÀÚ¿¬´ë¸¦ °ÅÃÄ";
+            subText.text = "ï¿½Ú¿ï¿½ï¿½ë¸¦ ï¿½ï¿½ï¿½ï¿½";
             numText.text = "Stage 2";
-            infoText.text = "¾ÆÁ÷ ±äÀåÀÇ ²öÀ» ³õÀ» ¼ö ¾ø´Ù.\n" +
-                "STAGE 2´Â STAGE 1ÀÇ ºñÇØ ³­ÀÌµµ°¡ ³ô´Ù°í ¾Ë·ÁÁ® ÀÖ´Ù. ÀÚ¿¬´ë°¡ ÀÌ·¸°Ô ¹«¼­¿ü³ª... ºÐÀ§±â°¡ ¸Å¿ì ½º»êÇÏ°í ¾îµÓ´Ù.";
+            infoText.text = "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.\n" +
+                "STAGE 2ï¿½ï¿½ STAGE 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù°ï¿½ ï¿½Ë·ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½. ï¿½Ú¿ï¿½ï¿½ë°¡ ï¿½Ì·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½... ï¿½ï¿½ï¿½ï¿½ï¿½â°¡ ï¿½Å¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½Ó´ï¿½.";
 
             SetStar(3);
 
@@ -145,6 +157,8 @@ public class SelectSceneHandler : MonoBehaviour
         if (selectedStage != "Stage3")
         {
             selectedStage = "Stage3";
+
+            PlaySound();
 
             stage1Button.GetComponent<Image>().sprite = disableMark;
             stage2Button.GetComponent<Image>().sprite = disableMark;
@@ -166,10 +180,10 @@ public class SelectSceneHandler : MonoBehaviour
             else
                 locker.SetActive(true);
 
-            subText.text = "¹Ì´ë¿Í º¹µµ, ±×¸®°í ¿Á»ó";
+            subText.text = "ï¿½Ì´ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½";
             numText.text = "Stage 3";
-            infoText.text = "¸¶Áö¸· STAGE±îÁö µµ´ÞÇß´Ù.\n¿©±â¼­ ¸ØÃâ ¼ö ¾ø´Ù.\n" +
-                "¹Ì´ë¿Í º¹µµ¸¦ °ÅÃÄ ¿Á»ó ¾îµò°¡¿¡ ÃÖÁ¾ º¸½º°¡ ¿ì¸®¸¦ ±â´Ù¸®°í ÀÖ´Ù°í ÇÏ´Âµ¥...";
+            infoText.text = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ STAGEï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´ï¿½.\nï¿½ï¿½ï¿½â¼­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.\n" +
+                "ï¿½Ì´ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ò°¡¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ì¸®ï¿½ï¿½ ï¿½ï¿½Ù¸ï¿½ï¿½ï¿½ ï¿½Ö´Ù°ï¿½ ï¿½Ï´Âµï¿½...";
 
             SetStar(5);
 
