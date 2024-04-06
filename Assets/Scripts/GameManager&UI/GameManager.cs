@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     public Image heart;
     public Text timer;
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+
     float time;
     static GameManager instance;    // singleton
     bool pauseActive = false;
@@ -130,5 +133,10 @@ public class GameManager : MonoBehaviour
         }
         yield return new WaitForSeconds(2f);
         NextScene("UI");
+    }
+
+    public void PlayExitSound()
+    {
+        audioSource.Play();
     }
 }
