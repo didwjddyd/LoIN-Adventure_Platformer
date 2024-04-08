@@ -1,9 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Bottle : MonoBehaviour
 {
+
+    private void Start()
+    {
+        Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        player.OnInit += Bottle_OnInit;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -22,5 +30,10 @@ public class Bottle : MonoBehaviour
 
             gameObject.SetActive(false);
         }
+    }
+
+    private void Bottle_OnInit(object sender, EventArgs eventArgs)
+    {
+        gameObject.SetActive(true);
     }
 }

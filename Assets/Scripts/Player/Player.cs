@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
 
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
-    Animator anim;
+    public Animator anim;
 
     // non-roof sound
     [Header("Non-Roof Sound")]
