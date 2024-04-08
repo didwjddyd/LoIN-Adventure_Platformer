@@ -10,6 +10,8 @@ public class ElevatorHandler : MonoBehaviour
     public GameObject leftGate;
     public GameObject fadeOutPanel;
 
+    AudioSource audioSource;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -26,13 +28,25 @@ public class ElevatorHandler : MonoBehaviour
 
     IEnumerator Close(Player player)
     {
-        while(player.transform.position.x < transform.position.x)
+        //bgm off
+        player.GetComponent<CameraChanger>().BGMAudio[player.GetComponent<CameraChanger>().currentFloor].Stop();
+
+        //player move to elevator
+        while (player.transform.position.x < transform.position.x)
         {
             player.transform.position += new Vector3(0.03f, 0, 0);
             yield return new WaitForSeconds(0.01f);
         }
+
+        //arrived
+        player.anim.SetBool("isWalk", false);
+        player.walkAudio.enabled = false;
+
+        audioSource = GetComponent<AudioSource>();
+        audioSource.Play();
         yield return new WaitForSeconds(0.3f);
 
+        //gate close
         if(rightGate != null)
         {
             rightGate.GetComponent<SpriteRenderer>().sortingOrder = 5;
@@ -64,6 +78,11 @@ public class ElevatorHandler : MonoBehaviour
             alpha += 0.02f;
             image.color = new Color(0, 0, 0, alpha);
             yield return new WaitForSeconds(0.01f);
+        }
+
+        while (audioSource.isPlaying)
+        {
+            yield return new WaitForSeconds(0.1f);
         }
 
         ChangeScene();

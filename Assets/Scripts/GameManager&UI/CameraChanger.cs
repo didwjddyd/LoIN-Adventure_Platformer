@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class CameraChanger : MonoBehaviour
 {
     int cameraPriorityOffset = 7;
-    int currentFloor;
+    public int currentFloor;
     
     public CinemachineVirtualCamera[] cameras;
 

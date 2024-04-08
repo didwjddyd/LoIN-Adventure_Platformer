@@ -6,23 +6,66 @@ using UnityEngine.SceneManagement;
 
 public class Ending : MonoBehaviour
 {
-    private RectTransform rectTransform;
+    [Header("Ending Panel")]
+    [SerializeField] private GameObject endingPanel;
+    [SerializeField] private GameObject endingTxt;
 
-    public float Speed;
+    [Header("Credit")]
+    [SerializeField] private RectTransform creditRectTransform;
+    [SerializeField] private float creditSpeed;
+
+    [Header("BGM")]
+    [SerializeField] private AudioSource bgmSource;
 
     void Start()
     {
-        rectTransform = GetComponent<RectTransform>();
+        endingPanel.SetActive(true);
+        endingTxt.SetActive(true);
+
+        StartCoroutine(FadeOut());
     }
 
-    void Update()
+    IEnumerator FadeOut()
     {
-        transform.Translate(Vector2.up * Speed * Time.deltaTime);
-        if (rectTransform.localPosition.y > 5000f)
+        bgmSource.Play();
+
+        Text txt = endingTxt.GetComponent<Text>();
+        Image image = endingPanel.GetComponent<Image>();
+
+        float alpha = 0;
+
+        for (int i = 0; i < 50; i++)
         {
-            Speed = 0;
-            SceneVariable.clearState = 3;
-            SceneManager.LoadScene("Start");
+            alpha += 0.02f;
+            txt.color = new Color(255, 255, 255, alpha);
+            yield return new WaitForSeconds(0.01f);
         }
+
+        yield return new WaitForSeconds(0.5f);
+
+        StartCoroutine(OnCredit());
+
+        for (int i = 0; i < 50; i++)
+        {
+            alpha -= 0.02f;
+            txt.color = new Color(255, 255, 255, alpha);
+            image.color = new Color(0, 0, 0, alpha);
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        endingPanel.SetActive(false);
+        endingTxt.SetActive(false);
+    }
+
+    IEnumerator OnCredit()
+    {
+        while(creditRectTransform.localPosition.y < 5000f)
+        {
+            creditRectTransform.Translate(Vector2.up * creditSpeed * 0.01f);
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        SceneVariable.clearState = 3;
+        SceneManager.LoadScene("Start");
     }
 }
