@@ -16,6 +16,8 @@ public class PlayerCutscene : MonoBehaviour
 
     public Slider transition;
 
+    public AudioSource audioSource;
+
     void Start()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -51,6 +53,8 @@ public class PlayerCutscene : MonoBehaviour
 
         rigid.velocity = new Vector2(0, 0);
 
+        PlaySound();
+
         StartCoroutine("StartGame");
     }
 
@@ -82,5 +86,10 @@ public class PlayerCutscene : MonoBehaviour
         }
 
         gameManagerCom.NextScene("UI");
+    }
+
+    public void PlaySound()
+    {
+        audioSource.Play();
     }
 }
