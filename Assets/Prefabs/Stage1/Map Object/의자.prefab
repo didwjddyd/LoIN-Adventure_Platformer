@@ -152,4 +152,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectRot: 90
-  delta: 5
+  delta: 10
