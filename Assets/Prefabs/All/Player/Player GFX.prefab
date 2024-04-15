@@ -171,7 +171,7 @@ MonoBehaviour:
   - {x: 0.25983572, y: -0.778913, z: 0}
   m_ShapePathHash: -242421163
   m_Mesh: {fileID: 0}
-  m_InstanceId: 53498
+  m_InstanceId: 47406
   m_LocalBounds:
     m_Center: {x: -0.0020554066, y: -0.0002090931, z: 0}
     m_Extent: {x: 0.461941, y: 0.7787039, z: 0}
@@ -223,7 +223,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.052411556, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -234,7 +234,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.7}
+  m_Size: {x: 0.8825388, y: 1.7}
   m_EdgeRadius: 0
 --- !u!82 &4267037452278402905
 AudioSource:
