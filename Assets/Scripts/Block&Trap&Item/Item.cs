@@ -28,6 +28,7 @@ public class Item : MonoBehaviour
             if(coin)
             {
                 player.coin++;
+                player.DressState();
             }
             else if(heart)
             {
