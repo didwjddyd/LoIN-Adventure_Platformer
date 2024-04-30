@@ -111,9 +111,16 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public void ReturnToTitle()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Start");
+    }
+
     public void Exit()
     {
-        Application.Quit();
+        Time.timeScale = 1;
+        SceneManager.LoadScene("UI");
     }
 
     public void NextScene(string stageName)

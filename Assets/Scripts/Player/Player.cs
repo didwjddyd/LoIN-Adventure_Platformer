@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System;
@@ -59,7 +57,20 @@ public class Player : MonoBehaviour
     public AudioSource jumpAudio;
     public AudioSource otherAudio;
 
-    public void Awake()
+    #region Input System
+    private void OnMove(InputValue value)
+    {
+        inputVector = value.Get<Vector2>();
+    }
+
+    private void OnJump()
+    {
+        inputJump = true;
+        anim.SetBool("isJump", true);
+    }
+    #endregion
+
+    void Awake()
     {
         jumpPower = 12f;
         maxSpeed = 5f;
@@ -67,6 +78,7 @@ public class Player : MonoBehaviour
         curHealth = maxHealth;
         isLive = true;
         rigid = GetComponent<Rigidbody2D>();
+        DressState();
 
         // set default sound: non-roof
         currentWalkSound = walkSound;
@@ -77,134 +89,78 @@ public class Player : MonoBehaviour
         currentJumpSoundLand = jumpSoundLand;
     }
 
-    #region Input System
-    private void OnMove(InputValue value)
-    {
-        inputVector = value.Get<Vector2>();
-    }
-
-    void OnJump()
-    {
-        inputJump = true;
-        anim.SetBool("isJump", true);
-    }
-    #endregion
-
-    void Update()
-    {
-        if (isLive)
-        {
-            // Jump
-            if (inputJump && jumpCount > 0)
-            {
-                inputJump = false;
-                jumpCount--;
-
-                jumpAudio.clip = currentJumpSoundStart;
-                jumpAudio.Play();
-
-                rigid.velocity = new Vector2(rigid.velocity.x, 0);
-                Vector2 jumpVelocity = Vector2.up * jumpPower;
-                rigid.AddForce(jumpVelocity, ForceMode2D.Impulse);
-                isJumping = true;
-
-                gameObject.transform.parent = null;
-            }
-
-            // Move
-            if (inputVector.x == 0)
-            {
-                rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0f, rigid.velocity.y);
-
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.up, 1, LayerMask.GetMask("Platform"));
-
-                if (hit.collider != null && hit.collider.gameObject.tag == "MovingPlatform" && !isJumping)
-                {
-                    gameObject.transform.parent = hit.collider.transform;
-                }
-
-            }
-            else
-            {
-                // Sprite Flip by Move Direction
-                spriteRenderer.flipX = inputVector.x == -1;
-
-                // set maxspeed
-                if (rigid.velocity.x > maxSpeed) // Right Speed
-                    rigid.velocity = new Vector2(maxSpeed, rigid.velocity.y);
-                else if (rigid.velocity.x < maxSpeed * -1) // Left Speed
-                    rigid.velocity = new Vector2(maxSpeed * -1, rigid.velocity.y);
-
-                gameObject.transform.parent = null;
-            }
-
-            if (curHealth <= 0 || rigid.position.y <= -10)
-            {
-                Dead();
-            }
-
-            if (curHealth >= maxHealth)
-            {
-                curHealth = maxHealth;
-            }
-        }
-    }
-
     void FixedUpdate()
     {
-        // Draw BoxCast Gizmo
-        Debug.DrawRay(rigid.position + new Vector2(0f, 0f), new Vector3(0f, -1.2f * transform.localScale.x, 0f), Color.red);
-        Debug.DrawRay(rigid.position + new Vector2(0.45f * transform.localScale.x, 0f), new Vector3(0f, -1.2f * transform.localScale.x, 0f), Color.yellow);
-        Debug.DrawRay(rigid.position + new Vector2(-0.45f * transform.localScale.x, 0f), new Vector3(0f, -1.2f * transform.localScale.x, 0f), Color.yellow);
-
-        DressState();
-
         if (isLive)
         {
-            //Move By Key Control
-            float hor = inputVector.x;
-            rigid.AddForce(Vector2.right * hor, ForceMode2D.Impulse);
+            HandleMovementInput();
 
-            //walking animation
-            if (inputVector != new Vector2(0, 0))
+            if (inputJump)
+                HandleJump();
+
+            if (curHealth <= 0 || rigid.position.y <= -10)
+                Dead();
+
+            if (curHealth >= maxHealth)
+                curHealth = maxHealth;
+        }
+    }
+
+    void HandleMovementInput()
+    {
+        rigid.velocity = new Vector2(inputVector.x * maxSpeed, rigid.velocity.y);
+
+        if (inputVector.x != 0)
+        {
+            anim.SetBool("isWalk", true);
+
+            // paly walking sound if not jumping
+            if (!isJumping) walkAudio.enabled = true;
+            else walkAudio.enabled = false;
+
+            // Sprite Flip by Move Direction
+            spriteRenderer.flipX = inputVector.x == -1;
+
+            gameObject.transform.parent = null;
+        }
+        else
+        {
+            anim.SetBool("isWalk", false);
+
+            // turn off walking sound
+            walkAudio.enabled = false;
+
+            //check moving platform
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, -transform.up, 1, LayerMask.GetMask("Platform"));
+            if (hit.collider != null && hit.collider.gameObject.tag == "MovingPlatform" && !isJumping)
             {
-                anim.SetBool("isWalk", true);
-
-                // paly walking sound if not jumping
-                if (!isJumping) walkAudio.enabled = true;
-                else walkAudio.enabled = false;
-            }
-            else
-            {
-                anim.SetBool("isWalk", false);
-
-                // turn off walking sound
-                walkAudio.enabled = false;
+                gameObject.transform.parent = hit.collider.transform;
             }
         }
 
-        // Landing Platform using BoxCast
-        if (rigid.velocity.y < -0.5f)
-        {
-            // set box size
-            boxSize = new Vector3(0.9f, 0.6f, 1f) * transform.localScale.x;
+        // Draw BoxCast Gizmo
+        Debug.DrawRay(rigid.position, new Vector2(0, -0.1f), Color.yellow, 1f);
+        Debug.DrawRay(rigid.position - new Vector2(0.4f, 0), new Vector2(0, -0.1f), Color.red, 1f);
+        Debug.DrawRay(rigid.position - new Vector2(-0.4f, 0), new Vector2(0, -0.1f), Color.red, 1f);
 
+        // Landing Platform using BoxCast
+        if (rigid.velocity.y < -0.1f)
+        {
             // BoxCast
-            RaycastHit2D boxHit = Physics2D.BoxCast(rigid.position, boxSize, 0f,
-                Vector2.down, boxSize.y, LayerMask.GetMask("Platform"));
+            boxSize = new Vector3(0.8f, 0.2f, 1f) * transform.localScale.x;
+            RaycastHit2D boxHit = Physics2D.BoxCast(rigid.position, boxSize, 0, Vector2.down, 0, LayerMask.GetMask("Platform"));
 
             if (boxHit.collider != null)
             {
                 rigid.velocity = new Vector2(rigid.velocity.x, 0);
 
-                if(isJumping)
+                if (isJumping)
                 {
                     jumpAudio.clip = currentJumpSoundLand;
                     jumpAudio.Play();
                 }
 
                 isJumping = false;
-                inputJump = false;
                 jumpCount = 2;
 
                 anim.SetBool("isJump", false);
@@ -216,14 +172,32 @@ public class Player : MonoBehaviour
                 else
                     gameObject.transform.parent = null;
             }
-            else
-            {
-                inputJump = false;
-            }
         }
     }
 
-    void DressState()
+    void HandleJump()
+    {
+        inputJump = false;
+
+        if (jumpCount > 0)
+        {
+            jumpCount--;
+
+            jumpAudio.clip = currentJumpSoundStart;
+            jumpAudio.Play();
+
+            //reset y velocity for double jump
+            rigid.velocity = new Vector2(rigid.velocity.x, 0);
+
+            Vector2 jumpVelocity = Vector2.up * jumpPower;
+            rigid.AddForce(jumpVelocity, ForceMode2D.Impulse);
+            isJumping = true;
+
+            gameObject.transform.parent = null;
+        }
+    }
+
+    public void DressState()
     {
         if(coin > 2)
             coin = 2;
@@ -262,6 +236,7 @@ public class Player : MonoBehaviour
         transform.localScale = new Vector3(1f, 1f, 1f);
         jumpPower = 12f;
         maxSpeed = 5f;
+        DressState();
 
         if (OnInit != null) OnInit(this, EventArgs.Empty);
     }
@@ -285,6 +260,8 @@ public class Player : MonoBehaviour
 
         otherAudio.clip = damageSound;
         otherAudio.Play();
+
+        DressState();
     }
 
     public bool isPlayerMoving()
