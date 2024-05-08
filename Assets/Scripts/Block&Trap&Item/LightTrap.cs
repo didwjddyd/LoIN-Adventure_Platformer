@@ -44,23 +44,21 @@ public class LightTrap : MonoBehaviour
         light2d.intensity = 1f;
         yield return new WaitForSeconds(0.1f);
 
+        for (int i = 10; i >= 0; i--)
+        {
+            light2d.intensity = i / 10f;
+            yield return new WaitForSeconds(0.001f);
+        }
+
         boxCollider.enabled = false;
-
-        for (int i = 20; i >= 0; i--)
-        {
-            light2d.intensity = i / 20f;
-            yield return new WaitForSeconds(0.001f);
-        }
-
         yield return new WaitForSeconds(interval);
+        boxCollider.enabled = true;
 
-        for (int i = 0; i <= 20; i++)
+        for (int i = 0; i <= 10; i++)
         {
-            light2d.intensity = i / 20f;
+            light2d.intensity = i / 10f;
             yield return new WaitForSeconds(0.001f);
         }
-
-        boxCollider.enabled = true;
 
         RandomCall();
     }
@@ -69,23 +67,21 @@ public class LightTrap : MonoBehaviour
     {
         yield return new WaitForSeconds(interval);
 
+        for (int i = 10; i >= 0; i--)
+        {
+            light2d.intensity = i / 10f;
+            yield return new WaitForSeconds(0.001f);
+        }
+
         boxCollider.enabled = false;
-
-        for (int i = 20; i >= 0; i--)
-        {
-            light2d.intensity = i / 20f;
-            yield return new WaitForSeconds(0.001f);
-        }
-
         yield return new WaitForSeconds(interval);
+        boxCollider.enabled = true;
 
-        for (int i = 0; i <= 20; i++)
+        for (int i = 0; i <= 10; i++)
         {
-            light2d.intensity = i / 20f;
+            light2d.intensity = i / 10f;
             yield return new WaitForSeconds(0.001f);
         }
-
-        boxCollider.enabled = true;
 
         RandomCall();
     }
@@ -103,28 +99,26 @@ public class LightTrap : MonoBehaviour
         light2d.intensity = 1f;
         yield return new WaitForSeconds(0.05f);
 
-        boxCollider.enabled = false;
-
-        for (int i = 20; i >= 0; i--)
+        for (int i = 10; i >= 0; i--)
         {
-            light2d.intensity = i / 20f;
+            light2d.intensity = i / 10f;
             yield return new WaitForSeconds(0.001f);
         }
 
+        boxCollider.enabled = false;
         yield return new WaitForSeconds(interval);
+        boxCollider.enabled = true;
 
         light2d.intensity = 1f;
         yield return new WaitForSeconds(0.05f);
         light2d.intensity = 0f;
         yield return new WaitForSeconds(0.05f);
 
-        for (int i = 0; i <= 20; i++)
+        for (int i = 0; i <= 10; i++)
         {
-            light2d.intensity = i / 20f;
+            light2d.intensity = i / 10f;
             yield return new WaitForSeconds(0.001f);
         }
-
-        boxCollider.enabled = true;
 
         RandomCall();
     }

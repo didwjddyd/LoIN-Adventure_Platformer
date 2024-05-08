@@ -139,16 +139,16 @@ public class Player : MonoBehaviour
         }
 
         // Draw BoxCast Gizmo
-        Debug.DrawRay(rigid.position, new Vector2(0, -0.1f), Color.yellow, 1f);
-        Debug.DrawRay(rigid.position - new Vector2(0.4f, 0), new Vector2(0, -0.1f), Color.red, 1f);
-        Debug.DrawRay(rigid.position - new Vector2(-0.4f, 0), new Vector2(0, -0.1f), Color.red, 1f);
+        Debug.DrawRay(rigid.position, new Vector2(0, -0.2f), Color.yellow, 1f);
+        Debug.DrawRay(rigid.position - new Vector2(0.4f, 0), new Vector2(0, -0.2f), Color.red, 1f);
+        Debug.DrawRay(rigid.position - new Vector2(-0.4f, 0), new Vector2(0, -0.2f), Color.red, 1f);
 
         // Landing Platform using BoxCast
         if (rigid.velocity.y < -0.1f)
         {
             // BoxCast
             boxSize = new Vector3(0.8f, 0.2f, 1f) * transform.localScale.x;
-            RaycastHit2D boxHit = Physics2D.BoxCast(rigid.position, boxSize, 0, Vector2.down, 0, LayerMask.GetMask("Platform"));
+            RaycastHit2D boxHit = Physics2D.BoxCast(rigid.position, boxSize, 0, Vector2.down, 0.1f, LayerMask.GetMask("Platform"));
 
             if (boxHit.collider != null)
             {
