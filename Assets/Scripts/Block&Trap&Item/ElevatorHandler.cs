@@ -80,9 +80,12 @@ public class ElevatorHandler : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
 
-        while (audioSource.isPlaying)
+        yield return new WaitForSeconds(1f);
+
+        while (audioSource.volume > 0)
         {
-            yield return new WaitForSeconds(0.1f);
+            audioSource.volume -= 0.003f;
+            yield return new WaitForSeconds(0.01f);
         }
 
         ChangeScene();
