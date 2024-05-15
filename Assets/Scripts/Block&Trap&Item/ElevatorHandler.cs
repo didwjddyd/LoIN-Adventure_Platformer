@@ -9,6 +9,7 @@ public class ElevatorHandler : MonoBehaviour
     public GameObject rightGate;
     public GameObject leftGate;
     public GameObject fadeOutPanel;
+    public GameObject endTxt;
 
     AudioSource audioSource;
 
@@ -78,6 +79,23 @@ public class ElevatorHandler : MonoBehaviour
             alpha += 0.02f;
             image.color = new Color(0, 0, 0, alpha);
             yield return new WaitForSeconds(0.01f);
+        }
+
+        yield return new WaitForSeconds(0.3f);
+
+        if (endTxt != null)
+        {
+            endTxt.gameObject.SetActive(true);
+
+            Text txt = endTxt.GetComponent<Text>();
+            alpha = 0;
+
+            for (int i = 0; i < 50; i++)
+            {
+                alpha += 0.02f;
+                txt.color = new Color(255, 255, 255, alpha);
+                yield return new WaitForSeconds(0.01f);
+            }
         }
 
         yield return new WaitForSeconds(1f);

@@ -32,14 +32,7 @@ public class Ending : MonoBehaviour
         Text txt = endingTxt.GetComponent<Text>();
         Image image = endingPanel.GetComponent<Image>();
 
-        float alpha = 0;
-
-        for (int i = 0; i < 50; i++)
-        {
-            alpha += 0.02f;
-            txt.color = new Color(255, 255, 255, alpha);
-            yield return new WaitForSeconds(0.01f);
-        }
+        float alpha = 1;
 
         yield return new WaitForSeconds(0.5f);
 
