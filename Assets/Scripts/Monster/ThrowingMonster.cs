@@ -236,31 +236,6 @@ public class ThrowingMonster : MonoBehaviour
             Invoke(nameof(New_Throw), 0.3f);
         }
 
-        #region 이동반경 제한 기능. 실제로 필요한 기능인지 잘 모르겠음
-        /*if (transform.position.x <= maxLeft) // 왼쪽 끝에 도달한 경우
-        {
-            
-            //rigid.velocity = Vector2.zero;
-            //anim.SetBool("isRunning", false);
-            
-
-            yield return new WaitForSeconds(pauseTime);
-
-            randomMovement = Random.Range(1, 3);
-        }
-        else if (transform.position.x >= maxRight) // 오른쪽 끝에 도달한 경우
-        {
-            
-            //rigid.velocity = Vector2.zero;
-            //anim.SetBool("isRunning", false);
-            
-
-            yield return new WaitForSeconds(pauseTime);
-
-            randomMovement = Random.Range(2, 4);
-        }*/
-        #endregion
-
         yield return new WaitForSeconds(pauseTime);
 
         StartCoroutine(nameof(New_Move));
@@ -276,15 +251,33 @@ public class ThrowingMonster : MonoBehaviour
         {
             transform.localScale = new Vector3(-localScaleOffset, localScaleOffset, localScaleOffset);
 
-            rigid.velocity = new Vector2(-moveSpeed, rigid.velocity.y);
-            anim.SetBool(isRunningHash, true);
+            // 이동반경 제한 기능
+            if (transform.position.x <= maxLeft)
+            {
+                rigid.velocity = Vector2.zero;
+                anim.SetBool(isRunningHash, false);
+            }
+            else
+            {
+                rigid.velocity = new Vector2(-moveSpeed, rigid.velocity.y);
+                anim.SetBool(isRunningHash, true);
+            }
         }
         else if (randomMovement == 3) // 3: 오른쪽 이동
         {
             transform.localScale = new Vector3(localScaleOffset, localScaleOffset, localScaleOffset);
 
-            rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
-            anim.SetBool(isRunningHash, true);
+            // 이동반경 제한 기능
+            if (transform.position.x >= maxRight)
+            {
+                rigid.velocity = Vector2.zero;
+                anim.SetBool(isRunningHash, false);
+            }
+            else
+            {
+                rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
+                anim.SetBool(isRunningHash, true);
+            }
         }
     }
 
