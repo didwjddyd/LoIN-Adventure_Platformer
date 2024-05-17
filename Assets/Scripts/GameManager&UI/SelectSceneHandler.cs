@@ -253,6 +253,8 @@ public class SelectSceneHandler : MonoBehaviour
 
     public void StartGame()
     {
+        PlaySound();
+
         if (locker.activeSelf == false)
             StartCoroutine("StartFadeout");
         else
@@ -261,11 +263,15 @@ public class SelectSceneHandler : MonoBehaviour
 
     public void ExitGame()
     {
+        PlaySound();
+
         SceneManager.LoadScene("Start");
     }
 
     public void MenuButton()
     {
+        PlaySound();
+
         if (menuUI.activeSelf == false)
             menuUI.SetActive(true);
         else
