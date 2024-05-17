@@ -99,6 +99,8 @@ public class GameManager : MonoBehaviour
 
     public void Pause()
     {
+        PlayButtonSound();
+
         pauseActive = true;
         pauseUI.SetActive(true);
         Time.timeScale = 0;
@@ -106,6 +108,8 @@ public class GameManager : MonoBehaviour
 
     public void Resume()
     {
+        PlayButtonSound();
+
         pauseActive = false;
         pauseUI.SetActive(false);
         Time.timeScale = 1;
@@ -113,12 +117,16 @@ public class GameManager : MonoBehaviour
 
     public void ReturnToTitle()
     {
+        PlayButtonSound();
+
         Time.timeScale = 1;
         SceneManager.LoadScene("Start");
     }
 
     public void Exit()
     {
+        PlayButtonSound();
+
         Time.timeScale = 1;
         SceneManager.LoadScene("UI");
     }
@@ -142,7 +150,7 @@ public class GameManager : MonoBehaviour
         NextScene("UI");
     }
 
-    public void PlayExitSound()
+    public void PlayButtonSound()
     {
         audioSource.Play();
     }

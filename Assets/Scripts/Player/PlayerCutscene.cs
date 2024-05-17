@@ -46,7 +46,7 @@ public class PlayerCutscene : MonoBehaviour
     }
 
     //StartButton On Click, start cutscene
-    public void CutScene()
+    public void StartButtonEvent()
     {
         StopCoroutine("Move");
         anim.SetBool("isWalk", false);
@@ -87,6 +87,17 @@ public class PlayerCutscene : MonoBehaviour
 
         gameManagerCom.NextScene("UI");
     }
+
+    public void ExitButtonEvent()
+    {
+        PlaySound();
+
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+
+        Application.Quit();
+    }    
 
     public void PlaySound()
     {
