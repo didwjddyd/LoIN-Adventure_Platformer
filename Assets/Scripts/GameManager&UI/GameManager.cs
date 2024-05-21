@@ -20,8 +20,8 @@ public class GameManager : MonoBehaviour
     public AudioSource audioSource;
 
     float time;
-    static GameManager instance;    // singleton
-    bool pauseActive = false;
+    public static GameManager instance;    // singleton
+    public bool pauseActive = false;
 
     void Awake()
     {
