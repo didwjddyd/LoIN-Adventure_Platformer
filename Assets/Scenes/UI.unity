@@ -1956,7 +1956,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   disableMark: {fileID: 21300000, guid: 25caad785360e244e9e41685ebcad248, type: 3}
-  enableMark: {fileID: 21300000, guid: b7db8de6bb6806a47a157495f7f9cb55, type: 3}
+  enableMark: {fileID: 21300000, guid: 59d0bf34b16a73344adf86c7c59c33f8, type: 3}
   offStar: {fileID: -1576821264, guid: d561e849d5b25444bb71fc967d6af563, type: 3}
   onStar: {fileID: -97027320, guid: d561e849d5b25444bb71fc967d6af563, type: 3}
   stage1Image: {fileID: 21300000, guid: 37778f1f5727c824d81ae6df7d1fc514, type: 3}
@@ -2232,7 +2232,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b7db8de6bb6806a47a157495f7f9cb55, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 59d0bf34b16a73344adf86c7c59c33f8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2387,7 +2387,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b7db8de6bb6806a47a157495f7f9cb55, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 59d0bf34b16a73344adf86c7c59c33f8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5664,9 +5664,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 984d23c85aa657645911c140ed3040db, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 6ff0b95520a08274baa3d3fc17947cd0, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.8
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -7959,7 +7959,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b7db8de6bb6806a47a157495f7f9cb55, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 59d0bf34b16a73344adf86c7c59c33f8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
