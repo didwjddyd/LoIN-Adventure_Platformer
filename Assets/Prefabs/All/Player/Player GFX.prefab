@@ -94,7 +94,6 @@ MonoBehaviour:
   - {fileID: 7853606001868882403}
   - {fileID: 7853606001746396278}
   - {fileID: 7853606001694375447}
-  isJumping: 0
   anim: {fileID: 0}
   walkSound: {fileID: 8300000, guid: df3bc59ca75f5b34b914977f91508a2b, type: 3}
   jumpSoundStart: {fileID: 8300000, guid: 8faf7b86187316d4a8b06162363f08e7, type: 3}
@@ -103,7 +102,7 @@ MonoBehaviour:
   jumpSoundStartRoof: {fileID: 8300000, guid: 7912b314201ece141864a6c00b399cf4, type: 3}
   jumpSoundLandRoof: {fileID: 8300000, guid: 116adac89525af844ba050fbcf12f0f1, type: 3}
   damageSound: {fileID: 8300000, guid: 9be6e5c48542916449fcc6129485d623, type: 3}
-  itemSound: {fileID: 8300000, guid: cf3c5b63fec777646af6be3ddb193b51, type: 3}
+  itemSound: {fileID: 8300000, guid: bb127fd6e414cb94482c2b051b7fb3c4, type: 3}
   deadSound: {fileID: 8300000, guid: ec495f0e5e10cbb40b6b05aaf37f6444, type: 3}
   walkAudio: {fileID: 4267037452278402905}
   jumpAudio: {fileID: 5196731555124119711}
@@ -172,7 +171,7 @@ MonoBehaviour:
   - {x: 0.4, y: -0.05, z: 0}
   m_ShapePathHash: -1113038815
   m_Mesh: {fileID: 0}
-  m_InstanceId: -40260
+  m_InstanceId: 32750
   m_LocalBounds:
     m_Center: {x: 0.050000012, y: 0.825, z: 0}
     m_Extent: {x: 0.55, y: 0.875, z: 0}

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public static class SceneVariable
 {
-    public static int clearState = 3;
+    public static int clearState = 0;
 }
 
 public class SelectSceneHandler : MonoBehaviour
@@ -98,6 +98,11 @@ public class SelectSceneHandler : MonoBehaviour
         stageAudio.Play();
     }
 
+    public void PlayLockedSound()
+    {
+        lockedStageAudio.Play();
+    }
+
     public void OnStage1Button()
     {
         if (selectedStage != "Stage1")
@@ -162,18 +167,27 @@ public class SelectSceneHandler : MonoBehaviour
             stage2Enemy.SetActive(true);
             stage3Enemy.SetActive(false);
 
-            if (SceneVariable.clearState > 1)
+            // Stamp
+            if (SceneVariable.clearState < 2)
             {
-                stamp.SetActive(true);
-                PlaySound();
-
+                stamp.SetActive(false);
             }
             else
             {
-                stamp.SetActive(false);
-                lockedStageAudio.Play();
+                stamp.SetActive(true);
             }
 
+            // Button Sound
+            if (SceneVariable.clearState < 1)
+            {
+                lockedStageAudio.Play();
+            }
+            else
+            {
+                PlaySound();
+            }
+
+            // Start Button
             if (SceneVariable.clearState > 0)
                 locker.SetActive(false);
             else
@@ -216,17 +230,26 @@ public class SelectSceneHandler : MonoBehaviour
             stage2Enemy.SetActive(false);
             stage3Enemy.SetActive(true);
 
-            if (SceneVariable.clearState > 2)
+            // Stamp
+            if (SceneVariable.clearState < 3)
             {
-                stamp.SetActive(true);
-                PlaySound();
+                stamp.SetActive(false);
             }
             else
             {
-                stamp.SetActive(false);
-                lockedStageAudio.Play();
-
+                stamp.SetActive(true);
             }
+
+            // Button Sound
+            if (SceneVariable.clearState < 2)
+            {
+                PlayLockedSound();
+            }
+            else
+            {
+                PlaySound();
+            }
+
             if (SceneVariable.clearState > 1)
                 locker.SetActive(false);
             else
@@ -253,12 +276,16 @@ public class SelectSceneHandler : MonoBehaviour
 
     public void StartGame()
     {
-        PlaySound();
-
         if (locker.activeSelf == false)
+        {
+            PlaySound();
             StartCoroutine("StartFadeout");
+        }
         else
+        {
+            PlayLockedSound();
             StartCoroutine("Lock");
+        }
     }
 
     public void ExitGame()
