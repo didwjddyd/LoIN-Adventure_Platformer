@@ -370,7 +370,7 @@ public class SelectSceneHandler : MonoBehaviour
         itemPage1.SetActive(true);
         itemPage2.SetActive(false);
         itemPage3.SetActive(false);
-        itemPageAudio.Play();
+        PlaySound();
 
         if (itemPageNum != "Page1")
         {
@@ -384,7 +384,7 @@ public class SelectSceneHandler : MonoBehaviour
         itemPage1.SetActive(false);
         itemPage2.SetActive(true);
         itemPage3.SetActive(false);
-        itemPageAudio.Play();
+        PlaySound();
 
         if (itemPageNum != "Page2")
         {
@@ -398,7 +398,7 @@ public class SelectSceneHandler : MonoBehaviour
         itemPage1.SetActive(false);
         itemPage2.SetActive(false);
         itemPage3.SetActive(true);
-        itemPageAudio.Play();
+        PlaySound();
 
         if (itemPageNum != "Page3")
         {
