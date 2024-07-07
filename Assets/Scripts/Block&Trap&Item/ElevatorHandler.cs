@@ -13,6 +13,32 @@ public class ElevatorHandler : MonoBehaviour
 
     AudioSource audioSource;
 
+    private static ElevatorHandler instance = null;
+
+    public void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public static ElevatorHandler Instance
+    {
+        get
+        {
+            if(null == instance)
+            {
+                return null;
+            }
+            return instance;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -106,10 +132,30 @@ public class ElevatorHandler : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
 
-        ChangeScene();
+        //Admob.Instance.LoadInterstitialAd();
+        //Admob.Instance.ShowInterstitialAd();
+
+        if (SceneManager.GetActiveScene().name == "Stage3")
+        {
+            ChangeScene();
+        }
+        else
+        {
+            // null 체크
+            if (Admob.Instance == null)
+            {
+                Debug.LogError("Admob instance is null");
+                ChangeScene();
+            }
+            else
+            {
+                GameObject.FindWithTag("Player").SetActive(false);
+                Admob.Instance.ShowInterstitialAd();
+            }
+        }
     }
 
-    void ChangeScene()
+    public void ChangeScene()
     {
         if (SceneManager.GetActiveScene().name == "Stage1") SceneVariable.clearState = 1;
         else if (SceneManager.GetActiveScene().name == "Stage2") SceneVariable.clearState = 2;
