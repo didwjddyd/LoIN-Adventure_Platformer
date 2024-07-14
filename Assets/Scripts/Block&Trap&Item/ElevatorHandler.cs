@@ -141,6 +141,7 @@ public class ElevatorHandler : MonoBehaviour
         }
         else
         {
+            /*
             // null 체크
             if (Admob.Instance == null)
             {
@@ -151,6 +152,18 @@ public class ElevatorHandler : MonoBehaviour
             {
                 GameObject.FindWithTag("Player").SetActive(false);
                 Admob.Instance.ShowInterstitialAd();
+            }
+            */
+
+            if (UnityAdsManager.Instance == null)
+            {
+                Debug.LogError("UnityAdsManager instance is null");
+                ChangeScene();
+            }
+            else
+            {
+                GameObject.FindWithTag("Player").SetActive(false);
+                UnityAdsManager.Instance.ShowAd();
             }
         }
     }

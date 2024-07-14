@@ -773,7 +773,7 @@ PlayerSettings:
     Game Performance: 0
     Purchasing: 0
     UDP: 0
-    Unity Ads: 0
+    Unity Ads: 1
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -788,11 +788,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: f4d77ee5-d349-4ab1-b663-5c6fe77986df
+  cloudProjectId: 36ee7b4b-6204-4ff6-ba7f-652cea6694c5
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: Escape Univ
-  organizationId: didwjddyd13
+  organizationId: login-adventure
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 
