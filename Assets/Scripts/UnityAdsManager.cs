@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-public class UnityAdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
+public class UnityAdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener 
 {
     const string _androidGameId = "5657315";
     const string _iOSGameId = "5657314";
@@ -80,9 +80,21 @@ public class UnityAdsManager : MonoBehaviour, IUnityAdsInitializationListener, I
         Debug.Log($"Error showing Ad Unit {adUnitId}: {error.ToString()} - {message}");
     }
 
+    public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
+    {
+        ElevatorHandler.Instance.ChangeScene();
+    }
+
     public void OnUnityAdsShowStart(string adUnitId) { }
     public void OnUnityAdsShowClick(string adUnitId) { }
-    public void OnUnityAdsShowComplete(string adUnitId, UnityAdsShowCompletionState showCompletionState) { }
+
+    public void OnUnityAdsShowComplete(string adUnitId, UnityAdsShowCompletionState showCompletionState)
+    {
+        //if (ElevatorHandler.Instance != null)
+        //{
+        //    ElevatorHandler.Instance.ChangeScene();
+        //}
+    }
 
     public static UnityAdsManager Instance
     {

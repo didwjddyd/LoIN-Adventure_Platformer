@@ -164,6 +164,7 @@ public class ElevatorHandler : MonoBehaviour
             {
                 GameObject.FindWithTag("Player").SetActive(false);
                 UnityAdsManager.Instance.ShowAd();
+                ChangeScene();
             }
         }
     }
