@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
@@ -7,7 +7,31 @@ using UnityEngine.UI;
 
 public static class SceneVariable
 {
+#if UNITY_EDITOR
     public static int clearState = 0;
+
+#else
+    private static int _clearState = -1;
+
+    public static int clearState
+    {
+        get
+        {
+            if (_clearState == -1)
+            {
+                _clearState = PlayerPrefs.GetInt("clearState", 0);
+            }
+
+            return _clearState;
+        }
+        set
+        {
+            _clearState = value;
+            PlayerPrefs.SetInt("clearState", _clearState);
+            PlayerPrefs.Save();
+        }
+    }
+#endif
 }
 
 public class SelectSceneHandler : MonoBehaviour
