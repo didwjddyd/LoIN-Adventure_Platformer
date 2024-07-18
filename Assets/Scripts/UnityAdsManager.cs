@@ -87,14 +87,7 @@ public class UnityAdsManager : MonoBehaviour, IUnityAdsInitializationListener, I
 
     public void OnUnityAdsShowStart(string adUnitId) { }
     public void OnUnityAdsShowClick(string adUnitId) { }
-
-    public void OnUnityAdsShowComplete(string adUnitId, UnityAdsShowCompletionState showCompletionState)
-    {
-        //if (ElevatorHandler.Instance != null)
-        //{
-        //    ElevatorHandler.Instance.ChangeScene();
-        //}
-    }
+    public void OnUnityAdsShowComplete(string adUnitId, UnityAdsShowCompletionState showCompletionState) { }
 
     public static UnityAdsManager Instance
     {

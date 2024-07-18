@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Diagnostics.Tracing;
 
 public class ElevatorHandler : MonoBehaviour
 {
@@ -58,6 +59,9 @@ public class ElevatorHandler : MonoBehaviour
         //bgm off
         player.GetComponent<CameraChanger>().BGMAudio[player.GetComponent<CameraChanger>().currentFloor].Stop();
 
+        player.GetComponent<Player>().curHealth = 500;
+        player.GetComponent<Player>().otherAudio.volume = 0;
+
         //player move to elevator
         while (player.transform.position.x < transform.position.x)
         {
@@ -107,7 +111,7 @@ public class ElevatorHandler : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
 
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.1f); // 초기값 0.3
 
         if (endTxt != null)
         {
@@ -124,16 +128,13 @@ public class ElevatorHandler : MonoBehaviour
             }
         }
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f); // 초기값 1
 
         while (audioSource.volume > 0)
         {
-            audioSource.volume -= 0.003f;
-            yield return new WaitForSeconds(0.01f);
+            audioSource.volume -= 0.006f; // 초기값 0.003
+            yield return new WaitForSeconds(0.005f); // 초기값 0.01
         }
-
-        //Admob.Instance.LoadInterstitialAd();
-        //Admob.Instance.ShowInterstitialAd();
 
         if (SceneManager.GetActiveScene().name == "Stage3")
         {
@@ -141,7 +142,6 @@ public class ElevatorHandler : MonoBehaviour
         }
         else
         {
-            /*
             // null 체크
             if (Admob.Instance == null)
             {
@@ -153,26 +153,30 @@ public class ElevatorHandler : MonoBehaviour
                 GameObject.FindWithTag("Player").SetActive(false);
                 Admob.Instance.ShowInterstitialAd();
             }
-            */
 
-            if (UnityAdsManager.Instance == null)
-            {
-                Debug.LogError("UnityAdsManager instance is null");
-                ChangeScene();
-            }
-            else
-            {
-                GameObject.FindWithTag("Player").SetActive(false);
-                UnityAdsManager.Instance.ShowAd();
-                ChangeScene();
-            }
+            //if (UnityAdsManager.Instance == null)
+            //{
+            //    Debug.LogError("UnityAdsManager instance is null");
+            //    ChangeScene();
+            //}
+            //else
+            //{
+            //    GameObject.FindWithTag("Player").SetActive(false);
+            //    UnityAdsManager.Instance.ShowAd(); 
+            //}
         }
     }
 
     public void ChangeScene()
     {
-        if (SceneManager.GetActiveScene().name == "Stage1") SceneVariable.clearState = 1;
-        else if (SceneManager.GetActiveScene().name == "Stage2") SceneVariable.clearState = 2;
+        if (SceneManager.GetActiveScene().name == "Stage1")
+        {
+            if (SceneVariable.clearState < 1) SceneVariable.clearState = 1;
+        }
+        else if (SceneManager.GetActiveScene().name == "Stage2")
+        {
+            if (SceneVariable.clearState < 2) SceneVariable.clearState = 2;
+        }
         else
         {
             SceneVariable.clearState = 3;
