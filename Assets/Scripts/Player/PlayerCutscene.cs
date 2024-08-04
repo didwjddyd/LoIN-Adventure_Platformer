@@ -99,6 +99,40 @@ public class PlayerCutscene : MonoBehaviour
         Application.Quit();
     }    
 
+    public void CreditButtonEvent()
+    {
+        StopCoroutine("Move");
+        anim.SetBool("isWalk", false);
+
+        rigid.velocity = new Vector2(0, 0);
+
+        PlaySound();
+
+        StartCoroutine("CreditFadeOut");
+    }
+
+    IEnumerator CreditFadeOut()
+    {
+        //MainUI fadeOut
+        while (mainUI.GetComponent<CanvasGroup>().alpha > 0)
+        {
+            mainUI.GetComponent<CanvasGroup>().alpha -= 0.02f;
+            yield return new WaitForSeconds(0.01f);
+        }
+        mainUI.SetActive(false);
+
+        yield return new WaitForSeconds(1f);
+
+        //Transition control
+        while (transition.value < 1)
+        {
+            transition.value += 0.05f;
+            yield return new WaitForSeconds(0.01f);
+        }
+
+        gameManagerCom.NextScene("Ending");
+    }
+
     public void PlaySound()
     {
         audioSource.Play();

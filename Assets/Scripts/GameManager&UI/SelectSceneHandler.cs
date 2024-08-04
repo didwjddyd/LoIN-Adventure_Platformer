@@ -204,7 +204,8 @@ public class SelectSceneHandler : MonoBehaviour
             // Button Sound
             if (SceneVariable.clearState < 1)
             {
-                lockedStageAudio.Play();
+                //PlayLockedSound();
+                PlaySound();
             }
             else
             {
@@ -267,7 +268,8 @@ public class SelectSceneHandler : MonoBehaviour
             // Button Sound
             if (SceneVariable.clearState < 2)
             {
-                PlayLockedSound();
+                //PlayLockedSound();
+                PlaySound();
             }
             else
             {
