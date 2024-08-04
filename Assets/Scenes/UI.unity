@@ -8739,7 +8739,7 @@ GameObject:
   - component: {fileID: 1474104439638688890}
   - component: {fileID: 1474104439638688891}
   m_Layer: 5
-  m_Name: MenuButton
+  m_Name: QuitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8765,7 +8765,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fb42f14c090bdca43b79044fa1c68664, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 567a8b8426429564baa71162ee9fa7ed, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8821,7 +8821,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 503641512}
         m_TargetAssemblyTypeName: SelectSceneHandler, Assembly-CSharp
-        m_MethodName: MenuButton
+        m_MethodName: ExitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
