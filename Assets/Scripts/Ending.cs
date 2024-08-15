@@ -17,12 +17,27 @@ public class Ending : MonoBehaviour
     [Header("BGM")]
     [SerializeField] private AudioSource bgmSource;
 
+    [Header("Control End Pannel")]
+    public bool isEnding = true;
+
     void Start()
     {
-        endingPanel.SetActive(true);
-        endingTxt.SetActive(true);
+        if(isEnding)
+        {
+            endingPanel.SetActive(true);
+            endingTxt.SetActive(true);
 
-        StartCoroutine(FadeOut());
+            StartCoroutine(FadeOut());
+        }
+        else
+        {
+            endingPanel.SetActive(false);
+            endingTxt.SetActive(false);
+
+            bgmSource.Play();
+
+            StartCoroutine(OnCredit());
+        }
     }
 
     IEnumerator FadeOut()
@@ -54,7 +69,7 @@ public class Ending : MonoBehaviour
     {
         while(creditRectTransform.localPosition.y < 5000f)
         {
-            creditRectTransform.Translate(Vector2.up * creditSpeed * 0.01f);
+            creditRectTransform.Translate(Vector2.up * creditSpeed * 0.02f);
             yield return new WaitForSeconds(0.01f);
         }
 

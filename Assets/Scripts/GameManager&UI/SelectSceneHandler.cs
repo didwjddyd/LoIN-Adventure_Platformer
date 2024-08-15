@@ -103,7 +103,7 @@ public class SelectSceneHandler : MonoBehaviour
 
     private void Start()
     {
-        OnStage1Button();
+        OnStage1Button(false);
     }
 
     void SetStar(int n)
@@ -122,18 +122,23 @@ public class SelectSceneHandler : MonoBehaviour
         stageAudio.Play();
     }
 
+    public void PlayItemPageSound()
+    {
+        itemPageAudio.Play();
+    }
+
     public void PlayLockedSound()
     {
         lockedStageAudio.Play();
     }
 
-    public void OnStage1Button()
+    public void OnStage1Button(bool playSound = true)
     {
         if (selectedStage != "Stage1")
         {
             selectedStage = "Stage1";
 
-            PlaySound();
+            if(playSound) PlaySound();
 
             stage1Button.GetComponent<Image>().sprite = enableMark;
             stage2Button.GetComponent<Image>().sprite = disableMark;
@@ -387,16 +392,17 @@ public class SelectSceneHandler : MonoBehaviour
 
             allItemPage.SetActive(true);
 
-            FirstItemPage();
+            FirstItemPage(false);
         }
     }
 
-    public void FirstItemPage()
+    public void FirstItemPage(bool playSound = true)
     {
         itemPage1.SetActive(true);
         itemPage2.SetActive(false);
         itemPage3.SetActive(false);
-        PlaySound();
+
+        if(playSound) PlayItemPageSound();
 
         if (itemPageNum != "Page1")
         {
@@ -410,7 +416,7 @@ public class SelectSceneHandler : MonoBehaviour
         itemPage1.SetActive(false);
         itemPage2.SetActive(true);
         itemPage3.SetActive(false);
-        PlaySound();
+        PlayItemPageSound();
 
         if (itemPageNum != "Page2")
         {
@@ -424,7 +430,7 @@ public class SelectSceneHandler : MonoBehaviour
         itemPage1.SetActive(false);
         itemPage2.SetActive(false);
         itemPage3.SetActive(true);
-        PlaySound();
+        PlayItemPageSound();
 
         if (itemPageNum != "Page3")
         {
