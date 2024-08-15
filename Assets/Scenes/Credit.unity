@@ -1157,7 +1157,7 @@ MonoBehaviour:
   creditRectTransform: {fileID: 107718760}
   creditSpeed: 2
   bgmSource: {fileID: 1039363183}
-  isEnding: 1
+  isEnding: 0
 --- !u!1 &1013749162
 GameObject:
   m_ObjectHideFlags: 0

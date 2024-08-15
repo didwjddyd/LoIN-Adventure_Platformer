@@ -130,7 +130,7 @@ public class PlayerCutscene : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
 
-        gameManagerCom.NextScene("Ending");
+        gameManagerCom.NextScene("Credit");
     }
 
     public void PlaySound()
