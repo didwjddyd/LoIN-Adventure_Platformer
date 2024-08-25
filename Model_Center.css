@@ -1,0 +1,191 @@
+body {
+    font-family: 'Nanum Gothic', sans-serif;
+    margin: 0 auto;
+}
+
+/* 기존 CSS 속성은 그대로 유지합니다. */
+
+#ModelArea.ModalMode {
+    background-color: black;
+    opacity: 0.6;
+}
+
+input:not(.webboard-checkbox, .report-browse-checkbox, .InputDataAtom, .InputTimeAtom, .grid-edit-box, .sign-ok, .sign-cancel, .__WEBATOM_SEARCHCONTROL_INPUT_),
+select {
+    padding: 0;
+    border: none;
+    outline: none;
+}
+
+.border-none:not(svg) {
+    border: none !important;
+}
+
+.border-none line {
+    stroke: none !important;
+}
+
+.hide {
+    display: none !important;
+}
+
+.remove {
+    display: none !important;
+}
+
+.deleted {
+    display: none !important;
+}
+
+.hidden {
+    visibility: hidden !important;
+}
+
+#ModelArea,
+#ModelArea>.Atom,
+body>.Atom,
+.Atom .Atom,
+.Top-Menu-Area>.Atom,
+.Bottom-Menu-Area>.Atom {
+    position: absolute;
+}
+
+.LabelNumberAtom {
+    text-align: center;
+}
+
+[data-border-style="0"] {
+    border-style: solid;
+}
+
+[data-border-style="1"] {
+    border-style: dashed;
+}
+
+[data-border-style="2"] {
+    border-style: dotted;
+}
+
+[data-border-width="0"] .tabcontent,
+[data-border-width="0"] {
+    border-width: 0px !important;
+}
+
+[data-border-width="1"] {
+    border-width: 1px;
+}
+
+[data-border-width="2"] {
+    border-width: 2px;
+}
+
+[data-border-width="3"] {
+    border-width: 3px;
+}
+
+[data-border-width="4"] {
+    border-width: 4px;
+}
+
+.shadow:not(.DecorImageAtom) {
+    box-shadow: 5px 5px 8px rgb(187, 187, 187);
+}
+
+.shadow.DecorImageAtom {
+    filter: drop-shadow(10px 6px 6px #c3c3c3);
+}
+
+.border-top {
+    border-bottom: none;
+}
+
+.border-left {
+    border-right: none;
+}
+
+.FreeLineAtom {
+    stroke: black;
+}
+
+.FreeLineAtom line[data-border-width="1"] {
+    stroke-width: 1px;
+}
+
+.FreeLineAtom line[data-border-width="2"] {
+    stroke-width: 2px;
+}
+
+.FreeLineAtom line[data-border-width="3"] {
+    stroke-width: 3px;
+}
+
+.FreeLineAtom line[data-border-width="4"] {
+    stroke-width: 4px;
+}
+
+.FreeLineAtom line[data-border-style="0"] {
+    stroke-dasharray: 0;
+}
+
+.FreeLineAtom line[data-border-style="1"] {
+    stroke-dasharray: 4;
+}
+
+.FreeLineAtom line[data-border-style="2"] {
+    stroke-dasharray: 8;
+}
+
+.RectangleAtom,
+.OvalAtom,
+.RoundSquareAtom {
+    display: flex;
+    box-sizing: border-box;
+    overflow: hidden;
+    border-color: black;
+}
+
+.OvalAtom {
+    border-radius: 50%;
+}
+
+[data-vertical-align="T"] {
+    align-items: flex-start;
+}
+
+[data-vertical-align="M"] {
+    align-items: center;
+}
+
+[data-vertical-align="B"] {
+    align-items: flex-end;
+}
+
+[data-align="L"] {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+[data-align="C"] {
+    justify-content: center;
+    text-align: center;
+}
+
+[data-align="R"] {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+pre:not(.RectangleAtom pre, .OvalAtom pre, .RoundSquareAtom pre) {
+    padding: 2px;
+}
+
+pre {
+    font: inherit;
+}
